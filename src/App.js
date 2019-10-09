@@ -16,8 +16,9 @@ function App() {
       <Route exact path ='/' render={props=>(
         <React.Fragment>
           <h1>Map</h1>
-          <MapContainer/>
-
+          <div className='Map'>
+          <MapContainer />
+          </div>
         </React.Fragment>
       )}/>
       <Route path='/about' component={About}/>
