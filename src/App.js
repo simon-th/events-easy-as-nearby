@@ -6,6 +6,7 @@ import  MapContainer  from './EventMap';
 import About from './About'
 import Header from './Header'
 import Login from './LoginPage'
+import MyEvents from './MyEvents';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
       )}/>
       <Route path='/about' component={About}/>
       <Route path='/login' component={Login}/>
+      <Route path='/myevents' component={MyEvents}/>
        
       </header>
     </div>
