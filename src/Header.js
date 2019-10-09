@@ -5,7 +5,7 @@ function Header(){
     return(
         <header>
             <h1>Explocation</h1>
-            <Link to="/">Map</Link> | <Link to="/about">About</Link>
+            <Link to="/">Map</Link> | <Link to="/about">About</Link> | <Link to="/login">Login</Link>
         </header>
         
     )

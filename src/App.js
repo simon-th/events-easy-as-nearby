@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 import  MapContainer  from './EventMap';
 import About from './About'
 import Header from './Header'
+import Login from './LoginPage'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         </React.Fragment>
       )}/>
       <Route path='/about' component={About}/>
+      <Route path='/login' component={Login}/>
        
       </header>
     </div>
