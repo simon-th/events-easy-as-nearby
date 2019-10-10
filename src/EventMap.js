@@ -6,7 +6,7 @@ import './App.css'
 const mapStyles = {
   width: '50%',
   height: '50%',
-  left: '350px'
+  left: '25%'
   
 };
 
