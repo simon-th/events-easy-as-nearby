@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Component, ViewEncapsulation} from '@angular/core';
+
 
 const loginStyles = {
    display: 'flex',

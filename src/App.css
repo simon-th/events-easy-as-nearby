@@ -3,8 +3,12 @@
 
 .App {
   text-align: center;
-  align-items: center;
-  justify-items: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
 .App-logo {
@@ -24,6 +28,6 @@
   color: #09d3ac;
 }
 
-.Login{
-  display: block;
+.head{
+  font-size: 40px;
 }
