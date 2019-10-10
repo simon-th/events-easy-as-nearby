@@ -8,6 +8,7 @@ import About from './About'
 import Header from './Header'
 import Login from './LoginPage'
 import MyEvents from './MyEvents';
+import Register from './RegisterPage';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <Route path='/about' component={About}/>
       <Route path='/login' component={Login}/>
       <Route path='/myevents' component={MyEvents}/>
+      <Route path= '/register' component={Register}/>
        
     
     </div>
