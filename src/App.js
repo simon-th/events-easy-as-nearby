@@ -15,7 +15,7 @@ function App() {
   return (
     <Router>
     <div className="App">
-      
+    
       <Header  />
       <Route exact path ='/' render={props=>(
         <React.Fragment>
@@ -28,11 +28,15 @@ function App() {
       <Route path='/about' component={About}/>
       <Route path='/login' component={Login}/>
       <Route path='/myevents' component={MyEvents}/>
-      <Route path= '/register' component={Register}/>
+     <Route path = '/register' component={Register}/>
+     
        
     
     </div>
     </Router>
+    
+    
+    
   );
 }
 
