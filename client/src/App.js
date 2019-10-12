@@ -18,6 +18,7 @@ class App extends Component {
   };
 
   componentDidMount() {
+    console.log("Mounted");
     this.callBackendAPI()
     .then(res => this.setState({data: res.express}))
     .catch(err => console.log(err))
@@ -26,21 +27,11 @@ class App extends Component {
   callBackendAPI = async () => {
     const response = await fetch('/express_backend');
     const body = await response.json();
-
     if (response.status !== 200) {
       throw Error(body.message)
     }
-
     return body;
   };
-
-  stateData() {
-    if (this.state.data !== null) {
-      return this.state.data;
-    } else {
-      return "State data is null";
-    }
-  }
 
   render() {
     return (
@@ -51,7 +42,7 @@ class App extends Component {
             <React.Fragment>
               <h1>Map</h1>
               <p>
-                {this.stateData()}
+                {this.state.data}
               </p>
               <div className='Map'>
               <MapContainer />
