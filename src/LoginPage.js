@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Link}  from 'react-router-dom';
 
 const loginStyles = {
    display: 'flex',
@@ -14,6 +14,7 @@ function Login(){
             <input type="text" placeholder="Username"/>
             <input type="text" placeholder="Password"/>
             <button>Login</button>
+            <Link to='/register'>Register</Link>
         </div>
     )
 }
