@@ -1,8 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+import MapContainer  from './EventMap';
+import About from './About'
+import Header from './Header'
+import Login from './LoginPage'
+import MyEvents from './MyEvents';
+import Explore from './Explore';
+import Register from './RegisterPage';
 
-class App extends React.Component {
+// import logo from './logo.svg';
+// import styles from "./App.css"
+
+class App extends Component {
   state = {
     data: null
   };
@@ -24,27 +34,37 @@ class App extends React.Component {
     return body;
   };
 
-  render () {
+  stateData() {
+    if (this.state.data !== null) {
+      return this.state.data;
+    } else {
+      return "State data is null";
+    }
+  }
+
+  render() {
     return (
-      <div className="App">
-        <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          {this.state.data}
-        </p>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        </header>
-      </div>
+      <Router>
+        <div className="App">
+          <Header  />
+          <Route exact path ='/' render={props=>(
+            <React.Fragment>
+              <h1>Map</h1>
+              <p>
+                {this.stateData()}
+              </p>
+              <div className='Map'>
+              <MapContainer />
+              </div>
+            </React.Fragment>
+          )}/>
+          <Route path='/about' component={About}/>
+          <Route path='/login' component={Login}/>
+          <Route path='/myevents' component={MyEvents}/>
+          <Route path='/explore' component={Explore}/>
+        <Route path = '/register' component={Register}/>
+        </div>
+      </Router>
     );
   }
 }
