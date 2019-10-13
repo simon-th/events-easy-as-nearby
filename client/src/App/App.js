@@ -1,13 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
+//import styles from "./App.css"
+import  MapContainer  from '../EventMap/EventMap';
+import About from '../About/About'
+import Header from './Header'
+import Login from '../LoginPage/LoginPage'
+import MyEvents from '../MyEvents/MyEvents';
+import Explore from '../Explore/Explore';
+import Register from '../LoginPage/RegisterPage';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
-import MapContainer  from './EventMap';
-import About from './About';
-import Header from './Header';
-import Login from './LoginPage';
-import MyEvents from './MyEvents';
-import Explore from './Explore';
-import Register from './RegisterPage';
+
+
 
 // import logo from './logo.svg';
 // import styles from "./App.css"
@@ -26,7 +29,7 @@ class App extends Component {
       id:2,
       title: 'Snakes and Ladders Night'
     }]
-  };l
+  };
 
   componentDidMount() {
     console.log("Mounted");
