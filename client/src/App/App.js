@@ -1,27 +1,28 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import {BrowserRouter as Router, Route} from 'react-router-dom'
-import MapContainer  from './EventMap';
-import About from './About'
+//import styles from "./App.css"
+import  MapContainer  from '../EventMap/EventMap';
+import About from '../About/About'
 import Header from './Header'
-import Login from './LoginPage'
-import MyEvents from './MyEvents';
-import Explore from './Explore';
-import Register from './RegisterPage';
+import Login from '../LoginPage/LoginPage'
+import MyEvents from '../MyEvents/MyEvents';
+import Explore from '../Explore/Explore';
+import Register from '../LoginPage/RegisterPage';
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 // import logo from './logo.svg';
 // import styles from "./App.css"
 
 class App extends Component {
-  state = {
-    data: null
-  };
+  state = {  };
 
   componentDidMount() {
     console.log("Mounted");
+    /*
     this.callBackendAPI()
     .then(res => this.setState({data: res.express}))
     .catch(err => console.log(err))
+    */
   }
 
   callBackendAPI = async () => {
@@ -41,9 +42,6 @@ class App extends Component {
           <Route exact path ='/' render={props=>(
             <React.Fragment>
               <h1>Map</h1>
-              <p>
-                {this.state.data}
-              </p>
               <div className='Map'>
               <MapContainer />
               </div>
@@ -52,7 +50,7 @@ class App extends Component {
           <Route path='/about' component={About}/>
           <Route path='/login' component={Login}/>
           <Route path='/myevents' component={MyEvents}/>
-          <Route path='/explore' component={Explore}/>
+          <Route path='/explore' render={(props) => <Explore {...props} events={this.state.data} />}/>
         <Route path = '/register' component={Register}/>
         </div>
       </Router>

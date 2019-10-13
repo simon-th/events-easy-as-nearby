@@ -1,11 +1,7 @@
 .App {
   text-align: center;
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: #c1cadb;
+  color: black;
 }
 
 .App-logo {
@@ -29,17 +25,4 @@
 
 .head {
   font-size: 40px;
-}
-
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 60%;
-}
-
-td,
-th {
-  border: 1px solid #b9b9b9;
-  text-align: center;
-  padding: 8px;
 }
