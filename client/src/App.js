@@ -14,14 +14,27 @@ import Register from './RegisterPage';
 
 class App extends Component {
   state = {
-    data: null
-  };
+    data: [{
+      id:0,
+      title: 'Yash bday'
+    },
+    {
+      id:1,
+      title: 'Wood Chopping Contest'
+    },
+    {
+      id:2,
+      title: 'Snakes and Ladders Night'
+    }]
+  };l
 
   componentDidMount() {
     console.log("Mounted");
+    /*
     this.callBackendAPI()
     .then(res => this.setState({data: res.express}))
     .catch(err => console.log(err))
+    */
   }
 
   callBackendAPI = async () => {
@@ -41,9 +54,6 @@ class App extends Component {
           <Route exact path ='/' render={props=>(
             <React.Fragment>
               <h1>Map</h1>
-              <p>
-                {this.state.data}
-              </p>
               <div className='Map'>
               <MapContainer />
               </div>
@@ -52,7 +62,7 @@ class App extends Component {
           <Route path='/about' component={About}/>
           <Route path='/login' component={Login}/>
           <Route path='/myevents' component={MyEvents}/>
-          <Route path='/explore' component={Explore}/>
+          <Route path='/explore' render={(props) => <Explore {...props} events={this.state.data} />}/>
         <Route path = '/register' component={Register}/>
         </div>
       </Router>
