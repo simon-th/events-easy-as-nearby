@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
 import './App.css'
 import CurrentLocation from './Geolocation';
-import apiKeys from './api-keys.json';
+import apiKeys from './api-keys-dummy.json';
 
 
 export class MapContainer extends Component {
