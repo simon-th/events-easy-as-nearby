@@ -276,7 +276,7 @@ class AboutPage extends React.Component {
                     <Container fluid>
                         <h1 className="display-3">What is Explocation?</h1>
                         <p className="lead">
-                            Project description
+                        Explocation is a web application that provides an simple, effortless way for people to look up events near their area. From family-friendly events to fun nights out, Explocation has events for anyone. Need to grab a bite or park right before or after that concert or party? Plans are made easier with local food and parking recommendations.
                         </p>
                         <p>
                             Interested in our project? Visit our
@@ -300,11 +300,12 @@ class AboutPage extends React.Component {
 
                         <ListGroupItem>
                             <ListGroupItemHeading>Data Sources:</ListGroupItemHeading>
-
+                            <ListGroupItemText tag="li">Eventbrite, SpotHero, Google Maps</ListGroupItemText>
                         </ListGroupItem>
 
                         <ListGroupItem>
                             <ListGroupItemHeading>Tools:</ListGroupItemHeading>
+                            <ListGroupItemText tag="li">React (react-scrap), MongoDB, Express.js, Google Cloud Platform</ListGroupItemText>
                         </ListGroupItem>
                     </ListGroup>
                 </Container>
