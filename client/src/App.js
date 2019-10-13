@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import MapContainer  from './EventMap';
-import About from './About'
-import Header from './Header'
-import Login from './LoginPage'
+import About from './About';
+import Header from './Header';
+import Login from './LoginPage';
 import MyEvents from './MyEvents';
 import Explore from './Explore';
 import Register from './RegisterPage';

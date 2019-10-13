@@ -4,11 +4,12 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.17.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "express": "^4.17.1",
     "mongodb": "^3.3.2",
-    "mongoose": "^5.7.3"
+    "mongoose": "^5.7.3",
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "express-pino-logger": "^4.0.0",
