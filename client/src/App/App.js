@@ -10,26 +10,11 @@ import Explore from '../Explore/Explore';
 import Register from '../LoginPage/RegisterPage';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 
-
-
 // import logo from './logo.svg';
 // import styles from "./App.css"
 
 class App extends Component {
-  state = {
-    data: [{
-      id:0,
-      title: 'Yash bday'
-    },
-    {
-      id:1,
-      title: 'Wood Chopping Contest'
-    },
-    {
-      id:2,
-      title: 'Snakes and Ladders Night'
-    }]
-  };
+  state = {  };
 
   componentDidMount() {
     console.log("Mounted");
