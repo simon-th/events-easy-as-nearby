@@ -7,6 +7,7 @@ const regStyle ={
 }
 function Register(){
     return(
+        
         <div style={regStyle}>
             <h1>Register</h1>
             <input type="text" placeholder="Username"/>
@@ -15,6 +16,7 @@ function Register(){
             <input type="text" placeholder="Email Address"/>
             <button>Register</button>
             <Link to='/login'>Back to Login</Link>
+            
         </div>
     )
 }

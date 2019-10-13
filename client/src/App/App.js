@@ -1,13 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import {BrowserRouter as Router, Route} from 'react-router-dom'
-import MapContainer  from './EventMap';
-import About from './About'
+//import styles from "./App.css"
+import  MapContainer  from '../EventMap/EventMap';
+import About from '../About/About'
 import Header from './Header'
-import Login from './LoginPage'
-import MyEvents from './MyEvents';
-import Explore from './Explore';
-import Register from './RegisterPage';
+import Login from '../LoginPage/LoginPage'
+import MyEvents from '../MyEvents/MyEvents';
+import Explore from '../Explore/Explore';
+import Register from '../LoginPage/RegisterPage';
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+
+
 
 // import logo from './logo.svg';
 // import styles from "./App.css"
