@@ -14,7 +14,7 @@ function Register(){
             <input type="text" placeholder="Password"/>
             <input type="text" placeholder="Confirm Password"/>
             <input type="text" placeholder="Email Address"/>
-            <button>Register</button>
+            <Link to='/login'><button>Register</button></Link>
             <Link to='/login'>Back to Login</Link>
             
         </div>
