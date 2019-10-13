@@ -42,10 +42,10 @@ const contributorInfo = {
         responsibilities:
             'Simon contributed mainly to the backend by structuring the git tree, setting up the hard-coded events, and working on API calls. '
     },
-    'ifis98': {
+    'yashlad': {
         name: 'Yash Lad',
         image: Yash,
-        username: 'ifis98',
+        username: 'yashlad',
         major: 'Electrical & Computer Engineer',
         bio:
             'Yash is a third-year ECE major with technical cores in Software and Academic Enrichment. His hobbies consist of PC gaming, dancing, and playing basketball.',
@@ -95,7 +95,7 @@ const defContributorStats = {
         issues: 0,
         unitTests: 0
     },
-    'ifis98': {
+    'yashlad': {
         commits: 0,
         issues: 0,
         unitTests: 0
@@ -125,7 +125,7 @@ class AboutPage extends React.Component {
         unitTestsTotal: 0
     };
 
-    contributorKeys = ['angellynncheng', 'simon-th', 'ifis98', 'jovinjoej', 'shaniapaul', 'qhuy2301'];
+    contributorKeys = ['angellynncheng', 'simon-th', 'yashlad', 'jovinjoej', 'shaniapaul', 'qhuy2301'];
 
     componentDidMount() {
         console.log('componentDidMount');
@@ -192,10 +192,10 @@ class AboutPage extends React.Component {
     }
 
     fetchGithubStats() {
-        this.fetchIssues();
-        this.fetchCommits();
-        this.calculateUnitTests();
-        this.setState({ contributorStats: defContributorStats });
+        // this.fetchIssues();
+        this.fetchCommits()
+        .then(() => this.setState({ contributorStats: defContributorStats }));
+        // this.calculateUnitTests();
     }
 
     calculateUnitTests() {
