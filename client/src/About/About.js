@@ -192,10 +192,10 @@ class AboutPage extends React.Component {
     }
 
     fetchGithubStats() {
-        // this.fetchIssues();
-        this.fetchCommits()
-        .then(() => this.setState({ contributorStats: defContributorStats }));
-        // this.calculateUnitTests();
+        this.fetchIssues();
+        this.fetchCommits();
+        this.calculateUnitTests();
+        this.setState({ contributorStats: defContributorStats });
     }
 
     calculateUnitTests() {
@@ -284,7 +284,7 @@ class AboutPage extends React.Component {
                         </p>
                     </Container>
                 </Jumbotron>
-                <h2 id="name">Meet the Team Members</h2>
+                <h2 id="name">Meet the Team Members of Team Tiger</h2>
                 <p id="name">Hover over a member picture to see individual contribution, or click on it to visit their git profile</p>
 
                 <div>{this.renderProfiles()}</div>
@@ -300,12 +300,18 @@ class AboutPage extends React.Component {
 
                         <ListGroupItem>
                             <ListGroupItemHeading>Data Sources:</ListGroupItemHeading>
-                            <ListGroupItemText tag="li">Eventbrite, SpotHero, Google Maps</ListGroupItemText>
+                            <ListGroupItemText tag="li">Eventbrite: Not scraped from website yet</ListGroupItemText>
+                            <ListGroupItemText tag="li">SpotHero: Not scraped from website yet</ListGroupItemText>
+                            <ListGroupItemText tag="li">Google Maps: We took the map visual from Google Maps API.</ListGroupItemText>
+                            <ListGroupItemText tag="li">Github: We used the Github API to receive user stats from the API url.</ListGroupItemText>
                         </ListGroupItem>
 
                         <ListGroupItem>
                             <ListGroupItemHeading>Tools:</ListGroupItemHeading>
-                            <ListGroupItemText tag="li">React (react-scrap), MongoDB, Express.js, Google Cloud Platform</ListGroupItemText>
+                            <ListGroupItemText tag="li">React: Javascript Library used to design and create sleek user interface.</ListGroupItemText>
+                            <ListGroupItemText tag="li">MongoDB: Database storing in event information from Google Maps, Eventbrite, and other data sources. It will also store some user data, such as from login. </ListGroupItemText>
+                            <ListGroupItemText tag="li">Express.js: Set up for server use and connected to MongoDB. It is meant to connect the backend to frontend(not yet implemented).</ListGroupItemText>
+                            <ListGroupItemText tag="li">Google Cloud Platform: Software used to deploy the web application.</ListGroupItemText>
                         </ListGroupItem>
                     </ListGroup>
                 </Container>
