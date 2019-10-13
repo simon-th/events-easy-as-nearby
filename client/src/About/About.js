@@ -26,11 +26,11 @@ const contributorInfo = {
         name: 'Angel Cheng',
         image: Angel,
         username: 'angellynncheng',
-        major: 'Electrical & Computer Enginner',
+        major: 'Electrical & Computer Engineer',
         bio:
-            'Add your bio',
+            'Angel is a third-year ECE major with technical cores in Software and Academic Enrichment. Her interests include drawing, pettings dogs, and watching movies.',
         responsibilities:
-            'Add your responsibilities'
+            'Angel worked on the frontend team to implement the UI design. She added the information for the About page, added the Explore page, and cleaned the user interface formatting.'
     },
     'simon-th': {
         name: 'Simon Hoque',
@@ -38,9 +38,9 @@ const contributorInfo = {
         username: 'simon-th',
         major: 'Electrical & Computer Engineer',
         bio:
-            'Add your bio',
+            'Simon is a third-year ECE major with technical cores in Software and Academic Enrichment. He spends most of his free time listening to EDM, playing soccer, and browsing on the Uniqlo website.',
         responsibilities:
-            'Add your responsibilities'
+            'Simon contributed mainly to the backend by structuring the git tree, setting up the hard-coded events, and working on API calls. '
     },
     'ifis98': {
         name: 'Yash Lad',
@@ -48,9 +48,9 @@ const contributorInfo = {
         username: 'ifis98',
         major: 'Electrical & Computer Engineer',
         bio:
-            'Add your bio',
+            'Yash is a third-year ECE major with technical cores in Software and Academic Enrichment. His hobbies consist of PC gaming, dancing, and playing basketball.',
         responsibilities:
-            'Add your responsibilities'
+            'Yash was on the frontend team; he implemented the initial UI structure by adding the Map page, Login/Register pages, and the Saved Events.'
     },
     jovinjoej: {
         name: 'Jovin Joseph',
@@ -58,9 +58,9 @@ const contributorInfo = {
         username: 'jovinjoej',
         major: 'Electrical & Computer Engineer',
         bio:
-            'Add your bio',
+            'Jovin is a fourth-year ECE major with technical cores in Software and Academic Enrichment. He enjoys photography, playing volleyball, and spending time with friends.',
         responsibilities:
-            'Add your responsibilities'
+            'Jovin contributed to much of the logistics; he contributed to a lot of the proposal and reports, and kept everyone on the same page.'
     },
     shaniapaul: {
         name: 'Shania Paul',
@@ -68,9 +68,9 @@ const contributorInfo = {
         username: 'shaniapaul',
         major: 'Electrical & Computer Engineer',
         bio:
-            'Add your bio',
+            'Shania is a third-year ECE major with technical cores in Software and Academic Enrichment. Her interests involve dancing, dancing, and more dancing (Go Texas Bhangra!!!).',
         responsibilities:
-            'Add your responsibilities'
+            'Shania worked on the frontend team focusing on the map implementation. She pinpointed the user geolocation for the map image and added event location markers.'
     },
     qhuy2301: {
         name: 'Huy Le',
@@ -78,14 +78,14 @@ const contributorInfo = {
         username: 'qhuy2301',
         major: 'Electrical & Computer Engineer',
         bio:
-            'Add your bio',
+            'Huy is a fourth-year ECE major with technical cores in Software and Academic Enrichment. His hobbies include playing videogames and watching sports.',
         responsibilities:
-            'Add your responsibilities'
+            'Huy worked on both frontend and backend. He initialized the app and redesigned the UI to be sleek with animations and displayed API data onto the webpage.'
     }
 };
 
 const defContributorStats = {
-    angellynncheng: {
+    'angellynncheng': {
         commits: 0,
         issues: 0,
         unitTests: 0
@@ -100,17 +100,17 @@ const defContributorStats = {
         issues: 0,
         unitTests: 0
     },
-    jovinjoej: {
+    'jovinjoej': {
         commits: 0,
         issues: 0,
         unitTests: 0
     },
-    shaniapaul: {
+    'shaniapaul': {
         commits: 0,
         issues: 0,
         unitTests: 0
     },
-    qhuy2301: {
+    'qhuy2301': {
         commits: 0,
         issues: 0,
         unitTests: 0
