@@ -123,8 +123,8 @@ export default CurrentLocation;
 CurrentLocation.defaultProps = {
   zoom: 14,
   initialCenter: {
-    lat: -1.2884,
-    lng: 36.8233
+    lat: 30.2862,
+    lng: -97.7394
   },
   centerAroundCurrentLocation: true,
   visible: true

@@ -78,7 +78,7 @@ const contributorInfo = {
         username: 'qhuy2301',
         major: 'Electrical & Computer Engineer',
         bio:
-            'Huy is a fourth-year ECE major with technical cores in Software and Academic Enrichment. His hobbies include playing videogames and watching sports.',
+            'Huy is a fifth-year ECE major with technical cores in Software and Integrated Circuit. His hobbies include playing videogames and watching sports.',
         responsibilities:
             'Huy worked on both frontend and backend. He initialized the app and redesigned the UI to be sleek with animations and displayed API data onto the webpage.'
     }
