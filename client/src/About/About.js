@@ -258,9 +258,7 @@ class AboutPage extends React.Component {
                         {this.renderProfile(id + 1)}
                         {this.renderProfile(id + 2)}
                     </CardDeck>
-                    <CardText>
-                        <CardText> </CardText>
-                    </CardText>
+                    <br />
                 </Container>
             );
         }
@@ -284,11 +282,12 @@ class AboutPage extends React.Component {
                         </p>
                     </Container>
                 </Jumbotron>
-                <h2 id="name">Meet the Team Members of Team Tiger</h2>
+                <h2 id="name">Meet the members of Team Tiger</h2>
                 <p id="name">Hover over a member picture to see individual contribution, or click on it to visit their git profile</p>
 
                 <div>{this.renderProfiles()}</div>
 
+                <h2 id="name">How we made it</h2>
                 <Container>
                     <ListGroup>
                         <ListGroupItem>
@@ -298,6 +297,9 @@ class AboutPage extends React.Component {
                             <ListGroupItemText tag="li">Unit Tests: {unitTestsTotal}</ListGroupItemText>
                         </ListGroupItem>
 
+                        <CardText>
+                        </CardText>
+
                         <ListGroupItem>
                             <ListGroupItemHeading>Data Sources:</ListGroupItemHeading>
                             <ListGroupItemText tag="li">Eventbrite: Not scraped from website yet</ListGroupItemText>
@@ -305,6 +307,9 @@ class AboutPage extends React.Component {
                             <ListGroupItemText tag="li">Google Maps: We took the map visual from Google Maps API.</ListGroupItemText>
                             <ListGroupItemText tag="li">Github: We used the Github API to receive user stats from the API url.</ListGroupItemText>
                         </ListGroupItem>
+
+                        <CardText>
+                        </CardText>
 
                         <ListGroupItem>
                             <ListGroupItemHeading>Tools:</ListGroupItemHeading>

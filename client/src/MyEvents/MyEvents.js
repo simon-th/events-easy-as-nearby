@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
   Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button
+  CardTitle, CardSubtitle, Button, Row, Col
 } from 'reactstrap';
 
 class MyEvents extends Component {
@@ -64,30 +64,45 @@ class MyEvents extends Component {
           <label>Events Happening Nearby</label>
         </div>
         <div>
-          <Card style={{width:'100%', 'text-align':'left'}}>
-            <CardBody>
-              <CardTitle>{this.eventList[1].title}</CardTitle>
-              <CardSubtitle>{this.eventList[1].location}</CardSubtitle>
-              <CardText>{this.eventList[1].descr}</CardText>
-              <Button>Save</Button>
-            </CardBody>
-          </Card>
-          <Card style={{width:'100%', 'text-align':'left'}}>
-            <CardBody>
-              <CardTitle>{this.eventList[2].title}</CardTitle>
-              <CardSubtitle>{this.eventList[2].location}</CardSubtitle>
-              <CardText>{this.eventList[2].descr}</CardText>
-              <Button>Save</Button>
-            </CardBody>
-          </Card>
-          <Card style={{width:'100%', 'text-align':'left'}}>
-            <CardBody>
-              <CardTitle>{this.eventList[3].title}</CardTitle>
-              <CardSubtitle>{this.eventList[3].location}</CardSubtitle>
-              <CardText>{this.eventList[3].descr}</CardText>
-              <Button>Save</Button>
-            </CardBody>
-          </Card>
+            <Row>
+              <Col sm={{ size: 8, offset: 1 }}>
+                  <Card>
+                    <CardBody>
+                      <CardTitle>{this.eventList[1].title}</CardTitle>
+                      <CardSubtitle>{this.eventList[1].location}</CardSubtitle>
+                      <CardText className="text-left">{this.eventList[1].descr}</CardText>
+                      <Button color="success" className="float-right">Save</Button>
+                    </CardBody>
+                  </Card>
+              </Col>
+            </Row>
+            <br />
+            <Row>
+              <Col sm={{ size: 8, offset: 1 }}>
+                  <Card>
+                    <CardBody>
+                      <CardTitle>{this.eventList[2].title}</CardTitle>
+                      <CardSubtitle>{this.eventList[2].location}</CardSubtitle>
+                      <CardText className="text-left">{this.eventList[2].descr}</CardText>
+                      <Button color="success" className="float-right">Save</Button>
+                    </CardBody>
+                  </Card>
+              </Col>
+            </Row>
+            <br />
+            <Row>
+              <Col sm={{ size: 8, offset: 1 }}>
+                  <Card>
+                    <CardBody>
+                      <CardTitle>{this.eventList[3].title}</CardTitle>
+                      <CardSubtitle>{this.eventList[3].location}</CardSubtitle>
+                      <CardText className="text-left">{this.eventList[3].descr}</CardText>
+                      <Button color="success" className="float-right">Save</Button>
+                    </CardBody>
+                  </Card>
+              </Col>
+            </Row>
+            <br />
         </div>
       </div>
     );
