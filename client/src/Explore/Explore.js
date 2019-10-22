@@ -62,7 +62,7 @@ class Explore extends Component {
     return(
       <div>
         <div classname="text-center">
-          <label>Events Happening Nearby</label>
+          <h2>Events Happening Nearby</h2>
         </div>
         <div>
             <Row>

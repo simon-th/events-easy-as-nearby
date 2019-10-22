@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
 import CurrentLocation from './Geolocation';
 import apiKeys from '../api-keys.json';
-import MyEvents from '../MyEvents/MyEvents'
+import MyEvents from '../MyEvents/MyEvents';
+import CustomMarker from '../Components/CustomMarker/CustomMarker';
 
 
 export class MapContainer extends Component {
   state = {
     showingInfoWindow: false,
     activeMarker: {},
-    selectedPlace: {}
+    selectedPlace: {},
   };
 
   onMarkerClick = (props, marker, e) =>

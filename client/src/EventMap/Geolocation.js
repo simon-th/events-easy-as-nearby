@@ -9,16 +9,21 @@ const mapStyles = {
     left: '350px'
   }
 };
+var curLat, curLng;
+var firstload = true;
 
 export class CurrentLocation extends React.Component {
   constructor(props) {
     super(props);
 
     const { lat, lng } = this.props.initialCenter;
+    const { iniLat, iniLng } = this.props.initialCenter;
     this.state = {
       currentLocation: {
         lat: lat,
-        lng: lng
+        lng: lng,
+        iniLat: iniLat,
+        iniLng: iniLng
       }
     };
   }
@@ -52,8 +57,15 @@ export class CurrentLocation extends React.Component {
           const coords = pos.coords;
           this.setState({
             currentLocation: {
+              initLat: coords.latitude,
+              iniLng: coords.longitude,
               lat: coords.latitude,
               lng: coords.longitude
+            },
+            if (firstload) {
+              curLat = coords.latitude;
+              curLng = coords.longitude;
+              firstload = false;
             }
           });
         });
@@ -123,8 +135,8 @@ export default CurrentLocation;
 CurrentLocation.defaultProps = {
   zoom: 14,
   initialCenter: {
-    lat: 30.2862,
-    lng: -97.7394
+    lat: curLat,
+    lng: curLng
   },
   centerAroundCurrentLocation: true,
   visible: true

@@ -60,8 +60,8 @@ class MyEvents extends Component {
   render () {
     return(
       <div>
-        <div>
-          <label>Events Happening Nearby</label>
+        <div claseName="text-center">
+          <h2>Saved Events</h2>
         </div>
         <div>
             <Row>
