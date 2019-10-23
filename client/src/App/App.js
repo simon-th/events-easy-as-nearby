@@ -1,8 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Row } from "reactstrap";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import { IndexLinkContainer } from "react-router-bootstrap";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navigation from "./Navigation";
 import  MapContainer  from "../EventMap/EventMap";
 import About from "../About/About"
@@ -12,7 +10,6 @@ import Explore from "../Explore/Explore";
 import Signup from "../Signup/Signup";
 import PasswordForget from "../ForgotPassword/ForgotPassword";
 import EventMap  from "../EventMap/EventMap";
-import LogoutButton from "../Logout/Logout";
 import MyAccount from "../MyAccount/MyAccount";
 import { withAuthentication } from "../Components/Session";
 
