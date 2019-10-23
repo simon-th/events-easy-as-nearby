@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { sizing } from '@material-ui/system';
 import FilterObject from '../EventMap/FilterObject'
-import { AutoComplete } from 'material-ui';
 
 const drawerWidth = 240;
 
@@ -47,7 +46,6 @@ export default function PermanentDrawerRight() {
           paper: classes.drawerPaper,
         }}
         anchor="right"
-        
       >
         <div className={classes.toolbar} />
         <Divider />
