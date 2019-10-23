@@ -21,6 +21,7 @@ import Jovin from './jovin.jpg';
 import Shania from './shania.jpg';
 import Huy from './huy.jpg';
 
+
 const contributorInfo = {
     angellynncheng: {
         name: 'Angel Cheng',
@@ -282,12 +283,12 @@ class AboutPage extends React.Component {
                         </p>
                     </Container>
                 </Jumbotron>
-                <h2 id="name">Meet the members of Team Tiger</h2>
+                <h2 className="text-center">Meet the members of Team Tiger</h2>
                 <p id="name">Hover over a member picture to see individual contribution, or click on it to visit their git profile</p>
 
                 <div>{this.renderProfiles()}</div>
 
-                <h2 id="name">How we made it</h2>
+                <h2 className="text-center">How we made it</h2>
                 <Container>
                     <ListGroup>
                         <ListGroupItem>

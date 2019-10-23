@@ -1,11 +1,16 @@
-import React, {Component} from 'react';
+import React, {Component} from "react";
 import {
-  Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button, Row, Col, Container
-} from 'reactstrap';
+  Card, CardText, CardBody,
+  CardTitle, CardSubtitle, Button, Row, Col
+} from "reactstrap";
+import axios from "axios";
 
 
 class Explore extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   eventList = [
     {
       id: 0,
@@ -59,9 +64,9 @@ class Explore extends Component {
   ]
 
   render () {
-    return(
+    return (
       <div>
-        <div classname="text-center">
+        <div className="text-center">
           <h2>Events Happening Nearby</h2>
         </div>
         <div>

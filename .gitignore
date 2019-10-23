@@ -2,6 +2,8 @@
 
 # dependencies
 /server/node_modules
+/client/node_modules
+
 /.pnp
 .pnp.js
 
@@ -9,7 +11,9 @@
 /coverage
 
 # production
-/build
+/client/build
+/server/public
+/server/routes/Test
 
 # misc
 .DS_Store
@@ -18,6 +22,8 @@
 .env.test.local
 .env.production.local
 /server/process.env
+/client/src/api-keys.json
+/client/src/App/Apptest.js
 
 npm-debug.log*
 yarn-debug.log*

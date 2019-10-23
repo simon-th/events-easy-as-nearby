@@ -3,6 +3,7 @@ import {
   Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button, Row, Col
 } from 'reactstrap';
+import { withAuthorization } from '../Components/Session';
 
 class MyEvents extends Component {
   eventList = [
@@ -109,4 +110,5 @@ class MyEvents extends Component {
   }
 }
 
-export default MyEvents;
+const condition = authUser => !!authUser;
+export default withAuthorization(condition)(MyEvents);

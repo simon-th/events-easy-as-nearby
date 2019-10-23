@@ -3,10 +3,12 @@ import { Link, withRouter } from "react-router-dom";
 import { Button, FormGroup, Label, Input, Form, Row, Col } from "reactstrap";
 import { compose } from 'recompose';
 import { withFirebase } from "../Components/Firebase";
+import axios from "axios";
 import "./Signup.css";
 
 const SignUp = () => (
     <div>
+        <h5 className="text-center">Create an account</h5>
         <SignUpForm />
     </div>
 );
@@ -35,6 +37,11 @@ class SignUpFormBase extends Component {
             this.setState({ error });
         });
         event.preventDefault();
+
+        axios.post('/api/signup/newuser', {
+            username: username,
+            email: email,
+        });
     }
 
 
