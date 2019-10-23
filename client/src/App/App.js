@@ -8,6 +8,7 @@ import  MapContainer  from '../EventMap/EventMap';
 import About from '../About/About'
 import Login from '../Login/Login'
 import MyEvents from '../MyEvents/MyEvents';
+import Filters from '../EventMap/Filters';
 import Explore from '../Explore/Explore';
 import Signup from '../Signup/Signup';
 import EventMap  from '../EventMap/EventMap';
@@ -25,6 +26,7 @@ const App = () => (
                     <h1>Map</h1>
                     <div className='Map'>
                     <MapContainer />
+                    <Filters />
                     </div>
                   </React.Fragment>
                 )}/>
