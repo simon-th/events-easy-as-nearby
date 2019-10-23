@@ -20,11 +20,16 @@ const App = () => (
             <Navigation />
             <Switch>
                 <Route exact path ='/' render={props=>(
+<<<<<<< Updated upstream
                   <React.Fragment>
+=======
+                  <div>
+                    <h1>Map</h1>
+>>>>>>> Stashed changes
                     <div className='Map'>
                       <EventMap />
                     </div>
-                  </React.Fragment>
+                  </div>
                 )}/>
                 <Route path="/about" component={About}/>
                 <Route path="/login" component={Login}/>
