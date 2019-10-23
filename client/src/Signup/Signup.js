@@ -7,6 +7,7 @@ import "./Signup.css";
 
 const SignUp = () => (
     <div>
+        <h5 className="text-center">Create an account</h5>
         <SignUpForm />
     </div>
 );

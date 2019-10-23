@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 const port = process.env.PORT || 3001;
 const app = express();
 const router = express.Router();
-const CONNECTION_URL = "mongodb+srv://"+process.env.NODE_ENV+"@explocationdb-qtiwe.gcp.mongodb.net/test?retryWrites=true&w=majority";
+const CONNECTION_URL = "mongodb+srv://huy0123:huy_utexas@explocationdb-qtiwe.gcp.mongodb.net/test?retryWrites=true&w=majority";
 const DATABASE_NAME = "explocation_database";
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true});
 mongoose.Promise = global.Promise;
@@ -23,3 +23,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.listen(port, () => console.log(`LISTENING ON PORT ${port}`));
+
+
+router.get('/about', function(req, res) {
+  res.send('Learn about us')
+})
+
+router.get('/',function(req, res) {
+  res.send('Home Page')
+})
+
+router.get('/explore',function(req, res) {
+  res.send('Event Happening Nearby')
+})
+
+module.exports = router;

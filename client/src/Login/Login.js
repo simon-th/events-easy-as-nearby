@@ -7,6 +7,7 @@ import "./Login.css";
 
 const Login = () => (
     <div>
+        <h5 className="text-center">Login to your account</h5>
         <LoginForm />
     </div>
 );
@@ -80,6 +81,7 @@ class LoginFormBase extends Component {
                             </Button>
                             {error && <p id="err">{error.message}</p>}
                             <br />
+                            <p id="signup"><Link to ='/forgotpassword'>Forgot Password?</Link></p>
                             <p id="signup">Don't have an account? <Link to='/signup'>Sign Up</Link></p>
                         </div>
                     </Form>

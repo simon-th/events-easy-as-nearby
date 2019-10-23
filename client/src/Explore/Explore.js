@@ -1,11 +1,26 @@
-import React, {Component} from 'react';
+import React, {Component} from "react";
 import {
-  Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button, Row, Col, Container
-} from 'reactstrap';
+  Card, CardText, CardBody,
+  CardTitle, CardSubtitle, Button, Row, Col
+} from "reactstrap";
 
 
 class Explore extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { apiResponse: "" };
+  }
+
+  callAPI() {
+      fetch("/explore")
+          .then(res => res.text())
+          .then(res => this.setState({ apiResponse: res }));
+  }
+
+  componentDidMount() {
+      this.callAPI();
+  }
+
   eventList = [
     {
       id: 0,
@@ -61,7 +76,7 @@ class Explore extends Component {
   render () {
     return(
       <div>
-        <div classname="text-center">
+        <div className="text-center">
           <h2>Events Happening Nearby</h2>
         </div>
         <div>
