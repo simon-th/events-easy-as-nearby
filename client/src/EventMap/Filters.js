@@ -7,26 +7,24 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { sizing } from '@material-ui/system';
 import FilterObject from '../EventMap/FilterObject'
+import { AutoComplete } from 'material-ui';
 
 const drawerWidth = 240;
-const drawerTop = 240;
+
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
   },
-  appBar: {
-   width: `calc(100% - ${drawerWidth}px)`,
-   marginRight: drawerWidth,
-   height: `calc(100% - ${drawerTop}px)`,
-  },
+  
   drawer: {
-    display: 'flex',
-    width: drawerWidth,
-    height: drawerTop
+   height: 'auto',
+   width: drawerWidth,
+   flexShrink: 0
     
   },
   drawerPaper: {
+    marginTop: '55px',
     width: drawerWidth,
   },
   toolbar: theme.mixins.toolbar,
