@@ -4,9 +4,8 @@ import ReactDOM from 'react-dom';
 const mapStyles = {
   map: {
     position: 'absolute',
-    width: '50%',
-    height: '50%',
-    left: '350px'
+    width: '100%',
+    height: '91%',
   }
 };
 var curLat, curLng;

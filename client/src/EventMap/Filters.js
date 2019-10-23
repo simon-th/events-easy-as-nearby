@@ -12,18 +12,16 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
   },
-  appBar: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginRight: drawerWidth,
-  },
+
   drawer: {
+    height: 'auto',
     width: drawerWidth,
     flexShrink: 0,
   },
   drawerPaper: {
+    marginTop: '55px',
     width: drawerWidth,
   },
-  toolbar: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
