@@ -20,11 +20,7 @@ const App = () => (
             <Navigation />
             <Switch>
                 <Route exact path ='/' render={props=>(
-                  <React.Fragment>
-
                   <div>
-                    <h1>Map</h1>
-
                     <div className='Map'>
                       <EventMap />
                     </div>
