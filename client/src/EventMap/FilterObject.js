@@ -70,6 +70,7 @@ export default function FilterObject(props) {
     .map((param)=>{return param});
     console.log(params);
     console.log(distance);
+    props.eventList.push(1);
   }
 
   return (
