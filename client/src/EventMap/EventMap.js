@@ -4,11 +4,18 @@ import Filters from "./Filters";
 import MapContainer from "./MapContainer";
 
 class EventMap extends Component {
+    constructor(){
+        this.state={
+            shownEvents:[]
+        }
+    }
+
+    
     render() {
         return (
             <div>
                 <MapContainer />
-                <Filters />
+                <Filters eventList={shownEvents} />
             </div>
         );
     }

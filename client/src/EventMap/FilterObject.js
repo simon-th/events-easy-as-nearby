@@ -43,7 +43,7 @@ const MyCheckbox = withStyles({
 
 
 
-export default function FilterObject() {
+export default function FilterObject(props) {
   const handleChange = name => event => {
     setState({ ...state, [name]: event.target.checked });
     };
@@ -57,7 +57,6 @@ export default function FilterObject() {
   }); 
 
   const classes = useStyles();
-  let sliderValue=10;
   function requestFilters(){
     let params = [];
     let distance=state.distance;
