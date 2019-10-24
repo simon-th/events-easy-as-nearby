@@ -8,8 +8,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
+import { renderComponent } from 'recompose';
+import FilterBoxes from './FilterBoxes';
+import Button from '@material-ui/core/Button';
 
-
+const filters =['Free','checkedTag2','checkedTag3','checkedTag4'];
 const useStyles = makeStyles(theme => ({
     root: {
         marginLeft: 20,
@@ -35,33 +38,48 @@ const MyCheckbox = withStyles({
   checked: {},
 })(props => <Checkbox color="default" {...props} />);
 
-export default function FilterObject() {
-        const [state, setState] = React.useState({
-        checkedTag1: false,
-        checkedTag2: false,
-        checkedTag3: false,
-        checkedTag4: false,
-    });
 
+
+
+
+
+
+export default function FilterObject() {
   const handleChange = name => event => {
     setState({ ...state, [name]: event.target.checked });
-  };
+    };
+
+  const [state, setState] = React.useState({
+    [filters[0]]: false,
+    [filters[1]]: false,
+    [filters[2]]: false,
+    [filters[3]]: false,
+  }); 
 
   const classes = useStyles();
+
+  function requestFilters(){
+    let params = [];
+    console.log(state);
+    params=filters.filter((param)=>{return state[param]})
+    .map((param)=>{return param});
+    console.log(params);
+  }
 
   return (
     <div>
     <Typography id="discrete-slider" gutterBottom>Filters</Typography>
     <FormGroup>
+      
       <FormControlLabel
         control={
           <MyCheckbox
             checked={state.checkedTag1}
-            onChange={handleChange('checkedTag1')}
-            value="checkedTag1"
+            onChange={handleChange('Free')}
+            value="Free"
           />
         }
-        label="Custom color"
+        label="Free"
       />
       <FormControlLabel
         control={
@@ -83,6 +101,7 @@ export default function FilterObject() {
         }
         label="Custom color"
       />    
+      
     </FormGroup> 
 
     <Divider />
@@ -99,8 +118,14 @@ export default function FilterObject() {
         min={1}
         max={15}
       />
+      <div>
+        <Button onClick={requestFilters}>Submit</Button>
+      </div>
     </div>
     </div>
 
   );
 }
+
+
+
