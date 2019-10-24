@@ -9,7 +9,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { renderComponent } from 'recompose';
-import FilterBoxes from './FilterBoxes';
 import Button from '@material-ui/core/Button';
 
 const filters =['Free','checkedTag2','checkedTag3','checkedTag4'];
@@ -54,16 +53,24 @@ export default function FilterObject() {
     [filters[1]]: false,
     [filters[2]]: false,
     [filters[3]]: false,
+    distance: 10
   }); 
 
   const classes = useStyles();
-
+  let sliderValue=10;
   function requestFilters(){
     let params = [];
+    let distance=state.distance;
     console.log(state);
-    params=filters.filter((param)=>{return state[param]})
+    params=filters.filter((param)=>{
+      if(param=="distance"){
+        return false;
+      }
+      return state[param]
+    })
     .map((param)=>{return param});
     console.log(params);
+    console.log(distance);
   }
 
   return (
@@ -109,7 +116,8 @@ export default function FilterObject() {
     <div className={classes.root}>
         <Typography id="discrete-slider" gutterBottom>Distance</Typography>
         <Slider
-        defaultValue={30}
+        id="distanceSlider"
+        defaultValue={10}
         getAriaValueText={valuetext}
         aria-labelledby="discrete-slider"
         valueLabelDisplay="auto"
@@ -117,6 +125,9 @@ export default function FilterObject() {
         mark
         min={1}
         max={15}
+        onChange={(event, value) => {
+          setState({ ...state, distance: value});
+          }}
       />
       <div>
         <Button onClick={requestFilters}>Submit</Button>
