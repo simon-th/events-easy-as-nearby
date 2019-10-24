@@ -1,17 +1,35 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { blueGrey } from '@material-ui/core/colors';
+import { indigo } from '@material-ui/core/colors';
+import { makeStyles } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import Typography from '@material-ui/core/Typography';
+import Slider from '@material-ui/core/Slider';
+
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        marginLeft: 20,
+        width: 300,
+    },
+    margin: {
+        height: theme.spacing(3),
+    },
+  }));
+
+    function valuetext(value) {
+        return `${value} miles`;
+    }
 
 const MyCheckbox = withStyles({
   root: {
-    marginLeft: 10,
-    color: blueGrey[400],
+    marginLeft: 20,
+    color: indigo[700],
     '&$checked': {
-      color: blueGrey[600],
+      color: indigo[700],
     },
   },
   checked: {},
@@ -29,9 +47,11 @@ export default function FilterObject() {
     setState({ ...state, [name]: event.target.checked });
   };
 
+  const classes = useStyles();
+
   return (
     <div>
-    <h5>Filters</h5>
+    <Typography id="discrete-slider" gutterBottom>Filters</Typography>
     <FormGroup>
       <FormControlLabel
         control={
@@ -64,6 +84,22 @@ export default function FilterObject() {
         label="Custom color"
       />    
     </FormGroup> 
+
+    <Divider />
+
+    <div className={classes.root}>
+        <Typography id="discrete-slider" gutterBottom>Distance</Typography>
+        <Slider
+        defaultValue={30}
+        getAriaValueText={valuetext}
+        aria-labelledby="discrete-slider"
+        valueLabelDisplay="auto"
+        step={5}
+        mark
+        min={1}
+        max={15}
+      />
+    </div>
     </div>
 
   );
