@@ -53,6 +53,7 @@ class LoginFormBase extends Component {
                                 <FormGroup controlId="email" bsSize="medium">
                                     <Label>Email</Label>
                                     <Input
+                                      id = "email"
                                       autoFocus
                                       name="email"
                                       type="text"
@@ -67,6 +68,7 @@ class LoginFormBase extends Component {
                                 <FormGroup controlId="password" bsSize="medium">
                                     <Label>Password</Label>
                                     <Input
+                                      id = "password"
                                       name="password"
                                       value={password}
                                       onChange={this.onChange}
@@ -76,7 +78,7 @@ class LoginFormBase extends Component {
                             </Col>
                         </Row>
                         <div className="text-center">
-                            <Button bsSize="medium" disabled={isInvalid} type="submit">
+                            <Button id = "submitB" bsSize="medium" disabled={isInvalid} type="submit">
                                 Login
                             </Button>
                             {error && <p id="err">{error.message}</p>}

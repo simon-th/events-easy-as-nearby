@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
+//require('dotenv').config();
 const express = require('express');
 var cors = require('cors');
 const bodyParser = require('body-parser');
@@ -11,7 +11,7 @@ app.use(cors());
 const router = express.Router();
 
 const dbRoute =
-  "mongodb+srv://"+process.env.NODE_ENV+"@explocationdb-qtiwe.gcp.mongodb.net/users?retryWrites=true&w=majority";
+  "mongodb+srv://huy0123:huy_utexas@explocationdb-qtiwe.gcp.mongodb.net/users?retryWrites=true&w=majority";
 
 mongoose.connect(dbRoute, { useNewUrlParser: true });
 let db = mongoose.connection;

@@ -15,7 +15,7 @@ app.use(logger('dev'));
 
 router.use
 router.use('/signup', require('./routes/Signup/signup'));
-router.use('/test', require('./routes/Test/test'));
+//router.use('/test', require('./routes/Test/test'));
 
 app.use('/api', router);
 
