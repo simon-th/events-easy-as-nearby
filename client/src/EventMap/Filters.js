@@ -1,5 +1,6 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
@@ -7,55 +8,92 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { sizing } from '@material-ui/system';
 import FilterObject from '../EventMap/FilterObject'
+import Fab from '@material-ui/core/Fab';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import FloatButton from './FloatButton';
 
-const drawerWidth = 240;
 
-
+const drawerWidth = 350;
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
   },
-  
+  fab: {
+    margin: theme.spacing(1),
+    position: 'absolute',
+    bottom: theme.spacing(10),
+    right: theme.spacing(15),
+
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
+  hide: {
+    display: 'none',
+  },
   drawer: {
-   height: 'auto',
-   width: drawerWidth,
-   flexShrink: 0
-    
+    width: drawerWidth,
+    flexShrink: 0,
   },
   drawerPaper: {
-    marginTop: '55px',
+    marginTop: theme.spacing(8.7),
     width: drawerWidth,
-  },
-  toolbar: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing(3),
   },
 }));
 
-export default function PermanentDrawerRight() {
+export default function PersistentDrawerRight() {
   const classes = useStyles();
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
   return (
-    
     <div className={classes.root}>
+    <CssBaseline />
+      <div>
+          <Fab
+          color="primary"
+          size="large"
+          variant="extended"
+          aria-label="open drawer"
+          onClick={handleDrawerOpen}
+          className={clsx(classes.fab, open && classes.hide)}
+          >
+            <FilterListIcon className={classes.extendedIcon} />
+            Filter
+          </Fab>
+      </div>
       <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="right"
+          className={classes.drawer}
+          variant="persistent"
+          anchor="right"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper,
+      }}
       >
-        <div className={classes.toolbar} />
+        <div>
+          <IconButton onClick={handleDrawerClose}>
+            <ChevronRightIcon />
+          </IconButton>
+        </div>
         <Divider />
-        <List>
-          <FilterObject/>
-        </List>
-        <Divider />
-        <List>
-         more filters
-        </List>
+
       </Drawer>
     </div>
   );

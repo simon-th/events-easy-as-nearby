@@ -34,6 +34,7 @@ export class MapContainer extends Component {
         centerAroundCurrentLocation
         google={this.props.google}
       >
+        <Marker onClick={this.onMarkerClick} name={'Current Location'}/>
         <Marker position={{lat: 30.286358, lng: -97.7456957}} onClick={this.onMarkerClick} name={'Yash Birthday'} />
         <Marker position={{lat: 30.2842331, lng: -97.7386967}} onClick={this.onMarkerClick} name={'Wood Chopping Contest'} />
         <Marker position={{lat: 30.2870417, lng: -97.7461794}} onClick={this.onMarkerClick} name={'Snakes and Ladders Night'} />
