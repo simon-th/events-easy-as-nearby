@@ -52,4 +52,8 @@ router.get('/findname', (req, res) => {
 
 });
 
+router.get('/test', (req, res) => {
+  res.send('signup api route works!');
+})
+
 module.exports = router;
