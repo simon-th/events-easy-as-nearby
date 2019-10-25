@@ -42,7 +42,7 @@ router.get('/filter', (req, res) => {
   var i = 1;
   var key = `f${i}`;
   if (req.query[key]) {
-    // console.log(req.query[key]);
+    console.log(req.query[key]);
     Event.find({ category_id: req.query[key] }, (err, data) => {
       if (err) return res.json({ success: false, error: err});
       return res.json({ success: true, data: data});
@@ -50,7 +50,7 @@ router.get('/filter', (req, res) => {
   }
     // console.log(filters[i]);
   // }
-  res.send(events);
+  // res.send(events);
 });
 
 
