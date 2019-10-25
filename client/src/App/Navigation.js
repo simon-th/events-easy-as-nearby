@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Navbar, NavbarBrand, Nav, NavLink } from "reactstrap";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { IndexLinkContainer } from "react-router-bootstrap";
 import LogoutButton from "../Logout/Logout";
 import { AuthUserContext } from "../Components/Session";
@@ -17,7 +17,7 @@ const Navigation = () => (
 );
 
 const NavigationAuth = () => (
-    <Navbar style={{backgroundColor: "#c1cadb"}} light expand="md">
+    <Navbar classname="navbar" style={{backgroundColor: "#c1cadb", height: '9vh', fontSize: '14px', fontWeight: '400'}} light expand="md">
         <IndexLinkContainer to="/" exact>
             <NavbarBrand>Explocation</NavbarBrand>
         </IndexLinkContainer>
@@ -45,7 +45,7 @@ const NavigationAuth = () => (
 );
 
 const NavigationNonAuth = () => (
-    <Navbar style={{backgroundColor: "#c1cadb"}} light expand="md">
+    <Navbar classname="navbar" style={{backgroundColor: "#c1cadb", height: '9vh', fontSize: '14px', fontWeight: '400'}} light expand="md">
         <IndexLinkContainer to="/" exact>
             <NavbarBrand>Explocation</NavbarBrand>
         </IndexLinkContainer>

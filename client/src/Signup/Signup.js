@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { Button, FormGroup, Label, Input, Form, Row, Col } from "reactstrap";
 import { compose } from 'recompose';
 import { withFirebase } from "../Components/Firebase";
+import axios from "axios";
 import "./Signup.css";
 
 const SignUp = () => (
@@ -29,6 +30,10 @@ class SignUpFormBase extends Component {
     onSubmit = event => {
         const { username, email, passwordOne } = this.state;
         this.props.firebase.doCreateUserWithEmailAndPassword(email, passwordOne).then(authUser => {
+            axios.post('/api/signup/newuser', {
+                username: username,
+                email: email,
+            });
             this.setState({ ...INITIAL_STATE });
             this.props.history.push("/");
         })
@@ -36,6 +41,8 @@ class SignUpFormBase extends Component {
             this.setState({ error });
         });
         event.preventDefault();
+
+        
     }
 
 
@@ -67,6 +74,7 @@ class SignUpFormBase extends Component {
                                   <FormGroup controlId="username" bsSize="medium">
                                       <Label>Username</Label>
                                       <Input
+                                        id = "username"
                                         autoFocus
                                         name="username"
                                         type="username"
@@ -81,6 +89,7 @@ class SignUpFormBase extends Component {
                                   <FormGroup controlId="email" bsSize="medium">
                                       <Label>Email</Label>
                                       <Input
+                                        id = "email"
                                         name="email"
                                         type="email"
                                         value={email}
@@ -94,6 +103,7 @@ class SignUpFormBase extends Component {
                                   <FormGroup controlId="passwordOne" bsSize="medium">
                                       <Label>Password</Label>
                                       <Input
+                                        id = "passwordOne"
                                         name="passwordOne"
                                         value={passwordOne}
                                         onChange={this.onChange}
@@ -107,6 +117,7 @@ class SignUpFormBase extends Component {
                                   <FormGroup controlId="passwordTwo" bsSize="medium">
                                       <Label>Confirm Password</Label>
                                       <Input
+                                        id = "passwordTwo"
                                         name="passwordTwo"
                                         value={passwordTwo}
                                         onChange={this.onChange}
@@ -116,7 +127,7 @@ class SignUpFormBase extends Component {
                               </Col>
                           </Row>
                           <div className="text-center">
-                              <Button bsSize="medium" disabled={isInvalid} type="submit">
+                              <Button id = "submitB" bsSize="medium" disabled={isInvalid} type="submit">
                                 Submit
                               </Button>
                               {error && <p id="err">{error.message}</p>}

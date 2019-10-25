@@ -1,20 +1,20 @@
 {
-  "name": "explocation",
+  "name": "server",
   "version": "1.0.0",
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "description": "",
   "main": "index.js",
   "dependencies": {
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
     "concurrently": "^5.0.0",
+    "firebase": "^7.2.1",
+    "mongodb": "^3.3.2",
+    "react-with-firebase-auth": "^1.1.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "firebase": "^7.2.1",
-    "mongodb": "^3.3.2",
-    "mongoose": "^5.7.3",
-    "react-with-firebase-auth": "^1.1.0",
-    "request": "^2.88.0"
+    "mongoose": "^5.7.6",
+    "morgan": "^1.9.1"
   },
   "devDependencies": {
     "cross-env": "^6.0.3",
@@ -27,14 +27,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/simon-th/explocation.git"
-  },
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/simon-th/explocation/issues"
-  },
-  "homepage": "https://github.com/simon-th/explocation#readme"
+  "license": "ISC"
 }

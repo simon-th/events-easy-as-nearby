@@ -3,22 +3,12 @@ import {
   Card, CardText, CardBody,
   CardTitle, CardSubtitle, Button, Row, Col
 } from "reactstrap";
+import axios from "axios";
 
 
 class Explore extends Component {
   constructor(props) {
     super(props);
-    this.state = { apiResponse: "" };
-  }
-
-  callAPI() {
-      fetch("/explore")
-          .then(res => res.text())
-          .then(res => this.setState({ apiResponse: res }));
-  }
-
-  componentDidMount() {
-      this.callAPI();
   }
 
   eventList = [
@@ -74,7 +64,7 @@ class Explore extends Component {
   ]
 
   render () {
-    return(
+    return (
       <div>
         <div className="text-center">
           <h2>Events Happening Nearby</h2>
