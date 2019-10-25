@@ -31,7 +31,6 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     bottom: theme.spacing(10),
     right: theme.spacing(15),
-
   },
   extendedIcon: {
     marginRight: theme.spacing(1),
@@ -44,12 +43,13 @@ const useStyles = makeStyles(theme => ({
     flexShrink: 0,
   },
   drawerPaper: {
+    height: "90vh",
     marginTop: theme.spacing(8.7),
     width: drawerWidth,
   },
 }));
 
-export default function PersistentDrawerRight() {
+export default function PersistentDrawerRight(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -93,7 +93,7 @@ export default function PersistentDrawerRight() {
           </IconButton>
         </div>
         <Divider />
-
+        <FilterObject eventList={props.eventList} reRender={props.reRender}/>
       </Drawer>
     </div>
   );
