@@ -3,164 +3,56 @@ import {
   Card, CardText, CardBody,
   CardTitle, CardSubtitle, Button, Row, Col
 } from "reactstrap";
-import axios from "axios";
+//import axios from "axios";
 
 
 class Explore extends Component {
-  constructor(props) {
-    super(props);
+
+  state = {
+    data: [],
+    name: null,
+    description: null,
+    summary: null,
+  };
+
+  componentDidMount() {
+      this.getEventFromDb();
   }
 
-  eventList = [
-    {
-      id: 0,
-      title: "Yash's Birthday",
-      descr: "Come celebrate Yash's 21st birthday at Skyloft! It's a study party so bring your own books.",
-      lat: 30.286358,
-      long: -97.7456957
-    },
-    {
-      id: 1,
-      title: "Wood Chopping Contest",
-      descr: "We're not sure why this is a thing but it is, so come out and chop wood at Gregory Gymanisum.. I guess?",
-      lat: 30.2842331,
-      long: -97.7386967
-    },
-    {
-      id: 2,
-      title: "Snakes and Ladders Night",
-      descr: "Join us for snakes and ladders at Angel's apartment!",
-      lat: 30.2870417,
-      long: -97.7461794
-    },
-    {
-      id: 3,
-      title: "Smash Tournament",
-      descr: "Come play Smash at Simon's apartment!",
-      lat: 30.2900117,
-      long: -97.7445804
-    },
-    {
-      id: 4,
-      title: "IEEE GM #3",
-      descr: "This is the third general meeting for IEEE this semester. As usual, there will be free food, and we will be joined by guests from Arm!",
-      lat: 30.2884957,
-      long: -97.7376979
-    },
-    {
-      id: 5,
-      title: "Spongebob Watch Party",
-      descr: "We will be watching episodes with Mermaid Man and Barnacle Boy because they are our favorite characters.",
-      lat: 30.2864807,
-      long: -97.743338
-    },
-    {
-      id: 6,
-      title: "Gong Cha Profit Share",
-      descr: "Boba. Yay.",
-      lat: 30.3753425,
-      long: -97.8380101
-    }
-  ]
+  getEventFromDb = () => {
+      fetch('/api/explore/geteventlist')
+        .then((data) => data.json())
+        .then((res) => this.setState({ data: res.data}));
+  }
 
   render () {
+    const { data } = this.state;
+    console.log(data);
     return (
       <div>
         <div className="text-center">
           <h2>Events Happening Nearby</h2>
         </div>
         <div>
-            <Row>
-              <Col sm={{ size: 8, offset: 1 }}>
-                  <Card>
-                    <CardBody>
-                      <CardTitle>{this.eventList[0].title}</CardTitle>
-                      <CardSubtitle>{this.eventList[0].location}</CardSubtitle>
-                      <CardText className="text-left">{this.eventList[0].descr}</CardText>
-                      <Button color="success" className="float-right">Save</Button>
-                    </CardBody>
-                  </Card>
-              </Col>
-            </Row>
-            <br />
-            <Row>
-              <Col sm={{ size: 8, offset: 1 }}>
-                  <Card>
-                    <CardBody>
-                      <CardTitle>{this.eventList[1].title}</CardTitle>
-                      <CardSubtitle>{this.eventList[1].location}</CardSubtitle>
-                      <CardText className="text-left">{this.eventList[1].descr}</CardText>
-                      <Button color="success" className="float-right">Save</Button>
-                    </CardBody>
-                  </Card>
-              </Col>
-            </Row>
-            <br />
-            <Row>
-              <Col sm={{ size: 8, offset: 1 }}>
-                  <Card>
-                    <CardBody>
-                      <CardTitle>{this.eventList[2].title}</CardTitle>
-                      <CardSubtitle>{this.eventList[2].location}</CardSubtitle>
-                      <CardText className="text-left">{this.eventList[2].descr}</CardText>
-                      <Button color="success" className="float-right">Save</Button>
-                    </CardBody>
-                  </Card>
-              </Col>
-            </Row>
-            <br />
-            <Row>
-              <Col sm={{ size: 8, offset: 1 }}>
-                  <Card>
-                    <CardBody>
-                      <CardTitle>{this.eventList[3].title}</CardTitle>
-                      <CardSubtitle>{this.eventList[3].location}</CardSubtitle>
-                      <CardText className="text-left">{this.eventList[3].descr}</CardText>
-                      <Button color="success" className="float-right">Save</Button>
-                    </CardBody>
-                  </Card>
-              </Col>
-            </Row>
-            <br />
-            <Row>
-              <Col sm={{ size: 8, offset: 1 }}>
-                  <Card>
-                    <CardBody>
-                      <CardTitle>{this.eventList[4].title}</CardTitle>
-                      <CardSubtitle>{this.eventList[4].location}</CardSubtitle>
-                      <CardText className="text-left">{this.eventList[4].descr}</CardText>
-                      <Button color="success" className="float-right">Save</Button>
-                    </CardBody>
-                  </Card>
-              </Col>
-            </Row>
-            <br />
-            <Row>
-              <Col sm={{ size: 8, offset: 1 }}>
-                  <Card>
-                    <CardBody>
-                      <CardTitle>{this.eventList[5].title}</CardTitle>
-                      <CardSubtitle>{this.eventList[5].location}</CardSubtitle>
-                      <CardText className="text-left">{this.eventList[5].descr}</CardText>
-                      <Button color="success" className="float-right">Save</Button>
-                    </CardBody>
-                  </Card>
-              </Col>
-            </Row>
-            <br />
-            <Row>
-              <Col sm={{ size: 8, offset: 1 }}>
-                  <Card>
-                    <CardBody>
-                      <CardTitle>{this.eventList[6].title}</CardTitle>
-                      <CardSubtitle>{this.eventList[6].location}</CardSubtitle>
-                      <CardText className="text-left">{this.eventList[6].descr}</CardText>
-                      <Button color="success" className="float-right">Save</Button>
-                    </CardBody>
-                  </Card>
-              </Col>
-            </Row>
-            <br />
+            <ul>
+                {data.length <= 0
+                  ? ''
+                  : data.map((dat) => (
+                    <Row>
+                      <Col sm={{ size: 8, offset: 1 }}>
+                          <Card>
+                            <CardBody>
+                              <CardTitle>{dat.name}</CardTitle>
+                              <CardSubtitle>{dat.summary}</CardSubtitle>
+                              <CardText className="text-left">{dat.description}</CardText>
+                              <Button color="success" className="float-right">Save</Button>
+                            </CardBody>
+                          </Card>
+                      </Col>
+                    </Row>
+                  ))}
+                <br />
+            </ul>
         </div>
       </div>
     );

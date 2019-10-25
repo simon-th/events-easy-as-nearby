@@ -27,6 +27,16 @@ class SignUpFormBase extends Component {
         this.state = { ...INITIAL_STATE };
     }
 
+    componentDidMount() {
+      this.getUser();
+    }
+
+    getUser = () => {
+      axios.get('/api/signup/getuser')
+        .then((data) => data.json())
+        .then((res) => this.setState({data: res.data}));
+    };
+
     onSubmit = event => {
         const { username, email, passwordOne } = this.state;
         this.props.firebase.doCreateUserWithEmailAndPassword(email, passwordOne).then(authUser => {
@@ -41,8 +51,6 @@ class SignUpFormBase extends Component {
             this.setState({ error });
         });
         event.preventDefault();
-
-        
     }
 
 
@@ -66,6 +74,7 @@ class SignUpFormBase extends Component {
             username === '';
 
         return (
+
             <div className="Signup">
                 <form onSubmit = {this.onSubmit}>
                     <Form>
