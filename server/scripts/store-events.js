@@ -31,8 +31,8 @@ async function getVenue(URL) {
 }
 
 async function storeEvents() {
-  for (var i = 0; i < 5; i ++) {
-  // for (var i = 0; i < events.length; i ++) {
+  // for (var i = 0; i < 5; i ++) {
+  for (var i = 0; i < events.length; i ++) {
     var model = new Event();
     const event = events[i];
     model.name = event.name.text;
