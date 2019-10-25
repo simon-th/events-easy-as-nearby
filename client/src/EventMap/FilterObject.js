@@ -82,6 +82,7 @@ export default function FilterObject(props) {
       lat: 30.2842331,
       long: -97.7386967
     });
+    props.reRender();
     
   }
 

@@ -6,6 +6,8 @@ import MapContainer from "./MapContainer";
 import { Button } from '@material-ui/core';
 
 class EventMap extends Component {
+    reRender =()=>(this.forceUpdate())
+
     constructor(){
         super();
         this.state={
@@ -24,7 +26,7 @@ class EventMap extends Component {
         return (
             <div>
                 <MapContainer eventList={this.state.shownEvents} />
-                <Filters eventList={this.state.shownEvents} />
+                <Filters eventList={this.state.shownEvents} reRender={this.reRender} />
             </div>
         );
     }
