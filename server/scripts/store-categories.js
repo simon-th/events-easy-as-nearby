@@ -1,5 +1,7 @@
+// Script to store all Eventbrite categories as objects in our MongoDB database
+
 const axios = require('axios');
-const apiKeys = require('./api-keys.json');
+const apiKeys = require('../api-keys.json');
 const mongoose = require('mongoose');
 const Category = require('../mongodb_schemas/Category')
 
@@ -22,26 +24,13 @@ db.on('error', () => {
 var categories = [];
 // var dbConnected = false;
 
-async function saveCategory(category) {
-  // console.log(category);
-  await category.save((err) => {
-    if (err) return console.err(err);
-    console.log('tried to save..');
-  });
-}
-
-async function storeMusic() {
-  var music = {
-    'resource_uri': 'https://www.eventbriteapi.com/v3/categories/103/',
-    'id': '103',
-    'name': 'Music',
-    'name_localized': 'Music',
-    'short_name': 'Music',
-    'short_name_localized': 'Music'
+async function storeCategories() {
+  for (var i = 0; i < categories.length; i ++) {
+    var model = new Category(categories[i]);
+    await model.save();
+    console.log(`stored ${model.name}`);
   }
-  var musicModel = new Category(music);
-  await saveCategory(musicModel);
-  console.log('music saved?');
+  console.log('stored categories');
 }
 
 async function getCategories() {
@@ -61,7 +50,7 @@ async function getCategories() {
 async function main() {
   // await waitDb();
   await getCategories();
-  await storeMusic();
+  await storeCategories();
   process.exit();
 }
 
