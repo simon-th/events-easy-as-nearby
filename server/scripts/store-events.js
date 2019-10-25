@@ -31,7 +31,6 @@ async function getVenue(URL) {
 }
 
 async function storeEvents() {
-  // for (var i = 0; i < 5; i ++) {
   for (var i = 0; i < events.length; i ++) {
     var model = new Event();
     const event = events[i];
@@ -66,7 +65,6 @@ async function storeEvents() {
 }
 
 async function getEvents() {
-  // for (var i = 0; i < 5; i ++) {
   for (var i = 0; i < eventIds.length; i ++) {
     const eventId = eventIds[i];
     const EVENTBRITE_URL = `https://www.eventbriteapi.com/v3/events/${eventId}/?token=${apiKeys.eventbrite}`;
