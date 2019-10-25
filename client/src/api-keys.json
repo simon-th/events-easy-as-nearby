@@ -1,0 +1,11 @@
+{
+  "googleMaps": "AIzaSyDeVHuDYUXTjWLN7rEdXEBeG0hTrMkVWt8",
+  "firebaseAPI": "AIzaSyDe1wXA8ACBcjZ19txRuMsxkOjDkN8L3Bw",
+  "authDomain": "explocation.firebaseapp.com",
+  "databaseURL": "https://explocation.firebaseio.com",
+  "projectId": "explocation",
+  "storageBucket": "explocation.appspot.com",
+  "messagingSenderId": "975209891025",
+  "appId": "1:975209891025:web:385501fa8c8d762bf231f0",
+  "measurementId": "G-M9K0MVFZ0B"
+}
