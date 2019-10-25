@@ -45,7 +45,7 @@ const NavigationAuth = () => (
 );
 
 const NavigationNonAuth = () => (
-      <Navbar classname="navbar" style={{backgroundColor: "#c1cadb", height: '10vh'}} light expand="md">
+    <Navbar classname="navbar" style={{backgroundColor: "#c1cadb", height: '9vh', fontSize: '14px', fontWeight: '400'}} light expand="md">
         <IndexLinkContainer to="/" exact>
             <NavbarBrand>Explocation</NavbarBrand>
         </IndexLinkContainer>
