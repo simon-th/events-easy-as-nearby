@@ -93,7 +93,7 @@ export default function PersistentDrawerRight(props) {
           </IconButton>
         </div>
         <Divider />
-        <FilterObject eventList={props.eventList}/>
+        <FilterObject eventList={props.eventList} reRender={props.reRender}/>
       </Drawer>
     </div>
   );
