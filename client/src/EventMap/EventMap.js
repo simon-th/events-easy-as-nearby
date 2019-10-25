@@ -16,7 +16,8 @@ class EventMap extends Component {
                 title: "Yash's Birthday",
                 descr: "Come celebrate Yash's 21st birthday at Skyloft! It's a study party so bring your own books.",
                 lat: 30.286358,
-                long: -97.7456957
+                long: -97.7456957,
+                weight:1
               }]
         }
     }

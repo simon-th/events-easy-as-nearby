@@ -80,7 +80,8 @@ export default function FilterObject(props) {
       title: "Wood Chopping Contest",
       descr: "We're not sure why this is a thing but it is, so come out and chop wood at Gregory Gymanisum.. I guess?",
       lat: 30.2842331,
-      long: -97.7386967
+      long: -97.7386967,
+      weight: 0.5
     });
     props.reRender();
     

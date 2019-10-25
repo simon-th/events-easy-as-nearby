@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {HeatMap, Map, GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react'
+import {Map, GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react'
+import {HeatMap} from './HeatMap';
 import apiKeys from '../api-keys.json'
 
 
@@ -26,11 +27,10 @@ class MapContainer extends Component {
           });
         }
       };
-
      
     render() {
   
-      const positions = this.props.eventList.map(item => { return { "lat": item.lat, "lng": item.long}});
+      
         console.log(this.props.eventList);
         if (!this.props.google) {
             return <div>Loading...</div>;
@@ -58,9 +58,9 @@ class MapContainer extends Component {
               "rgba(255, 113, 0, 1)",
               "rgba(255, 57, 0, 1)",
               "rgba(255, 0, 0, 1)"]}
-              positions={positions}
-              // opacity={1}
-              radius={20}
+              positions={this.props.eventList.map(item => { return { "lat": item.lat, "lng": item.long, "weight": item.weight}})}
+              opacity={1}
+              radius={50}
             />
            
         <Marker onClick={this.onMarkerClick} name={'Current Location'}/>
