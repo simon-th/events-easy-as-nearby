@@ -10,14 +10,6 @@ const app = express();
 app.use(cors());
 const router = express.Router();
 
-// const dbRoute =
-//   "mongodb+srv://huy0123:huy_utexas@explocationdb-qtiwe.gcp.mongodb.net/users?retryWrites=true&w=majority";
-
-// mongoose.connect(dbRoute, { useNewUrlParser: true });
-// let db = mongoose.connection;
-// db.once('open', () => console.log('connected to the database'));
-// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(logger('dev'));

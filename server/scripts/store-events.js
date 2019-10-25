@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const Event = require('../mongodb_schemas/Event')
 const eventIds = require('./event-list');
 
-const DATABASE_NAME = 'events';
+const DATABASE_NAME = 'explocation';
 const CONNECTION_URL = `mongodb+srv://huy0123:huy_utexas@explocationdb-qtiwe.gcp.mongodb.net/${DATABASE_NAME}?retryWrites=true&w=majority`;
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true});
