@@ -70,7 +70,19 @@ export default function FilterObject(props) {
     .map((param)=>{return param});
     console.log(params);
     console.log(distance);
-    props.eventList.push(1);
+    /*
+    while(props.eventList.length>0){
+      props.eventList.pop();
+    }
+    */
+    props.eventList.push({
+      id: 1,
+      title: "Wood Chopping Contest",
+      descr: "We're not sure why this is a thing but it is, so come out and chop wood at Gregory Gymanisum.. I guess?",
+      lat: 30.2842331,
+      long: -97.7386967
+    });
+    
   }
 
   return (
