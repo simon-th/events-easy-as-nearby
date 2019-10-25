@@ -31,8 +31,8 @@ async function getVenue(URL) {
 }
 
 async function storeEvents() {
-  // for (var i = 0; i < 1; i ++) {
-  for (var i = 0; i < events.length; i ++) {
+  for (var i = 0; i < 5; i ++) {
+  // for (var i = 0; i < events.length; i ++) {
     var model = new Event();
     const event = events[i];
     model.name = event.name.text;
@@ -59,14 +59,14 @@ async function storeEvents() {
     model.venue_address.postal_code = venue.address.postal_code;
     model.venue_address.country = venue.address.country;
     model.venue_name = venue.name;
-    // console.log(model);
-    // await model.save();
-    console.log(`stored ${model.name}`);
+    await model.save();
+    console.log(`${i} stored ${model.name}`);
   }
   console.log('stored events');
 }
 
 async function getEvents() {
+  // for (var i = 0; i < 5; i ++) {
   for (var i = 0; i < eventIds.length; i ++) {
     const eventId = eventIds[i];
     const EVENTBRITE_URL = `https://www.eventbriteapi.com/v3/events/${eventId}/?token=${apiKeys.eventbrite}`;
@@ -75,6 +75,7 @@ async function getEvents() {
     });
     const info = JSON.parse(JSON.stringify(response.data));
     events.push(info);
+    console.log(`${i} received ${info.name.text}`)
   }
   console.log('got events');
 }
