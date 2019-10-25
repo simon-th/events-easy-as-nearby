@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function PersistentDrawerRight() {
+export default function PersistentDrawerRight(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -93,7 +93,7 @@ export default function PersistentDrawerRight() {
           </IconButton>
         </div>
         <Divider />
-        <FilterObject />
+        <FilterObject eventList={props.eventList}/>
       </Drawer>
     </div>
   );

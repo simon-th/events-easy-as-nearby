@@ -8,8 +8,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
+import { renderComponent } from 'recompose';
+import Button from '@material-ui/core/Button';
 
-
+const filters =['Free','checkedTag2','checkedTag3','checkedTag4'];
 const useStyles = makeStyles(theme => ({
     root: {
         marginLeft: 20,
@@ -35,33 +37,68 @@ const MyCheckbox = withStyles({
   checked: {},
 })(props => <Checkbox color="default" {...props} />);
 
-export default function FilterObject() {
-        const [state, setState] = React.useState({
-        checkedTag1: false,
-        checkedTag2: false,
-        checkedTag3: false,
-        checkedTag4: false,
-    });
 
+
+
+
+
+
+export default function FilterObject(props) {
   const handleChange = name => event => {
     setState({ ...state, [name]: event.target.checked });
-  };
+    };
+
+  const [state, setState] = React.useState({
+    [filters[0]]: false,
+    [filters[1]]: false,
+    [filters[2]]: false,
+    [filters[3]]: false,
+    distance: 10
+  }); 
 
   const classes = useStyles();
+  function requestFilters(){
+    let params = [];
+    let distance=state.distance;
+    console.log(state);
+    params=filters.filter((param)=>{
+      if(param=="distance"){
+        return false;
+      }
+      return state[param]
+    })
+    .map((param)=>{return param});
+    console.log(params);
+    console.log(distance);
+    /*
+    while(props.eventList.length>0){
+      props.eventList.pop();
+    }
+    */
+    props.eventList.push({
+      id: 1,
+      title: "Wood Chopping Contest",
+      descr: "We're not sure why this is a thing but it is, so come out and chop wood at Gregory Gymanisum.. I guess?",
+      lat: 30.2842331,
+      long: -97.7386967
+    });
+    
+  }
 
   return (
     <div>
     <Typography id="discrete-slider" gutterBottom>Filters</Typography>
     <FormGroup>
+      
       <FormControlLabel
         control={
           <MyCheckbox
             checked={state.checkedTag1}
-            onChange={handleChange('checkedTag1')}
-            value="checkedTag1"
+            onChange={handleChange('Free')}
+            value="Free"
           />
         }
-        label="Custom color"
+        label="Free"
       />
       <FormControlLabel
         control={
@@ -83,6 +120,7 @@ export default function FilterObject() {
         }
         label="Custom color"
       />    
+      
     </FormGroup> 
 
     <Divider />
@@ -90,7 +128,8 @@ export default function FilterObject() {
     <div className={classes.root}>
         <Typography id="discrete-slider" gutterBottom>Distance</Typography>
         <Slider
-        defaultValue={30}
+        id="distanceSlider"
+        defaultValue={10}
         getAriaValueText={valuetext}
         aria-labelledby="discrete-slider"
         valueLabelDisplay="auto"
@@ -98,9 +137,18 @@ export default function FilterObject() {
         mark
         min={1}
         max={15}
+        onChange={(event, value) => {
+          setState({ ...state, distance: value});
+          }}
       />
+      <div>
+        <Button onClick={requestFilters}>Submit</Button>
+      </div>
     </div>
     </div>
 
   );
 }
+
+
+
