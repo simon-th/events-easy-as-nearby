@@ -23,7 +23,6 @@ class EventMap extends Component {
     render() {
         return (
             <div>
-                <Button onClick={()=>console.log(this.state.shownEvents)}>Test</Button>
                 <MapContainer eventList={this.state.shownEvents} />
                 <Filters eventList={this.state.shownEvents} />
             </div>

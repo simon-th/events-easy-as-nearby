@@ -6,7 +6,6 @@ import MyEvents from '../MyEvents/MyEvents';
 import CustomMarker from '../Components/CustomMarker/CustomMarker';
 import Markers from './Markers';
 
-
 export class MapContainer extends Component {
   state = {
     showingInfoWindow: false,
@@ -14,8 +13,6 @@ export class MapContainer extends Component {
     selectedPlace: {},
     
   };
-
- 
 
   onMarkerClick = (props, marker, e) =>
     this.setState({
@@ -42,8 +39,6 @@ export class MapContainer extends Component {
        />
     )
   );
-
-  
 
   render() {
     return (
