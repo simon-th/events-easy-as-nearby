@@ -1,18 +1,9 @@
-const mongoose = require('mongoose');
-//require('dotenv').config();
-var router = require('express').Router();
-const User = require('./data');
+const express = require('express');
+const User = require('../../mongodb_schemas/User');
 
-// const app = express();
-// app.use(cors());
-// const router = express.Router();
-//
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
-// app.use(logger('dev'));
+const router = express.Router();
 
 router.post('/newuser', (req, res) => {
-  console.log("reached");
   let user = new User();
 
   const { username, email } = req.body;
@@ -25,15 +16,21 @@ router.post('/newuser', (req, res) => {
   }
   user.username = username;
   user.email = email;
-  user.saved_event = "";
+  user.saved_event = null;
   user.save((err) => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });
   });
 });
 
-router.get('/getuser', (req, res) => {
-  res.send('testing');
+router.get('/findname', (req, res) => {
+  const { useremail } = req.body;
+  User.find({ email: useremail }, function(err, data) {
+    if (err) return res.json({ success: false, error: err });
+    console.log(res.data);
+    return res.json({ success: true, data: data });
+  });
+
 });
 
 router.get('/test', (req, res) => {

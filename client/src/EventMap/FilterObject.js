@@ -5,13 +5,18 @@ import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { renderComponent } from 'recompose';
 import Button from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import { MenuItem } from '@material-ui/core';
+import axios from 'axios';
 
-const filters =['Free','checkedTag2','checkedTag3','checkedTag4'];
+const filters =['free'];
 const useStyles = makeStyles(theme => ({
     root: {
         marginLeft: 20,
@@ -43,24 +48,34 @@ const MyCheckbox = withStyles({
 
 
 
+
 export default function FilterObject(props) {
   const handleChange = name => event => {
     setState({ ...state, [name]: event.target.checked });
     };
 
+
+
+
+
   const [state, setState] = React.useState({
-    [filters[0]]: false,
-    [filters[1]]: false,
-    [filters[2]]: false,
-    [filters[3]]: false,
-    distance: 10
-  }); 
+    Free: false,
+    distance: 10,
+    date: new Date(),
+    category:"all",
+    days:'999'
+  });
 
   const classes = useStyles();
   function requestFilters(){
     let params = [];
     let distance=state.distance;
+    let free=state.Free;
+    let date=state.date.toISOString();
+    let days=state.days;
+    let category=state.category;
     console.log(state);
+    /*
     params=filters.filter((param)=>{
       if(param=="distance"){
         return false;
@@ -69,69 +84,98 @@ export default function FilterObject(props) {
     })
     .map((param)=>{return param});
     console.log(params);
+    */
+    console.log(free);
+    console.log(date);
+    console.log(category);
     console.log(distance);
+    console.log(days);
 
-    // Params is an array of the checked parameters while distance is the value of the slider. 
-    //Make axios request using these parameters
 
-    /*
     while(props.eventList.length>0){
       props.eventList.pop();
     }
-    */
-    props.eventList.push({
-      id: 1,
-      title: "Wood Chopping Contest",
-      descr: "We're not sure why this is a thing but it is, so come out and chop wood at Gregory Gymanisum.. I guess?",
-      lat: 30.2842331,
-      long: -97.7386967
+
+    axios.get('/events/filter?category='+category
+    +'&within='+days+'&distance='+distance+'&free='
+    +free+'&today='+date+'&latitude=30.2669624&longitude=-97.7728593')
+  .then(function (response) {
+    console.log(response);
+    response.data.forEach(element => {
+      props.eventList.push(element);
+
     });
+    console.log(props.eventList);
     props.reRender();
-    
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+
+
   }
+
+
+
+
 
   return (
     <div>
-    <Typography id="discrete-slider" gutterBottom>Filters</Typography>
-    <FormGroup>
-      
-      <FormControlLabel
-        control={
-          <MyCheckbox
-            checked={state.checkedTag1}
-            onChange={handleChange('Free')}
-            value="Free"
-          />
-        }
-        label="Free"
-      />
-      <FormControlLabel
-        control={
-          <MyCheckbox
-            checked={state.checkedTag2}
-            onChange={handleChange('checkedTag2')}
-            value="checkedTag2"
-          />
-        }
-        label="Custom color"
-      />
-      <FormControlLabel
-        control={
-          <MyCheckbox
-            checked={state.checkedTag3}
-            onChange={handleChange('checkedTag3')}
-            value="checkedTag3"
-          />
-        }
-        label="Custom color"
-      />    
-      
-    </FormGroup> 
 
-    <Divider />
+
 
     <div className={classes.root}>
         <Typography id="discrete-slider" gutterBottom>Distance</Typography>
+        <div>
+        <FormGroup>
+        <FormControl >
+        <InputLabel>Categories</InputLabel>
+        <Select
+        value={state.category}
+            onChange={(event)=>setState(
+             { ...state, category : event.target.value}
+            )}
+            inputProps={{
+              name: 'All',
+              id: 'all',
+            }}
+
+        >
+          <MenuItem key={"all"} value={"all"}>All</MenuItem>
+           {props.categories.map((category) => (
+                <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
+             ))}
+
+        </Select>
+      </FormControl>
+      <FormControl >
+        <InputLabel htmlFor="age-simple">Date</InputLabel>
+        <Select
+          value={state.days}
+          onChange={(event)=>setState(
+           { ...state, days : event.target.value}
+          )}
+          inputProps={{
+            name: 'Any Day',
+            id: '999',
+          }}
+
+        >
+          <MenuItem value='999'>Any Day</MenuItem>
+          <MenuItem value='0'>Today</MenuItem>
+          <MenuItem value='1'>Tomorrow</MenuItem>
+          <MenuItem value='7'>This Week</MenuItem>
+          <MenuItem value='14'>Next Week</MenuItem>
+        </Select>
+      </FormControl>
+      </FormGroup>
+
+        </div>
+
+
+
+
         <Slider
         id="distanceSlider"
         defaultValue={10}
@@ -146,6 +190,24 @@ export default function FilterObject(props) {
           setState({ ...state, distance: value});
           }}
       />
+      <Divider />
+        <FormGroup>
+
+      <FormControlLabel
+        control={
+          <MyCheckbox
+            checked={state.checkedTag1}
+            onChange={handleChange('Free')}
+            value="Free"
+          />
+        }
+        label="Free Events"
+      />
+
+
+    </FormGroup>
+
+
       <div>
         <Button onClick={requestFilters}>Submit</Button>
       </div>
@@ -154,6 +216,3 @@ export default function FilterObject(props) {
 
   );
 }
-
-
-

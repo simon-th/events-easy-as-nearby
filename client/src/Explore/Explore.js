@@ -1,10 +1,17 @@
 import React, {Component} from "react";
-import {
-  Card, CardText, CardBody,
-  CardTitle, CardSubtitle, Button, Row, Col
-} from "reactstrap";
-//import axios from "axios";
-
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import "./Explore.css";
+import SaveButton from "./SaveButton";
+import axios from 'axios';
+import Tooltip from '@material-ui/core/Tooltip';
+import { AuthUserContext } from '../Components/Session';
 
 class Explore extends Component {
 
@@ -13,6 +20,9 @@ class Explore extends Component {
     name: null,
     description: null,
     summary: null,
+    url: null,
+    image_url: null,
+    id: null,
   };
 
   componentDidMount() {
@@ -20,39 +30,76 @@ class Explore extends Component {
   }
 
   getEventFromDb = () => {
-      fetch('/api/explore/geteventlist')
+      fetch('/events/all')
         .then((data) => data.json())
         .then((res) => this.setState({ data: res.data}));
   }
 
+  saveEvent = (email, id) => {
+    axios.post('/savedevent', {
+      email: email,
+      event_id: id,
+    });
+  };
+
   render () {
     const { data } = this.state;
-    console.log(data);
     return (
       <div>
         <div className="text-center">
           <h2>Events Happening Nearby</h2>
         </div>
+
         <div>
-            <ul>
+          <Grid container className="grid" spacing={2}>
                 {data.length <= 0
                   ? ''
                   : data.map((dat) => (
-                    <Row>
-                      <Col sm={{ size: 8, offset: 1 }}>
-                          <Card>
-                            <CardBody>
-                              <CardTitle>{dat.name}</CardTitle>
-                              <CardSubtitle>{dat.summary}</CardSubtitle>
-                              <CardText className="text-left">{dat.description}</CardText>
-                              <Button color="success" className="float-right">Save</Button>
-                            </CardBody>
-                          </Card>
-                      </Col>
-                    </Row>
+                    <Card className="exploreCard">
+                      <CardActionArea target="_blank" href={dat.url}>
+                        <CardMedia
+                          component="img"
+                          alt="No image available"
+                          height="180"
+                          image={dat.image_url}
+                          title={dat.name}
+                        />
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {dat.name}
+                          </Typography>
+                          <Typography variant="body2" color="textSecondary" component="p">
+                          {dat.summary}
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                      <CardActions className="buttons">
+                      <div>
+                      <AuthUserContext.Consumer>
+                          {authUser =>
+                            authUser ?
+                            <Button onClick={() => this.saveEvent(authUser.email, dat.id)} className="buttons" size="small" color="primary">
+                              Save Event
+                            </Button>
+                            :
+                            <Tooltip title="Login to save event">
+                                <span>
+                                <Button className="buttons" disabled size="small" color="primary">
+                                  Save Event
+                                </Button>
+                                </span>
+                            </Tooltip>
+                          }
+                      </AuthUserContext.Consumer>
+                      </div>
+                        <Button size="small" color="primary" target="_blank" href={dat.url}>
+                          Learn More
+                        </Button>
+                      </CardActions>
+                    </Card>
                   ))}
                 <br />
-            </ul>
+            </Grid>
         </div>
       </div>
     );
