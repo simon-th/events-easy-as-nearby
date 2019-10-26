@@ -31,7 +31,7 @@ const contributorInfo = {
         bio:
             'Angel is a third-year ECE major with technical cores in Software and Academic Enrichment. Her interests include drawing, pettings dogs, and watching movies.',
         responsibilities:
-            'Angel worked on the frontend team to implement the UI design. She added the information for the About page, added the Explore page, and cleaned the user interface formatting. Later, she created the UI for the sidebar components and expanded the map on the map page, and updated the About page.'
+            'Angel worked on the frontend team to implement the UI design. She added the information for the About page, added the Explore page, and cleaned the user interface formatting. Later, she created the UI for the sidebar components and expanded the map on the map page, updated the design for Explore/Saved Events UI, and updated the About page.'
     },
     'simon-th': {
         name: 'Simon Hoque',
@@ -41,7 +41,7 @@ const contributorInfo = {
         bio:
             'Simon is a third-year ECE major with technical cores in Software and Academic Enrichment. He spends most of his free time listening to EDM, playing soccer, and browsing on the Uniqlo website.',
         responsibilities:
-            'Simon contributed mainly to the backend by structuring the git tree, setting up the hard-coded events, and working on API calls. Later, he worked on the backend in order to pull events from Eventbrite API.'
+            'Simon contributed mainly to the backend by structuring the git tree, setting up the hard-coded events, and working on API calls. Later, he stayed on backend to pull event information from the Eventbrite API and implemented filtering. He worked on refactoring our code as well.'
     },
     'yashlad': {
         name: 'Yash Lad',
@@ -51,7 +51,7 @@ const contributorInfo = {
         bio:
             'Yash is a third-year ECE major with technical cores in Software and Academic Enrichment. His hobbies consist of PC gaming, dancing, and playing basketball.',
         responsibilities:
-            'Yash was on the frontend team; he implemented the initial UI structure by adding the Map page, Login/Register pages, and the Saved Events. Later, he implemented requests from the frontend sidebar controls on the map page to the background for filtering functionality.'
+            'Yash was on the frontend team; he implemented the initial UI structure by adding the Map page, Login/Register pages, and the Saved Events. Later, he implemented requests from the frontend sidebar controls on the map page to the background for filtering functionality and mounted a heatmap layer with hardcoded attendee weights onto the map.'
     },
     jovinjoej: {
         name: 'Jovin Joseph',
@@ -61,7 +61,7 @@ const contributorInfo = {
         bio:
             'Jovin is a fourth-year ECE major with technical cores in Software and Academic Enrichment. He enjoys photography, playing volleyball, and spending time with friends.',
         responsibilities:
-            'Jovin contributed to much of the logistics; he contributed to a lot of the proposal and reports, and kept everyone on the same page. In our second phase, Jovin was in charge of frontend Selenium testing.'
+            'Jovin contributed to much of the logistics; he contributed to a lot of the proposal and reports, and kept everyone on the same page. In our second phase, Jovin was in charge of frontend Selenium and completing the report details.'
     },
     shaniapaul: {
         name: 'Shania Paul',
@@ -81,7 +81,7 @@ const contributorInfo = {
         bio:
             'Huy is a fifth-year ECE major with technical cores in Software and Integrated Circuit. His hobbies include playing videogames and watching sports.',
         responsibilities:
-            'Huy worked on both frontend and backend. He initialized the app and redesigned the UI to be sleek with animations and displayed API data onto the webpage. In the next phase, he implemented user login verification, added an account page, and added user information into the MongoDB database.'
+            'Huy worked on both frontend and backend. He initialized the app and redesigned the UI to be sleek with animations and displayed API data onto the webpage. In the next phase, he implemented user login verification, added an account page, and added user information into the MongoDB database. He also applied a persistent drawer and float button for more elegant UI. Afterwards, he worked on restrictive routing and saving events for registered users.'
     }
 };
 
@@ -314,7 +314,7 @@ class AboutPage extends React.Component {
 
                         <ListGroupItem>
                             <ListGroupItemHeading>Tools:</ListGroupItemHeading>
-                            <ListGroupItemText tag="li">React: Javascript Library used to design and create sleek user interface.</ListGroupItemText>
+                            <ListGroupItemText tag="li">React(reactstrap and Material UI): Javascript Library used to design and create sleek user interface.</ListGroupItemText>
                             <ListGroupItemText tag="li">MongoDB: Database storing in event information from Google Maps, Eventbrite, and other data sources. It will also store some user data, such as from login. </ListGroupItemText>
                             <ListGroupItemText tag="li">Firebase: Development platform by Google used for user verification and password security during login.</ListGroupItemText>
                             <ListGroupItemText tag="li">Express.js: Set up for server use and connected to MongoDB. It connects the backend resources to the frontend components.</ListGroupItemText>
