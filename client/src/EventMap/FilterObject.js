@@ -70,6 +70,10 @@ export default function FilterObject(props) {
     .map((param)=>{return param});
     console.log(params);
     console.log(distance);
+
+    // Params is an array of the checked parameters while distance is the value of the slider. 
+    //Make axios request using these parameters
+
     /*
     while(props.eventList.length>0){
       props.eventList.pop();

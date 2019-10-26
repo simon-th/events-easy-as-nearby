@@ -5,7 +5,7 @@ const apiKeys = require('../api-keys.json');
 const mongoose = require('mongoose');
 const Category = require('../mongodb_schemas/Category')
 
-const DATABASE_NAME = 'events';
+const DATABASE_NAME = 'explocation';
 const CONNECTION_URL = `mongodb+srv://huy0123:huy_utexas@explocationdb-qtiwe.gcp.mongodb.net/${DATABASE_NAME}?retryWrites=true&w=majority`;
 var EVENTBRITE_URL = `https://www.eventbriteapi.com/v3/categories/?token=${apiKeys.eventbrite}`;
 
