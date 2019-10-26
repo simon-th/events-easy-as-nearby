@@ -9,6 +9,7 @@ class MapContainer extends Component {
         showingInfoWindow: false,
         activeMarker: {},
         selectedPlace: {},
+        eventList: this.props.eventList
         
       };
     
@@ -27,6 +28,12 @@ class MapContainer extends Component {
           });
         }
       };
+
+      componentDidUpdate(prevProps){
+        if(prevProps.eventList!=this.props.eventList){
+          this.setState({eventList:this.props.eventList})
+        }
+      }
      
     render() {
   
@@ -44,7 +51,7 @@ class MapContainer extends Component {
         }}
       >
         <Map  google={this.props.google} zoom={14} initialCenter={{lat: 30.286358,
-                lng: -97.7456957}}>
+                lng: -97.7456957}} key={this.props.eventList}>
 
             <HeatMap
               gradient={["rgba(102, 255, 0, 0)",
@@ -64,7 +71,7 @@ class MapContainer extends Component {
             />
            
         <Marker onClick={this.onMarkerClick} name={'Current Location'}/>
-        {this.props.eventList.map(marker => (
+        {this.state.eventList.map(marker => (
                 <Marker
                 position={{ lat: marker.lat, lng: marker.long }}
                 key={marker.id}

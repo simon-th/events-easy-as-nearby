@@ -4,6 +4,7 @@ import Filters from "./Filters";
 import MapContainer from "./MapContainer";
 //import MapContain from './MapContain'
 import { Button } from '@material-ui/core';
+import axios from 'axios'
 
 class EventMap extends Component {
     reRender =()=>(this.forceUpdate())
@@ -18,16 +19,30 @@ class EventMap extends Component {
                 lat: 30.286358,
                 long: -97.7456957,
                 weight:1
-              }]
+              }],
+              categories:[
+                  {
+                      id:"all",
+                      name:"All"
+                  }
+              ]
         }
     }
-
+    componentDidMount(){
+    axios.get('/user/categories')
+    .then(function (response) {
+    console.log(response);
+     })
+     .catch(function (error) {
+    console.log(error);
+    });
+    }
     
     render() {
         return (
             <div>
                 <MapContainer eventList={this.state.shownEvents} />
-                <Filters eventList={this.state.shownEvents} reRender={this.reRender} />
+                <Filters eventList={this.state.shownEvents} categories={this.state.categories} reRender={this.reRender} />
             </div>
         );
     }
