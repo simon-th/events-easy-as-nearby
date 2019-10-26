@@ -40,8 +40,11 @@ async function storeEvents() {
     model.id = event.id;
     model.url = event.url;
     model.category_id = event.category_id;
-    model.start = event.start;
-    model.end = event.end;
+    model.start_time = event.start.utc;
+    model.end_time = event.end.utc;
+    model.is_free = event.is_free;
+    if (event.logo != null) model.image_url = event.logo.url;
+    else model.image_url = null;
     var venueId = event.venue_id;
     var VENUE_URL = `https://www.eventbriteapi.com/v3/venues/${venueId}/?token=${apiKeys.eventbrite}`;
     var response = await axios.get(VENUE_URL).catch(function (error) {
