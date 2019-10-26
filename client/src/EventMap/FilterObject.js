@@ -14,6 +14,7 @@ import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import { MenuItem } from '@material-ui/core';
+import axios from 'axios';
 
 const filters =['free'];
 const useStyles = makeStyles(theme => ({
@@ -53,23 +54,16 @@ export default function FilterObject(props) {
     setState({ ...state, [name]: event.target.checked });
     };
 
-    const [values, setValues] = React.useState({
-      id :'all',
-      name: 'All',
-    });
+  
 
-    const handleSelectChange = event => {
-      setValues(oldValues => ({
-        ...oldValues,
-        [event.target.name]: event.target.value,
-      }));
-    };
+   
 
   const [state, setState] = React.useState({
     Free: false,
     distance: 10,
     date: new Date(),
-    category:"all"
+    category:"all",
+    days:'999'
   }); 
 
   const classes = useStyles();
@@ -77,7 +71,8 @@ export default function FilterObject(props) {
     let params = [];
     let distance=state.distance;
     let free=state.Free;
-    let date=state.date;
+    let date=state.date.toISOString();
+    let days=state.days;
     let category=state.category;
     console.log(state);
     /*
@@ -94,23 +89,33 @@ export default function FilterObject(props) {
     console.log(date);
     console.log(category);
     console.log(distance);
+    console.log(days);
+    
     
     while(props.eventList.length>0){
       props.eventList.pop();
     }
-    
-    props.eventList.push({
-      id: 1,
-      title: "Wood Chopping Contest",
-      descr: "We're not sure why this is a thing but it is, so come out and chop wood at Gregory Gymanisum.. I guess?",
-      lat: 30.2842331,
-      long: -97.7386967,
-      weight: 0.5
+   
+    axios.get('/events/filter?category='+category
+    +'&within='+days+'&distance='+distance+'&free='
+    +free+'&today='+date+'&latitude=30.2669624&longitude=-97.7728593')
+  .then(function (response) {
+    console.log(response);
+    response.data.forEach(element => {
+      props.eventList.push(element);
+      
     });
+    console.log(props.eventList);
     props.reRender();
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+   
+    
     
   }
-  console.log(props.categories);
+
 
   
  
@@ -147,10 +152,21 @@ export default function FilterObject(props) {
       <FormControl >
         <InputLabel htmlFor="age-simple">Date</InputLabel>
         <Select
-          
+          value={state.days}
+          onChange={(event)=>setState(
+           { ...state, days : event.target.value}
+          )}
+          inputProps={{
+            name: 'Any Day',
+            id: '999',
+          }}
           
         >
-         
+          <MenuItem value='999'>Any Day</MenuItem>
+          <MenuItem value='0'>Today</MenuItem>
+          <MenuItem value='1'>Tomorrow</MenuItem>
+          <MenuItem value='7'>This Week</MenuItem>
+          <MenuItem value='14'>Next Week</MenuItem>
         </Select>
       </FormControl>
       </FormGroup>

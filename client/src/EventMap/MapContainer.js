@@ -34,6 +34,10 @@ class MapContainer extends Component {
           this.setState({eventList:this.props.eventList})
         }
       }
+      parseISOString(s) {
+        var b = s.split(/\D+/);
+        return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
+      }
      
     render() {
   
@@ -65,18 +69,21 @@ class MapContainer extends Component {
               "rgba(255, 113, 0, 1)",
               "rgba(255, 57, 0, 1)",
               "rgba(255, 0, 0, 1)"]}
-              positions={this.props.eventList.map(item => { return { "lat": item.lat, "lng": item.long, "weight": item.weight}})}
-              opacity={1}
+              positions={this.props.eventList.map(item => { return { "lat": item.latitude, "lng": item.longitude, "weight": 1}})}
+              opacity={0.6}
               radius={50}
             />
            
         <Marker onClick={this.onMarkerClick} name={'Current Location'}/>
         {this.state.eventList.map(marker => (
                 <Marker
-                position={{ lat: marker.lat, lng: marker.long }}
+                position={{ lat: marker.latitude, lng: marker.longitude }}
                 key={marker.id}
                 onClick={this.onMarkerClick}
-                name={marker.title}
+                name={marker.name}
+                venueName={marker.venue_name}
+                start={marker.start_time}
+                end={marker.end_time}
                 />
     ))}
         
@@ -85,8 +92,16 @@ class MapContainer extends Component {
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
         >
+          <div className="text-center">
           <div>
-            <h4>{this.state.selectedPlace.name}</h4>
+            <h6>{this.state.selectedPlace.name}</h6>
+          </div>
+          <div>
+            <p>{this.state.selectedPlace.venueName}</p>
+          </div>
+          <div>
+            <p>{new Date(this.state.selectedPlace.start).toUTCString()} - {new Date(this.state.selectedPlace.end).toUTCString()}</p>
+          </div>
           </div>
         </InfoWindow>
 
