@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
+const express = require('express');
 //require('dotenv').config();
-var router = require('express').Router();
+// var router = require('express').Router();
 const User = require('./data');
 
-const dbRoute =
-  "mongodb+srv://huy0123:huy_utexas@explocationdb-qtiwe.gcp.mongodb.net/users?retryWrites=true&w=majority";
+// const app = express();
+// app.use(cors());
+const router = express.Router();
 
-mongoose.connect(dbRoute, { useNewUrlParser: true });
-let db = mongoose.connection;
-db.once('open', () => console.log('connected to the database'));
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+// app.use(logger('dev'));
 
 router.post('/newuser', (req, res) => {
   console.log("reached");
@@ -35,5 +36,9 @@ router.post('/newuser', (req, res) => {
 router.get('/getuser', (req, res) => {
   res.send('testing');
 });
+
+router.get('/test', (req, res) => {
+  res.send('signup api route works!');
+})
 
 module.exports = router;

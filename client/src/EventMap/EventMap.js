@@ -28,10 +28,16 @@ class EventMap extends Component {
               ]
         }
     }
+
     componentDidMount(){
-    axios.get('/user/categories')
+    let self=this;
+    axios.get('/events/categories')
     .then(function (response) {
     console.log(response);
+    console.log(response.data);
+    self.state.categories=response.data.map((category)=>(
+         {id: category.id, name: category.name}))
+         
      })
      .catch(function (error) {
     console.log(error);

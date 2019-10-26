@@ -8,16 +8,8 @@ const EventSchema = new Schema({
   id: String,
   url: String,
   category_id: String,
-  start: {
-    timezone: String,
-    local: String,
-    utc: String
-  },
-  end: {
-    timezone: String,
-    local: String,
-    utc: String
-  },
+  start_time: String,
+  end_time: String,
   latitude: String,
   longitude: String,
   venue_address: {
@@ -28,7 +20,9 @@ const EventSchema = new Schema({
     postal_code: String,
     country: String,
   },
-  venue_name: String
+  venue_name: String,
+  is_free: Boolean,
+  image_url: String
 });
 
 module.exports = mongoose.model('Event', EventSchema, 'event_info');

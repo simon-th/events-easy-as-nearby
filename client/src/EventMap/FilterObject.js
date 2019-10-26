@@ -53,8 +53,20 @@ export default function FilterObject(props) {
     setState({ ...state, [name]: event.target.checked });
     };
 
+    const [values, setValues] = React.useState({
+      id :'all',
+      name: 'All',
+    });
+
+    const handleSelectChange = event => {
+      setValues(oldValues => ({
+        ...oldValues,
+        [event.target.name]: event.target.value,
+      }));
+    };
+
   const [state, setState] = React.useState({
-    [filters[0]]: false,
+    Free: false,
     distance: 10,
     date: new Date(),
     category:"all"
@@ -100,6 +112,9 @@ export default function FilterObject(props) {
   }
   console.log(props.categories);
 
+  
+ 
+ 
   return (
     <div>
     
@@ -110,16 +125,21 @@ export default function FilterObject(props) {
         <div>
         <FormGroup>
         <FormControl >
-        <InputLabel htmlFor="age-simple">Categories</InputLabel>
+        <InputLabel>Categories</InputLabel>
         <Select
-          
-          onChange={(event, value) => {
-            setState({ ...state, date: value});
+        value={state.category}
+            onChange={(event)=>setState(
+             { ...state, category : event.target.value}
+            )}
+            inputProps={{
+              name: 'All',
+              id: 'all',
             }}
           
         >
-           {props.categories.map(category => (
-                <MenuItem value={category.id}>{category.name}</MenuItem>
+          <MenuItem key={"all"} value={"all"}>All</MenuItem>
+           {props.categories.map((category) => (
+                <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
              ))}
          
         </Select>
