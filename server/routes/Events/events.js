@@ -27,12 +27,10 @@ async function filterEventsByDate(events, today, within) {
   var filteredEvents = [];
   events.forEach((e) => {
     var present = new Date(today);
-    console.log(present.toISOString());
     var start = new Date(e.start_time);
     var end = new Date(e.end_time);
     var target = new Date();
     target.setDate(present.getDate() + within);
-    console.log(target.toISOString());
     if (((start > present) && (start < target)) || ((end > present) && (end < target))) {
       filteredEvents.push(e);
     }
@@ -54,22 +52,54 @@ router.get('/test', (req, res) => {
   res.send('events api route works!');
 });
 
+router.get('/all', async (req, res) => {
+  await Event.find()
+  .exec()
+  .then(data => {
+    if (data) {
+      res.status(200).json(data);
+    } else {
+      res.status(404).json({message: 'aiya'})
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({error: err});
+  });
+});
+
+router.get('/categories', async (req, res) => {
+  await Category.find()
+  .exec()
+  .then(data => {
+    if (data) {
+      res.status(200).json(data);
+    } else {
+      res.status(404).json({message: 'aiya'})
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({error: err});
+  });
+});
+
 router.get('/category', async (req, res) => {
   await Category.find({ id: req.query.id})
-    .exec()
-    .then(data => {
-      // console.log(data);
-      if (data) {
-        res.status(200).json(data);
-      } else {
-        res.status(404).json({message: 'aiya'})
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({error: err});
-    });
+  .exec()
+  .then(data => {
+    // console.log(data);
+    if (data) {
+      res.status(200).json(data);
+    } else {
+      res.status(404).json({message: 'aiya'})
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({error: err});
   });
+});
 
 router.get('/filter', async (req, res) => {
   try {
