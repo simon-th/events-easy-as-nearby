@@ -1,0 +1,17 @@
+.grid {
+    vertical-align: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.exploreCard {
+    max-width: 500px;
+    margin: 20px;
+    overflow: auto;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
