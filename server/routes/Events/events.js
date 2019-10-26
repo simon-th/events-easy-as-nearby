@@ -53,18 +53,9 @@ router.get('/test', (req, res) => {
 });
 
 router.get('/all', async (req, res) => {
-  await Event.find()
-  .exec()
-  .then(data => {
-    if (data) {
-      res.status(200).json(data);
-    } else {
-      res.status(404).json({message: 'aiya'})
-    }
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({error: err});
+  Event.find((err, data) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true, data: data });
   });
 });
 

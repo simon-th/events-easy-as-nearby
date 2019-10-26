@@ -24,7 +24,7 @@ class Explore extends Component {
   }
 
   getEventFromDb = () => {
-      fetch('/api/explore/geteventlist')
+      fetch('/events/all')
         .then((data) => data.json())
         .then((res) => this.setState({ data: res.data}));
   }

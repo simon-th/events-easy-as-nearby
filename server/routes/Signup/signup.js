@@ -1,15 +1,10 @@
 const mongoose = require('mongoose');
 //require('dotenv').config();
-var router = require('express').Router();
+const express = require('express')
 const User = require('./data');
 
 const app = express();
-app.use(cors());
 const router = express.Router();
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(logger('dev'));
 
 router.post('/newuser', (req, res) => {
   console.log("reached");
