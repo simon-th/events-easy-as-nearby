@@ -115,6 +115,7 @@ export default function FilterObject(props) {
 
 
   }
+  console.log(props.categories);
 
 
 

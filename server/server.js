@@ -24,7 +24,7 @@ const API_PORT = 3001;
 const app = express();
 app.use(cors());
 //app.use(express.static(__dirname + "./public"));
-app.use(express.static(path.join(__dirname, "../client/build")));
+//app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
@@ -36,8 +36,6 @@ app.use('/explore', require('./routes/Explore/explore'));
 app.use('/savedevent', require('./routes/SavedEvent/savedevent'));
 app.use('/myevents', require('./routes/MyEvents/myevents'));
 
-app.get('/*',(req, res) => {
-  res.sendFile(path.join(__dirname,"../client/build/index.html"));
-});
+
 
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));

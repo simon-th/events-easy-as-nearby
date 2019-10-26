@@ -24,3 +24,4 @@ yarn-error.log*
 
 # API keys
 */api-keys.json
+package-lock.json
