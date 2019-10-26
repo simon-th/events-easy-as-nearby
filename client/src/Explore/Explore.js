@@ -8,14 +8,11 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import "./Explore.css";
-<<<<<<< HEAD
 import SaveButton from "./SaveButton";
 import axios from 'axios';
 import Tooltip from '@material-ui/core/Tooltip';
 import { AuthUserContext } from '../Components/Session';
-=======
 
->>>>>>> cd2883009370988eea037329022f87c3cd565fc4
 
 class Explore extends Component {
 
