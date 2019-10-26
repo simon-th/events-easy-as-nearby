@@ -17,6 +17,8 @@ class Explore extends Component {
     name: null,
     description: null,
     summary: null,
+    url: null,
+    image_url: null,
   };
 
   componentDidMount() {
@@ -43,12 +45,12 @@ class Explore extends Component {
                   ? ''
                   : data.map((dat) => (
                     <Card className="exploreCard">
-                      <CardActionArea>
+                      <CardActionArea target="_blank" href={dat.url}>
                         <CardMedia
                           component="img"
                           alt="No image available"
                           height="180"
-                          image="https://animals.sandiegozoo.org/sites/default/files/2016-11/animals_hero_lizards.jpg"
+                          image={dat.image_url}
                           title={dat.name}
                         />
                         <CardContent>
@@ -64,7 +66,7 @@ class Explore extends Component {
                         <Button size="small" color="primary">
                           Save Event
                         </Button>
-                        <Button size="small" color="primary">
+                        <Button size="small" color="primary" target="_blank" href={dat.url}>
                           Learn More
                         </Button>
                       </CardActions>
