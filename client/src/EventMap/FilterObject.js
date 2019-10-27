@@ -15,16 +15,29 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import { MenuItem } from '@material-ui/core';
 import axios from 'axios';
+import { textAlign } from '@material-ui/system';
 
 const filters =['free'];
 const useStyles = makeStyles(theme => ({
     root: {
         marginLeft: 20,
         width: 300,
+        alignItems: 'center',
     },
     margin: {
-        height: theme.spacing(3),
+        height: theme.spacing(10),
     },
+    select: {
+      margin: theme.spacing(2),
+  },
+    button: {
+      position: 'absolute',
+      bottom: theme.spacing(3),
+      alignItems: 'center',
+  },
+    check: {
+      margin: theme.spacing(1),
+    }
   }));
 
     function valuetext(value) {
@@ -42,21 +55,10 @@ const MyCheckbox = withStyles({
   checked: {},
 })(props => <Checkbox color="default" {...props} />);
 
-
-
-
-
-
-
-
 export default function FilterObject(props) {
   const handleChange = name => event => {
     setState({ ...state, [name]: event.target.checked });
     };
-
-
-
-
 
   const [state, setState] = React.useState({
     Free: false,
@@ -112,107 +114,99 @@ export default function FilterObject(props) {
     console.log(error);
   });
 
-
-
   }
   console.log(props.categories);
 
-
-
-
-
   return (
     <div>
+      <div className={classes.root}>
+          <Typography gutterBottom>Filters</Typography>
+          <div>
+          <FormGroup>
+          <FormControl>
+          <InputLabel>Categories</InputLabel>
+          <Select
+          className={classes.select}
+          value={state.category}
+              onChange={(event)=>setState(
+              { ...state, category : event.target.value}
+              )}
+              inputProps={{
+                name: 'All',
+                id: 'all',
+              }}
 
+          >
+            <MenuItem key={"all"} value={"all"}>All</MenuItem>
+            {props.categories.map((category) => (
+                  <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
+              ))}
 
-
-    <div className={classes.root}>
-        <Typography id="discrete-slider" gutterBottom>Distance</Typography>
-        <div>
-        <FormGroup>
-        <FormControl >
-        <InputLabel>Categories</InputLabel>
-        <Select
-        value={state.category}
+          </Select>
+        </FormControl>
+        <FormControl>
+          <InputLabel htmlFor="age-simple">Date</InputLabel>
+          <Select
+            className={classes.select}
+            value={state.days}
             onChange={(event)=>setState(
-             { ...state, category : event.target.value}
+            { ...state, days : event.target.value}
             )}
             inputProps={{
-              name: 'All',
-              id: 'all',
+              name: 'Any Day',
+              id: '999',
             }}
 
-        >
-          <MenuItem key={"all"} value={"all"}>All</MenuItem>
-           {props.categories.map((category) => (
-                <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
-             ))}
+          >
+            <MenuItem value='999'>Any Day</MenuItem>
+            <MenuItem value='0'>Today</MenuItem>
+            <MenuItem value='1'>Tomorrow</MenuItem>
+            <MenuItem value='7'>This Week</MenuItem>
+            <MenuItem value='14'>Next Week</MenuItem>
+          </Select>
+        </FormControl>
+        </FormGroup>
 
-        </Select>
-      </FormControl>
-      <FormControl >
-        <InputLabel htmlFor="age-simple">Date</InputLabel>
-        <Select
-          value={state.days}
-          onChange={(event)=>setState(
-           { ...state, days : event.target.value}
-          )}
-          inputProps={{
-            name: 'Any Day',
-            id: '999',
-          }}
+          <Divider />  
+          </div>
+          <Typography id="discrete-slider" gutterBottom>Distance (miles)</Typography>
 
-        >
-          <MenuItem value='999'>Any Day</MenuItem>
-          <MenuItem value='0'>Today</MenuItem>
-          <MenuItem value='1'>Tomorrow</MenuItem>
-          <MenuItem value='7'>This Week</MenuItem>
-          <MenuItem value='14'>Next Week</MenuItem>
-        </Select>
-      </FormControl>
+          <Slider
+          id="distanceSlider"
+          defaultValue={10}
+          getAriaValueText={valuetext}
+          aria-labelledby="discrete-slider"
+          valueLabelDisplay="auto"
+          step={5}
+          mark
+          min={1}
+          max={15}
+          onChange={(event, value) => {
+            setState({ ...state, distance: value});
+            }}
+        />
+        <Divider />
+          <FormGroup>
+
+        <FormControlLabel
+          control={
+            <MyCheckbox
+              className={classes.check}
+              checked={state.checkedTag1}
+              onChange={handleChange('Free')}
+              value="Free"
+            />
+          }
+          label="Free Events"
+        />
+
+
       </FormGroup>
 
+        <div>
+          <Button className={classes.button} onClick={requestFilters}>Submit</Button>
         </div>
-
-
-
-
-        <Slider
-        id="distanceSlider"
-        defaultValue={10}
-        getAriaValueText={valuetext}
-        aria-labelledby="discrete-slider"
-        valueLabelDisplay="auto"
-        step={5}
-        mark
-        min={1}
-        max={15}
-        onChange={(event, value) => {
-          setState({ ...state, distance: value});
-          }}
-      />
-      <Divider />
-        <FormGroup>
-
-      <FormControlLabel
-        control={
-          <MyCheckbox
-            checked={state.checkedTag1}
-            onChange={handleChange('Free')}
-            value="Free"
-          />
-        }
-        label="Free Events"
-      />
-
-
-    </FormGroup>
-
-
-      <div>
-        <Button onClick={requestFilters}>Submit</Button>
       </div>
-    </div>
     </div>
 
   );
