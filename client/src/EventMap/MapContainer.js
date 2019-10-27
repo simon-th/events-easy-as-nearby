@@ -54,8 +54,8 @@ class MapContainer extends Component {
           height: "calc(100vh - 20px)"
         }}
       >
-        <Map  google={this.props.google} zoom={14} initialCenter={{lat: 30.286358,
-                lng: -97.7456957}} key={this.props.eventList}>
+        <Map  google={this.props.google} zoom={14} initialCenter={{lat: 30.2862,
+                lng: -97.7394}} key={this.props.eventList}>
 
             <HeatMap
               gradient={["rgba(102, 255, 0, 0)",
@@ -74,7 +74,6 @@ class MapContainer extends Component {
               radius={50}
             />
 
-        <Marker onClick={this.onMarkerClick} name={'Current Location'}/>
         {this.state.eventList.map(marker => (
                 <Marker
                 position={{ lat: marker.latitude, lng: marker.longitude }}

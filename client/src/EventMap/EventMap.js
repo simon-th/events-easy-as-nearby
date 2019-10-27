@@ -13,12 +13,8 @@ class EventMap extends Component {
         super();
         this.state={
             shownEvents:[
-
-              ],
+  ],
               categories:[
-
-
-
               ]
         }
     }
