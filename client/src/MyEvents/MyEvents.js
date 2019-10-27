@@ -34,10 +34,10 @@ class MyEvents extends Component {
 
   getSavedEvent = (email) => {
     var events = []
-    axios.get(`/myevents/savelist?email=${email}`)
+    axios.get(`/api/myevents/savelist?email=${email}`)
     .then(function (response) {
       response.data.forEach((id) => {
-        axios.get(`events/?id=${id}`)
+        axios.get(`api/events/?id=${id}`)
         .then(function (event) {
           events.push(event.data);
         })

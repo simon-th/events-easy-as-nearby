@@ -30,11 +30,11 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 
-app.use('/events', require('./routes/Events/events'));
-app.use('/signup', require('./routes/Signup/signup'));
-app.use('/explore', require('./routes/Explore/explore'));
-app.use('/savedevent', require('./routes/SavedEvent/savedevent'));
-app.use('/myevents', require('./routes/MyEvents/myevents'));
+app.use('/api/events', require('./routes/Events/events'));
+app.use('/api/signup', require('./routes/Signup/signup'));
+app.use('/api/explore', require('./routes/Explore/explore'));
+app.use('/api/savedevent', require('./routes/SavedEvent/savedevent'));
+app.use('/api/myevents', require('./routes/MyEvents/myevents'));
 
 
 

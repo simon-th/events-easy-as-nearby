@@ -98,7 +98,7 @@ export default function FilterObject(props) {
       props.eventList.pop();
     }
 
-    axios.get('/events/filter?category='+category
+    axios.get('/api/events/filter?category='+category
     +'&within='+days+'&distance='+distance+'&free='
     +free+'&today='+date+'&latitude=30.2669624&longitude=-97.7728593')
   .then(function (response) {
@@ -167,7 +167,7 @@ export default function FilterObject(props) {
         </FormControl>
         </FormGroup>
 
-          <Divider />  
+          <Divider />
           </div>
           <Typography id="discrete-slider" gutterBottom>Distance (miles)</Typography>
 

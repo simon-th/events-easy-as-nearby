@@ -31,7 +31,7 @@ class Explore extends Component {
   }
 
   getEventFromDb = () => {
-      fetch('/events/all')
+      fetch('/api/events/all')
         .then((data) => data.json())
         .then((res) => {
           console.log(res.data);
@@ -40,7 +40,7 @@ class Explore extends Component {
   }
 
   saveEvent = (email, id) => {
-    axios.post('/savedevent', {
+    axios.post('/api/savedevent', {
       email: email,
       event_id: id,
     });

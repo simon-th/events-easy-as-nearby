@@ -21,7 +21,7 @@ class EventMap extends Component {
 
     componentDidMount(){
     let self=this;
-    axios.get('/events/categories')
+    axios.get('/api/events/categories')
     .then(function (response) {
     console.log(response);
     console.log(response.data);
