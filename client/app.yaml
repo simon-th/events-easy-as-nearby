@@ -13,5 +13,8 @@
 # [START app_yaml]
 env: flex
 runtime: nodejs
+handlers:
+  - url: /
+    script: auto
 # [END app_yaml]
 
