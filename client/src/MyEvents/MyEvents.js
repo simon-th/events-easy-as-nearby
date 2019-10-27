@@ -57,7 +57,7 @@ class MyEvents extends Component {
     return (
       <div>
         <div className="text-center">
-          <h2>Events Happening Nearby</h2>
+          <h2>My Events</h2>
         </div>
 
         <div>
