@@ -104,7 +104,7 @@ const defContributorStats = {
     'jovinjoej': {
         commits: 0,
         issues: 0,
-        unitTests: 0
+        unitTests: 5
     },
     'shaniapaul': {
         commits: 0,

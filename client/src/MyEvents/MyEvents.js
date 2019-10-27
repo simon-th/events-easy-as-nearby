@@ -3,60 +3,47 @@ import {
   Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button, Row, Col
 } from 'reactstrap';
-import { withAuthorization } from '../Components/Session';
+import { withAuthorization, withAuthentication, AuthUserContext } from '../Components/Session';
+import axios from 'axios';
 
 class MyEvents extends Component {
-  eventList = [
-    {
-      id: 0,
-      title: "Yash's Birthday",
-      descr: "Come celebrate Yash's 21st birthday at Skyloft! It's a study party so bring your own books.",
-      lat: 30.286358,
-      long: -97.7456957
-    },
-    {
-      id: 1,
-      title: "Wood Chopping Contest",
-      descr: "We're not sure why this is a thing but it is, so come out and chop wood at Gregory Gymanisum.. I guess?",
-      lat: 30.2842331,
-      long: -97.7386967
-    },
-    {
-      id: 2,
-      title: "Snakes and Ladders Night",
-      descr: "Join us for snakes and ladders at Angel's apartment!",
-      lat: 30.2870417,
-      long: -97.7461794
-    },
-    {
-      id: 3,
-      title: "Smash Tournament",
-      descr: "Come play Smash at Simon's apartment!",
-      lat: 30.2900117,
-      long: -97.7445804
-    },
-    {
-      id: 4,
-      title: "IEEE GM #3",
-      descr: "This is the third general meeting for IEEE this semester. As usual, there will be free food, and we will be joined by guests from Arm!",
-      lat: 30.2884957,
-      long: -97.7376979
-    },
-    {
-      id: 5,
-      title: "Spongebob Watch Party",
-      descr: "We will be watching episodes with Mermaid Man and Barnacle Boy because they are our favorite characters.",
-      lat: 30.2864807,
-      long: -97.743338
-    },
-    {
-      id: 6,
-      title: "Gong Cha Profit Share",
-      descr: "Boba. Yay.",
-      lat: 30.3753425,
-      long: -97.8380101
-    }
-  ]
+  constructor(props) {
+      super(props);
+  }
+
+  state = {
+    data: [],
+    name: null,
+    description: null,
+    summary: null,
+    url: null,
+    image_url: null,
+    id: null,
+  };
+
+  componentDidMount() {
+    this.getSavedEvent();
+  }
+
+
+  getSavedEvent = (email) => {
+    let userEmail = email;
+    axios.get('/myevents/savelist?email='+userEmail)
+    .then(function (response) {
+      console.log(response);
+      // response.data.forEach(element => {
+      //   props.eventList.push(element);
+      //
+      // });
+      // console.log(props.eventList);
+      // props.reRender();
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  }
+
 
   render () {
     return(
@@ -65,45 +52,13 @@ class MyEvents extends Component {
           <h2>Saved Events</h2>
         </div>
         <div>
-            <Row>
-              <Col sm={{ size: 8, offset: 1 }}>
-                  <Card>
-                    <CardBody>
-                      <CardTitle>{this.eventList[1].title}</CardTitle>
-                      <CardSubtitle>{this.eventList[1].location}</CardSubtitle>
-                      <CardText className="text-left">{this.eventList[1].descr}</CardText>
-                      <Button color="success" className="float-right">Save</Button>
-                    </CardBody>
-                  </Card>
-              </Col>
-            </Row>
-            <br />
-            <Row>
-              <Col sm={{ size: 8, offset: 1 }}>
-                  <Card>
-                    <CardBody>
-                      <CardTitle>{this.eventList[2].title}</CardTitle>
-                      <CardSubtitle>{this.eventList[2].location}</CardSubtitle>
-                      <CardText className="text-left">{this.eventList[2].descr}</CardText>
-                      <Button color="success" className="float-right">Save</Button>
-                    </CardBody>
-                  </Card>
-              </Col>
-            </Row>
-            <br />
-            <Row>
-              <Col sm={{ size: 8, offset: 1 }}>
-                  <Card>
-                    <CardBody>
-                      <CardTitle>{this.eventList[3].title}</CardTitle>
-                      <CardSubtitle>{this.eventList[3].location}</CardSubtitle>
-                      <CardText className="text-left">{this.eventList[3].descr}</CardText>
-                      <Button color="success" className="float-right">Save</Button>
-                    </CardBody>
-                  </Card>
-              </Col>
-            </Row>
-            <br />
+        <AuthUserContext.Consumer>
+          {authUser => (
+            <div>
+                {this.getSavedEvent(authUser.email)}
+            </div>
+          )}
+        </AuthUserContext.Consumer>
         </div>
       </div>
     );

@@ -8,10 +8,14 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import "./Explore.css";
+import SaveButton from "./SaveButton";
+import axios from 'axios';
+import Tooltip from '@material-ui/core/Tooltip';
+import { AuthUserContext } from '../Components/Session';
 
 
 class Explore extends Component {
-  
+
   state = {
     data: [],
     name: null,
@@ -19,6 +23,7 @@ class Explore extends Component {
     summary: null,
     url: null,
     image_url: null,
+    id: null,
   };
 
   componentDidMount() {
@@ -31,14 +36,21 @@ class Explore extends Component {
         .then((res) => this.setState({ data: res.data}));
   }
 
+  saveEvent = (email, id) => {
+    axios.post('/savedevent', {
+      email: email,
+      event_id: id,
+    });
+  };
+
   render () {
     const { data } = this.state;
-    console.log(data);
     return (
       <div>
         <div className="text-center">
           <h2>Events Happening Nearby</h2>
         </div>
+
         <div>
           <Grid container className="grid" spacing={2}>
                 {data.length <= 0
@@ -63,9 +75,24 @@ class Explore extends Component {
                         </CardContent>
                       </CardActionArea>
                       <CardActions className="buttons">
-                        <Button size="small" color="primary">
-                          Save Event
-                        </Button>
+                      <div>
+                      <AuthUserContext.Consumer>
+                          {authUser =>
+                            authUser ?
+                            <Button onClick={() => this.saveEvent(authUser.email, dat.id)} className="buttons" size="small" color="primary">
+                              Save Event
+                            </Button>
+                            :
+                            <Tooltip title="Login to save event">
+                                <span>
+                                <Button className="buttons" disabled size="small" color="primary">
+                                  Save Event
+                                </Button>
+                                </span>
+                            </Tooltip>
+                          }
+                      </AuthUserContext.Consumer>
+                      </div>
                         <Button size="small" color="primary" target="_blank" href={dat.url}>
                           Learn More
                         </Button>

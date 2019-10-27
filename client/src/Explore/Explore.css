@@ -14,5 +14,5 @@
     display: absolute;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 10px;
+    bottom: 2;
 }

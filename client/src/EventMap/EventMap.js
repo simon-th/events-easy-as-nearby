@@ -12,19 +12,13 @@ class EventMap extends Component {
     constructor(){
         super();
         this.state={
-            shownEvents:[ {
-                id: 0,
-                title: "Yash's Birthday",
-                descr: "Come celebrate Yash's 21st birthday at Skyloft! It's a study party so bring your own books.",
-                lat: 30.286358,
-                long: -97.7456957,
-                weight:1
-              }],
+            shownEvents:[
+
+              ],
               categories:[
-                  {
-                      id:"all",
-                      name:"All"
-                  }
+
+
+
               ]
         }
     }
@@ -37,13 +31,13 @@ class EventMap extends Component {
     console.log(response.data);
     self.state.categories=response.data.map((category)=>(
          {id: category.id, name: category.name}))
-         
+
      })
      .catch(function (error) {
     console.log(error);
     });
     }
-    
+
     render() {
         return (
             <div>

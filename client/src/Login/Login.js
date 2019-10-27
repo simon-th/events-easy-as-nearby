@@ -28,7 +28,7 @@ class LoginFormBase extends Component {
         const { email, password } = this.state;
         this.props.firebase.doSignInWithEmailAndPassword(email, password).then(() => {
             this.setState({ ...INITIAL_STATE });
-            this.props.history.push("/");
+            this.props.history.goBack();
         })
         .catch(error => {
             this.setState({ error });
