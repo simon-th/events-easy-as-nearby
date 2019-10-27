@@ -7,46 +7,41 @@ router.get('/', (req, res) => {
   console.log('test saved events');
 });
 
-async function getMyEvent(eventid_list) {
-  var myevent = [];
-  eventid_list.forEach((e) =>{
-    if (e != "") {
-      Event.find({id: e}, function(err, data) {
-          if (data) {
-            myevent.push(data[0]);
-            console.log(myevent);
-          }
+async function getUserEvents(eventIds) {
+  var events = [];
+  eventIds.forEach(async (id) => {
+    await Event.find({ id: id })
+      .exec()
+      .then(data => {
+        if (data) {
+          console.log(data[0].name);
+          events.push(data[0]);
+        }
+        else return null;
+      })
+      .catch(err => {
+        console.log(err);
+        return null;
       });
-    }
-  })
-  return myevent
+  }, () => {
+    console.log(events);
+    return events;
+  });
 }
 
 router.get('/savelist', async (req, res) => {
   try {
-    var eventid_list = [];
-    var events= [];
     const email = req.query.email;
-
-    await User.find({ 'email': email}, 'saved_event -_id')
+    await User.find({ email: email })
       .exec()
-      .then(data => {
-        if (data) {
-          //eventid_list = JSON.stringify(data);
-          eventid_list = data;
-        }
-        else {
-          res.status(404).json({message: 'aiya'});
-          console.log('er');
-        }
+      .then(async (data) => {
+        if (data) res.status(200).json(data[0].saved_event);
+        else res.status(404).json({message: 'aiya'});
       })
       .catch(err => {
         console.log(err);
-        res.status(500).json({error: err});
+        res.status(500).json({error: err})
       });
-      events = await getMyEvent(eventid_list[0].saved_event);
-      console.log(events);
-      res.status(200).json(events);
   } catch(error) {
     console.log(error);
   }

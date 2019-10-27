@@ -75,6 +75,23 @@ router.get('/categories', async (req, res) => {
   });
 });
 
+router.get('/', async (req, res) => {
+  await Event.find({ id: req.query.id})
+  .exec()
+  .then(data => {
+    // console.log(data);
+    if (data) {
+      res.status(200).json(data[0]);
+    } else {
+      res.status(404).json({message: 'aiya'})
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({error: err});
+  });
+});
+
 router.get('/category', async (req, res) => {
   await Category.find({ id: req.query.id})
   .exec()
