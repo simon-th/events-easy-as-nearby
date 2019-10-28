@@ -1,97 +1,102 @@
 import React, {Component} from 'react';
-import {
-  Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button
-} from 'reactstrap';
+import { withAuthorization, AuthUserContext } from '../Components/Session';
+import axios from 'axios';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
+import "../Explore/Explore.css";
+import firebase from 'firebase/app';
 
 class MyEvents extends Component {
-  eventList = [
-    {
-      id: 0,
-      title: "Yash's Birthday",
-      descr: "Come celebrate Yash's 21st birthday at Skyloft! It's a study party so bring your own books.",
-      lat: 30.286358,
-      long: -97.7456957
-    },
-    {
-      id: 1,
-      title: "Wood Chopping Contest",
-      descr: "We're not sure why this is a thing but it is, so come out and chop wood at Gregory Gymanisum.. I guess?",
-      lat: 30.2842331,
-      long: -97.7386967
-    },
-    {
-      id: 2,
-      title: "Snakes and Ladders Night",
-      descr: "Join us for snakes and ladders at Angel's apartment!",
-      lat: 30.2870417,
-      long: -97.7461794
-    },
-    {
-      id: 3,
-      title: "Smash Tournament",
-      descr: "Come play Smash at Simon's apartment!",
-      lat: 30.2900117,
-      long: -97.7445804
-    },
-    {
-      id: 4,
-      title: "IEEE GM #3",
-      descr: "This is the third general meeting for IEEE this semester. As usual, there will be free food, and we will be joined by guests from Arm!",
-      lat: 30.2884957,
-      long: -97.7376979
-    },
-    {
-      id: 5,
-      title: "Spongebob Watch Party",
-      descr: "We will be watching episodes with Mermaid Man and Barnacle Boy because they are our favorite characters.",
-      lat: 30.2864807,
-      long: -97.743338
-    },
-    {
-      id: 6,
-      title: "Gong Cha Profit Share",
-      descr: "Boba. Yay.",
-      lat: 30.3753425,
-      long: -97.8380101
-    }
-  ]
+  state = {
+    eventlist: [],
+    data: [],
+    name: null,
+    description: null,
+    summary: null,
+    url: null,
+    image_url: null,
+    id: null,
+  };
+
+  componentDidMount() {
+    console.log('mount');
+    this.getEventList();
+  }
+
+  getEventList = () => {
+    var events = [];
+    var email = firebase.auth().currentUser.email;
+    axios.get(`/api/myevents/savelist?email=${email}`)
+    .then(function (response) {
+      response.data.forEach((id) => {
+        events.push(id);
+      })
+    })
+    .then(() => {
+      this.setState({data: events});
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   render () {
-    return(
+    console.log('render');
+    const { data } = this.state;
+    return (
       <div>
-        <div>
-          <label>Events Happening Nearby</label>
+        <div className="text-center">
+          <h2>My saved events</h2>
         </div>
+
         <div>
-          <Card style={{width:'100%', 'text-align':'left'}}>
-            <CardBody>
-              <CardTitle>{this.eventList[1].title}</CardTitle>
-              <CardSubtitle>{this.eventList[1].location}</CardSubtitle>
-              <CardText>{this.eventList[1].descr}</CardText>
-              <Button>Save</Button>
-            </CardBody>
-          </Card>
-          <Card style={{width:'100%', 'text-align':'left'}}>
-            <CardBody>
-              <CardTitle>{this.eventList[2].title}</CardTitle>
-              <CardSubtitle>{this.eventList[2].location}</CardSubtitle>
-              <CardText>{this.eventList[2].descr}</CardText>
-              <Button>Save</Button>
-            </CardBody>
-          </Card>
-          <Card style={{width:'100%', 'text-align':'left'}}>
-            <CardBody>
-              <CardTitle>{this.eventList[3].title}</CardTitle>
-              <CardSubtitle>{this.eventList[3].location}</CardSubtitle>
-              <CardText>{this.eventList[3].descr}</CardText>
-              <Button>Save</Button>
-            </CardBody>
-          </Card>
+          <Grid container className="grid" spacing={2}>
+                {data.length <= 0
+                  ? ''
+                  : data.map((dat) => (
+                    console.log(dat.name),
+                    <Card className="exploreCard">
+                      <CardActionArea target="_blank" href={dat.url}>
+                        <CardMedia
+                          component="img"
+                          alt="No image available"
+                          height="180"
+                          image={dat.image_url}
+                          title={dat.name}
+                        />
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {dat.name}
+                          </Typography>
+                          <Typography variant="body2" color="textSecondary" component="p">
+                          {dat.summary}
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                      <CardActions className="buttons">
+                        <Button size="small" color="primary" target="_blank" href={dat.url}>
+                          Learn More
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  ))}
+                <br />
+            </Grid>
         </div>
+
       </div>
+
+
     );
   }
 }
 
-export default MyEvents;
+const condition = authUser => !!authUser;
+export default withAuthorization(condition)(MyEvents);

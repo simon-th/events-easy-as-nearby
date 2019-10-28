@@ -1,61 +1,43 @@
-import React, { Component } from 'react';
-import './App.css';
-//import styles from "./App.css"
-import  MapContainer  from '../EventMap/EventMap';
-import About from '../About/About'
-import Header from './Header'
-import Login from '../LoginPage/LoginPage'
-import MyEvents from '../MyEvents/MyEvents';
-import Explore from '../Explore/Explore';
-import Register from '../LoginPage/RegisterPage';
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import React from "react";
+import "./App.css";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Navigation from "./Navigation";
+import About from "../About/About"
+import Login from "../Login/Login"
+import MyEvents from "../MyEvents/MyEvents";
+import Explore from "../Explore/Explore";
+import Signup from "../Signup/Signup";
+import PasswordForget from "../ForgotPassword/ForgotPassword";
+import EventMap  from "../EventMap/EventMap";
+import MyAccount from "../MyAccount/MyAccount";
+import { withAuthentication } from "../Components/Session";
 
-// import logo from './logo.svg';
-// import styles from "./App.css"
 
-class App extends Component {
-  state = {  };
 
-  componentDidMount() {
-    console.log("Mounted");
-    /*
-    this.callBackendAPI()
-    .then(res => this.setState({data: res.express}))
-    .catch(err => console.log(err))
-    */
-  }
+const App = () => (
+    <Router>
+        <div>
+            <Navigation />
+            <Switch>
+                <Route exact path ="/" render={props=>(
+                  <React.Fragment>
 
-  callBackendAPI = async () => {
-    const response = await fetch('/backend');
-    const body = await response.json();
-    if (response.status !== 200) {
-      throw Error(body.message)
-    }
-    return body;
-  };
+                    <div className='Map'>
+                      <EventMap />
+                    </div>
+                    </React.Fragment>
 
-  render() {
-    return (
-      <Router>
-        <div className="App">
-          <Header  />
-          <Route exact path ='/' render={props=>(
-            <React.Fragment>
-              <h1>Map</h1>
-              <div className='Map'>
-              <MapContainer />
-              </div>
-            </React.Fragment>
-          )}/>
-          <Route path='/about' component={About}/>
-          <Route path='/login' component={Login}/>
-          <Route path='/myevents' component={MyEvents}/>
-          <Route path='/explore' render={(props) => <Explore {...props} events={this.state.data} />}/>
-        <Route path = '/register' component={Register}/>
+                )}/>
+                <Route path="/about" component={About}/>
+                <Route path="/login" component={Login}/>
+                <Route path="/myevents" component={MyEvents}/>
+                <Route path="/explore" component={Explore}/>
+                <Route path="/signup" component={Signup}/>
+                <Route path="/forgotpassword" component={PasswordForget}/>
+                <Route path="/myaccount" component={MyAccount}/>
+            </Switch>
         </div>
-      </Router>
-    );
-  }
-}
+    </Router>
+);
 
-export default App;
+export default withAuthentication(App);

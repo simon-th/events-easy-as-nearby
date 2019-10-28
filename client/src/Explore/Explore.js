@@ -1,126 +1,111 @@
-import React, {Component} from 'react';
-import {
-  Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button
-} from 'reactstrap';
+import React, {Component} from "react";
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import "./Explore.css";
+import axios from 'axios';
+import Tooltip from '@material-ui/core/Tooltip';
+import { AuthUserContext } from '../Components/Session';
 
 
 class Explore extends Component {
-  eventList = [
-    {
-      id: 0,
-      title: "Yash's Birthday",
-      descr: "Come celebrate Yash's 21st birthday at Skyloft! It's a study party so bring your own books.",
-      lat: 30.286358,
-      long: -97.7456957
-    },
-    {
-      id: 1,
-      title: "Wood Chopping Contest",
-      descr: "We're not sure why this is a thing but it is, so come out and chop wood at Gregory Gymanisum.. I guess?",
-      lat: 30.2842331,
-      long: -97.7386967
-    },
-    {
-      id: 2,
-      title: "Snakes and Ladders Night",
-      descr: "Join us for snakes and ladders at Angel's apartment!",
-      lat: 30.2870417,
-      long: -97.7461794
-    },
-    {
-      id: 3,
-      title: "Smash Tournament",
-      descr: "Come play Smash at Simon's apartment!",
-      lat: 30.2900117,
-      long: -97.7445804
-    },
-    {
-      id: 4,
-      title: "IEEE GM #3",
-      descr: "This is the third general meeting for IEEE this semester. As usual, there will be free food, and we will be joined by guests from Arm!",
-      lat: 30.2884957,
-      long: -97.7376979
-    },
-    {
-      id: 5,
-      title: "Spongebob Watch Party",
-      descr: "We will be watching episodes with Mermaid Man and Barnacle Boy because they are our favorite characters.",
-      lat: 30.2864807,
-      long: -97.743338
-    },
-    {
-      id: 6,
-      title: "Gong Cha Profit Share",
-      descr: "Boba. Yay.",
-      lat: 30.3753425,
-      long: -97.8380101
-    }
-  ]
+
+  state = {
+    data: [],
+    name: null,
+    description: null,
+    summary: null,
+    url: null,
+    image_url: null,
+    id: null,
+  };
+
+  componentDidMount() {
+      console.log('mount');
+      this.getEventFromDb();
+  }
+
+  getEventFromDb = () => {
+      fetch('/api/events/all')
+        .then((data) => data.json())
+        .then((res) => {
+          //console.log(res.data);
+          this.setState({ data: res.data})
+        });
+  }
+
+  saveEvent = (email, id) => {
+    axios.post('/api/savedevent', {
+      email: email,
+      event_id: id,
+    });
+  };
 
   render () {
-    return(
+    console.log('render1');
+    const { data } = this.state;
+    console.log(data.length);
+    return (
       <div>
-        <div>
-          <label>Events Happening Nearby</label>
+        <div className="text-center">
+          <h2>Events Happening Nearby</h2>
         </div>
+
         <div>
-          <Card style={{width:'100%', 'text-align':'left'}}>
-            <CardBody>
-              <CardTitle>{this.eventList[0].title}</CardTitle>
-              <CardSubtitle>{this.eventList[0].location}</CardSubtitle>
-              <CardText>{this.eventList[0].descr}</CardText>
-              <Button>Save</Button>
-            </CardBody>
-          </Card>
-          <Card style={{width:'100%', 'text-align':'left'}}>
-            <CardBody>
-              <CardTitle>{this.eventList[1].title}</CardTitle>
-              <CardSubtitle>{this.eventList[1].location}</CardSubtitle>
-              <CardText>{this.eventList[1].descr}</CardText>
-              <Button>Save</Button>
-            </CardBody>
-          </Card>
-          <Card style={{width:'100%', 'text-align':'left'}}>
-            <CardBody>
-              <CardTitle>{this.eventList[2].title}</CardTitle>
-              <CardSubtitle>{this.eventList[2].location}</CardSubtitle>
-              <CardText>{this.eventList[2].descr}</CardText>
-              <Button>Save</Button>
-            </CardBody>
-          </Card>
-          <Card style={{width:'100%', 'text-align':'left'}}>
-            <CardBody>
-              <CardTitle>{this.eventList[3].title}</CardTitle>
-              <CardSubtitle>{this.eventList[3].location}</CardSubtitle>
-              <CardText>{this.eventList[3].descr}</CardText>
-              <Button>Save</Button>
-            </CardBody>
-          </Card>
-          <Card style={{width:'100%', 'text-align':'left'}}>
-            <CardBody>
-              <CardTitle>{this.eventList[4].title}</CardTitle>
-              <CardSubtitle>{this.eventList[4].location}</CardSubtitle>
-              <CardText>{this.eventList[4].descr}</CardText>
-              <Button>Save</Button>
-            </CardBody>
-          </Card>
-          <Card style={{width:'100%', 'text-align':'left'}}>
-            <CardBody>
-              <CardTitle>{this.eventList[5].title}</CardTitle>
-              <CardSubtitle>{this.eventList[5].location}</CardSubtitle>
-              <CardText>{this.eventList[5].descr}</CardText>
-              <Button>Save</Button>
-            </CardBody>
-          </Card>
-          <Card style={{width:'100%', 'text-align':'left'}}>
-            <CardBody>
-              <CardTitle>{this.eventList[6].title}</CardTitle>
-              <CardSubtitle>{this.eventList[6].location}</CardSubtitle>
-              <CardText>{this.eventList[6].descr}</CardText>
-              <Button>Save</Button>
-            </CardBody>
-          </Card>
+          <Grid container className="grid" spacing={2}>
+                {data.length <= 0
+                  ? ''
+                  : data.map((dat) => (
+                    <Card className="exploreCard">
+                      <CardActionArea target="_blank" href={dat.url}>
+                        <CardMedia
+                          component="img"
+                          alt="No image available"
+                          height="180"
+                          image={dat.image_url}
+                          title={dat.name}
+                        />
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {dat.name}
+                          </Typography>
+                          <Typography variant="body2" color="textSecondary" component="p">
+                          {dat.summary}
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                      <CardActions className="buttons">
+                      <div>
+                      <AuthUserContext.Consumer>
+                          {authUser =>
+                            authUser ?
+                            <Button onClick={() => this.saveEvent(authUser.email, dat.id)} className="buttons" size="small" color="primary">
+                              Save Event
+                            </Button>
+                            :
+                            <Tooltip title="Login to save event">
+                                <span>
+                                <Button className="buttons" disabled size="small" color="primary">
+                                  Save Event
+                                </Button>
+                                </span>
+                            </Tooltip>
+                          }
+                      </AuthUserContext.Consumer>
+                      </div>
+                        <Button size="small" color="primary" target="_blank" href={dat.url}>
+                          Learn More
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  ))}
+                <br />
+            </Grid>
         </div>
       </div>
     );

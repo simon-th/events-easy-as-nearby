@@ -21,6 +21,7 @@ import Jovin from './jovin.jpg';
 import Shania from './shania.jpg';
 import Huy from './huy.jpg';
 
+
 const contributorInfo = {
     angellynncheng: {
         name: 'Angel Cheng',
@@ -30,7 +31,7 @@ const contributorInfo = {
         bio:
             'Angel is a third-year ECE major with technical cores in Software and Academic Enrichment. Her interests include drawing, pettings dogs, and watching movies.',
         responsibilities:
-            'Angel worked on the frontend team to implement the UI design. She added the information for the About page, added the Explore page, and cleaned the user interface formatting.'
+            'Angel worked on the frontend team to implement the UI design. She added the information for the About page, added the Explore page, and cleaned the user interface formatting. Later, she created the UI for the sidebar components and expanded the map on the map page, updated the design for Explore/Saved Events UI, and updated the About page.'
     },
     'simon-th': {
         name: 'Simon Hoque',
@@ -40,7 +41,7 @@ const contributorInfo = {
         bio:
             'Simon is a third-year ECE major with technical cores in Software and Academic Enrichment. He spends most of his free time listening to EDM, playing soccer, and browsing on the Uniqlo website.',
         responsibilities:
-            'Simon contributed mainly to the backend by structuring the git tree, setting up the hard-coded events, and working on API calls. '
+            'Simon contributed mainly to the backend by structuring the git tree, setting up the hard-coded events, and working on API calls. Later, he stayed on backend to pull event information from the Eventbrite API and implemented filtering. He worked on refactoring our code as well.'
     },
     'yashlad': {
         name: 'Yash Lad',
@@ -50,7 +51,7 @@ const contributorInfo = {
         bio:
             'Yash is a third-year ECE major with technical cores in Software and Academic Enrichment. His hobbies consist of PC gaming, dancing, and playing basketball.',
         responsibilities:
-            'Yash was on the frontend team; he implemented the initial UI structure by adding the Map page, Login/Register pages, and the Saved Events.'
+            'Yash was on the frontend team; he implemented the initial UI structure by adding the Map page, Login/Register pages, and the Saved Events. Later, he implemented requests from the frontend sidebar controls on the map page to the background for filtering functionality and mounted a heatmap layer with hardcoded attendee weights onto the map.'
     },
     jovinjoej: {
         name: 'Jovin Joseph',
@@ -60,7 +61,7 @@ const contributorInfo = {
         bio:
             'Jovin is a fourth-year ECE major with technical cores in Software and Academic Enrichment. He enjoys photography, playing volleyball, and spending time with friends.',
         responsibilities:
-            'Jovin contributed to much of the logistics; he contributed to a lot of the proposal and reports, and kept everyone on the same page.'
+            'Jovin contributed to much of the logistics; he contributed to a lot of the proposal and reports, and kept everyone on the same page. In our second phase, Jovin was in charge of frontend Selenium and completing the report details.'
     },
     shaniapaul: {
         name: 'Shania Paul',
@@ -80,7 +81,7 @@ const contributorInfo = {
         bio:
             'Huy is a fifth-year ECE major with technical cores in Software and Integrated Circuit. His hobbies include playing videogames and watching sports.',
         responsibilities:
-            'Huy worked on both frontend and backend. He initialized the app and redesigned the UI to be sleek with animations and displayed API data onto the webpage.'
+            'Huy worked on both frontend and backend. He initialized the app and redesigned the UI to be sleek with animations and displayed API data onto the webpage. In the next phase, he implemented user login verification, added an account page, and added user information into the MongoDB database. He also applied a persistent drawer and float button for more elegant UI. Afterwards, he worked on restrictive routing and saving events for registered users.'
     }
 };
 
@@ -103,7 +104,7 @@ const defContributorStats = {
     'jovinjoej': {
         commits: 0,
         issues: 0,
-        unitTests: 0
+        unitTests: 5
     },
     'shaniapaul': {
         commits: 0,
@@ -232,7 +233,7 @@ class AboutPage extends React.Component {
                   <FrontSide style={{align: 'center', padding: '0'}}>
                       <CardImg top width="100%" src={contributorInfo[username].image} alt="Error" style={{align: 'center'}} />
                   </FrontSide>
-                  <BackSide style={{ backgroundColor: 'white', align: 'center'}}>
+                  <BackSide style={{ backgroundColor: 'white', align: 'center', overflowY: 'auto'}}>
                       <p id="b">Major: {contributorInfo[username].major}<br/>
                       Username: {contributorInfo[username].username}<br/>
                       Commits: {contributorStats[username].commits}<br/>
@@ -258,9 +259,7 @@ class AboutPage extends React.Component {
                         {this.renderProfile(id + 1)}
                         {this.renderProfile(id + 2)}
                     </CardDeck>
-                    <CardText>
-                        <CardText> </CardText>
-                    </CardText>
+                    <br />
                 </Container>
             );
         }
@@ -276,7 +275,7 @@ class AboutPage extends React.Component {
                     <Container fluid>
                         <h1 className="display-3">What is Explocation?</h1>
                         <p className="lead">
-                        Explocation is a web application that provides an simple, effortless way for people to look up events near their area. From family-friendly events to fun nights out, Explocation has events for anyone. Need to grab a bite or park right before or after that concert or party? Plans are made easier with local food and parking recommendations.
+                        Explocation is a web application that provides a simple, effortless way for people to look up events near their area. From family-friendly events to fun nights out, Explocation has events for anyone. Need to grab a bite or park right before or after that concert or party? Plans are made easier with local food and parking recommendations.
                         </p>
                         <p>
                             Interested in our project? Visit our
@@ -284,11 +283,12 @@ class AboutPage extends React.Component {
                         </p>
                     </Container>
                 </Jumbotron>
-                <h2 id="name">Meet the Team Members of Team Tiger</h2>
+                <h2 className="text-center">Meet the members of Team Tiger</h2>
                 <p id="name">Hover over a member picture to see individual contribution, or click on it to visit their git profile</p>
 
                 <div>{this.renderProfiles()}</div>
 
+                <h2 className="text-center">What We Used:</h2>
                 <Container>
                     <ListGroup>
                         <ListGroupItem>
@@ -298,19 +298,27 @@ class AboutPage extends React.Component {
                             <ListGroupItemText tag="li">Unit Tests: {unitTestsTotal}</ListGroupItemText>
                         </ListGroupItem>
 
+                        <CardText>
+                        </CardText>
+
                         <ListGroupItem>
                             <ListGroupItemHeading>Data Sources:</ListGroupItemHeading>
-                            <ListGroupItemText tag="li">Eventbrite: Not scraped from website yet</ListGroupItemText>
-                            <ListGroupItemText tag="li">SpotHero: Not scraped from website yet</ListGroupItemText>
-                            <ListGroupItemText tag="li">Google Maps: We took the map visual from Google Maps API.</ListGroupItemText>
-                            <ListGroupItemText tag="li">Github: We used the Github API to receive user stats from the API url.</ListGroupItemText>
+                            <ListGroupItemText tag="li"><a href="https://www.eventbrite.com/platform/api" target="_blank">Eventbrite</a>: We took event details from the API in order to be displayed on the Map, Explore, and My Events page.</ListGroupItemText>
+                            <ListGroupItemText tag="li"><a href="https://spothero.com/developers" target="_blank">SpotHero</a>: Not scraped from website yet.</ListGroupItemText>
+                            <ListGroupItemText tag="li"><a href="https://developers.google.com/maps/documentation/javascript/tutorial" target="_blank">Google Maps</a>: We took the map visual and locations from Google Maps API.</ListGroupItemText>
+                            <ListGroupItemText tag="li"><a href="https://developer.github.com/" target="_blank">Github</a>: We used the Github API to receive user stats from the API url.</ListGroupItemText>
                         </ListGroupItem>
+
+                        <CardText>
+                        </CardText>
 
                         <ListGroupItem>
                             <ListGroupItemHeading>Tools:</ListGroupItemHeading>
-                            <ListGroupItemText tag="li">React: Javascript Library used to design and create sleek user interface.</ListGroupItemText>
+                            <ListGroupItemText tag="li">React(reactstrap and Material UI): Javascript Library used to design and create sleek user interface.</ListGroupItemText>
                             <ListGroupItemText tag="li">MongoDB: Database storing in event information from Google Maps, Eventbrite, and other data sources. It will also store some user data, such as from login. </ListGroupItemText>
-                            <ListGroupItemText tag="li">Express.js: Set up for server use and connected to MongoDB. It is meant to connect the backend to frontend(not yet implemented).</ListGroupItemText>
+                            <ListGroupItemText tag="li">Firebase: Development platform by Google used for user verification and password security during login.</ListGroupItemText>
+                            <ListGroupItemText tag="li">Express.js: Set up for server use and connected to MongoDB. It connects the backend resources to the frontend components.</ListGroupItemText>
+                            <ListGroupItemText tag="li">Selenium WebDriver: A portable framework for automated frontend testing.</ListGroupItemText>
                             <ListGroupItemText tag="li">Google Cloud Platform: Software used to deploy the web application.</ListGroupItemText>
                         </ListGroupItem>
                     </ListGroup>
