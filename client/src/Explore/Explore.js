@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import "./Explore.css";
-import SaveButton from "./SaveButton";
 import axios from 'axios';
 import Tooltip from '@material-ui/core/Tooltip';
 import { AuthUserContext } from '../Components/Session';
@@ -27,6 +26,7 @@ class Explore extends Component {
   };
 
   componentDidMount() {
+      console.log('mount');
       this.getEventFromDb();
   }
 
@@ -34,7 +34,7 @@ class Explore extends Component {
       fetch('/api/events/all')
         .then((data) => data.json())
         .then((res) => {
-          console.log(res.data);
+          //console.log(res.data);
           this.setState({ data: res.data})
         });
   }
@@ -47,7 +47,9 @@ class Explore extends Component {
   };
 
   render () {
+    console.log('render1');
     const { data } = this.state;
+    console.log(data.length);
     return (
       <div>
         <div className="text-center">

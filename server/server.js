@@ -20,7 +20,7 @@ db.on('error', () => {
   console.error.bind(console, 'Mongo connection error');
 });
 
-const API_PORT = 3001;
+const API_PORT = 8080;
 const app = express();
 app.use(cors());
 //app.use(express.static(__dirname + "./public"));

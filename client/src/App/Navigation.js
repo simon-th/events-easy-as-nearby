@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
 import { Navbar, NavbarBrand, Nav, NavLink } from "reactstrap";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { IndexLinkContainer } from "react-router-bootstrap";
 import LogoutButton from "../Logout/Logout";
 import { AuthUserContext } from "../Components/Session";

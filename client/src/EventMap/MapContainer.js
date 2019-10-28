@@ -30,7 +30,7 @@ class MapContainer extends Component {
       };
 
       componentDidUpdate(prevProps){
-        if(prevProps.eventList!=this.props.eventList){
+        if(prevProps.eventList!==this.props.eventList){
           this.setState({eventList:this.props.eventList})
         }
       }

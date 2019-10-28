@@ -2,7 +2,6 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navigation from "./Navigation";
-import  MapContainer  from "../EventMap/EventMap";
 import About from "../About/About"
 import Login from "../Login/Login"
 import MyEvents from "../MyEvents/MyEvents";
@@ -22,12 +21,12 @@ const App = () => (
             <Switch>
                 <Route exact path ="/" render={props=>(
                   <React.Fragment>
-                  
+
                     <div className='Map'>
                       <EventMap />
                     </div>
                     </React.Fragment>
-                  
+
                 )}/>
                 <Route path="/about" component={About}/>
                 <Route path="/login" component={Login}/>

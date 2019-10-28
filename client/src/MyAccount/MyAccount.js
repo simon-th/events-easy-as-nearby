@@ -1,14 +1,8 @@
 import React, { Component } from "react";
 import PasswordChangeForm from "./PasswordChange";
 import { AuthUserContext, withAuthorization } from '../Components/Session';
-import axios from "axios";
 
 class MyAccount extends Component {
-    constructor(props) {
-        super(props);
-    };
-
-
     render() {
         return (
             <AuthUserContext.Consumer>

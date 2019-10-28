@@ -16,7 +16,7 @@ router.post('/newuser', (req, res) => {
   }
   user.username = username;
   user.email = email;
-  user.saved_event = null;
+  user.saved_event = [];
   user.save((err) => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });

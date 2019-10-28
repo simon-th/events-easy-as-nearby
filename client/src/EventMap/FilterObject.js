@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { indigo } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,15 +9,12 @@ import FormControl from '@material-ui/core/FormControl';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-import { renderComponent } from 'recompose';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import { MenuItem } from '@material-ui/core';
 import axios from 'axios';
-import { textAlign } from '@material-ui/system';
 
-const filters =['free'];
 const useStyles = makeStyles(theme => ({
     root: {
         marginLeft: 20,
@@ -70,7 +67,6 @@ export default function FilterObject(props) {
 
   const classes = useStyles();
   function requestFilters(){
-    let params = [];
     let distance=state.distance;
     let free=state.Free;
     let date=state.date.toISOString();

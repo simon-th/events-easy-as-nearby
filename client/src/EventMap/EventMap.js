@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import Filters from "./Filters";
 import MapContainer from "./MapContainer";
-//import MapContain from './MapContain'
-import { Button } from '@material-ui/core';
 import axios from 'axios'
 
 class EventMap extends Component {

@@ -31,11 +31,21 @@ async function getUserEvents(eventIds) {
 
 router.get('/savelist', async (req, res) => {
   try {
+    var events = [];
     const email = req.query.email;
+
     await User.find({ email: email })
       .exec()
       .then(async (data) => {
-        if (data) res.status(200).json(data[0].saved_event);
+
+        if (data) {
+          console.log(data[0].saved_event);
+          for (const id of data[0].saved_event) {
+            let response = await Event.find({id : id });
+            events.push(response[0]);
+          };
+          res.status(200).json(events);
+        }
         else res.status(404).json({message: 'aiya'});
       })
       .catch(err => {
