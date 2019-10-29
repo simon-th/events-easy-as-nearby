@@ -303,10 +303,10 @@ class AboutPage extends React.Component {
 
                         <ListGroupItem>
                             <ListGroupItemHeading>Data Sources:</ListGroupItemHeading>
-                            <ListGroupItemText tag="li"><a href="https://www.eventbrite.com/platform/api" target="_blank">Eventbrite</a>: We took event details from the API in order to be displayed on the Map, Explore, and My Events page.</ListGroupItemText>
-                            <ListGroupItemText tag="li"><a href="https://spothero.com/developers" target="_blank">SpotHero</a>: Not scraped from website yet.</ListGroupItemText>
-                            <ListGroupItemText tag="li"><a href="https://developers.google.com/maps/documentation/javascript/tutorial" target="_blank">Google Maps</a>: We took the map visual and locations from Google Maps API.</ListGroupItemText>
-                            <ListGroupItemText tag="li"><a href="https://developer.github.com/" target="_blank">Github</a>: We used the Github API to receive user stats from the API url.</ListGroupItemText>
+                            <ListGroupItemText tag="li"><a href="https://www.eventbrite.com/platform/api" target="_blank" rel="noopener noreferrer">Eventbrite</a>: We took event details from the API in order to be displayed on the Map, Explore, and My Events page.</ListGroupItemText>
+                            <ListGroupItemText tag="li"><a href="https://spothero.com/developers" target="_blank" rel="noopener noreferrer">SpotHero</a>: Not scraped from website yet.</ListGroupItemText>
+                            <ListGroupItemText tag="li"><a href="https://developers.google.com/maps/documentation/javascript/tutorial" target="_blank" rel="noopener noreferrer">Google Maps</a>: We took the map visual and locations from Google Maps API.</ListGroupItemText>
+                            <ListGroupItemText tag="li"><a href="https://developer.github.com/" target="_blank" rel="noopener noreferrer">Github</a>: We used the Github API to receive user stats from the API url.</ListGroupItemText>
                         </ListGroupItem>
 
                         <CardText>
@@ -321,6 +321,9 @@ class AboutPage extends React.Component {
                             <ListGroupItemText tag="li">Selenium WebDriver: A portable framework for automated frontend testing.</ListGroupItemText>
                             <ListGroupItemText tag="li">Google Cloud Platform: Software used to deploy the web application.</ListGroupItemText>
                         </ListGroupItem>
+
+                        <CardText>
+                        </CardText>
                     </ListGroup>
                 </Container>
             </Container>

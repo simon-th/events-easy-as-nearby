@@ -7,7 +7,6 @@ router.get('/geteventlist', (req, res) => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true, data: data });
   });
-  //res.send('list');
 });
 
 router.get('*', (req, res) => {

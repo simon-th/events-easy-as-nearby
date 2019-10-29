@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { withAuthorization, AuthUserContext } from '../Components/Session';
+import { withAuthorization } from '../Components/Session';
 import axios from 'axios';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -9,7 +9,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
+//import Tooltip from '@material-ui/core/Tooltip';
 import "../Explore/Explore.css";
 import firebase from 'firebase/app';
 
@@ -61,7 +61,6 @@ class MyEvents extends Component {
                 {data.length <= 0
                   ? ''
                   : data.map((dat) => (
-                    console.log(dat.name),
                     <Card className="exploreCard">
                       <CardActionArea target="_blank" href={dat.url}>
                         <CardMedia

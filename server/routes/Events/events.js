@@ -54,58 +54,45 @@ router.get('/test', (req, res) => {
 
 router.get('/all', async (req, res) => {
   Event.find((err, data) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true, data: data });
+    if (err) return res.json({
+      success: false,
+      error: err
+    });
+    return res.json({
+      success: true,
+      data: data
+    });
   });
 });
 
 router.get('/categories', async (req, res) => {
-  await Category.find()
-  .exec()
-  .then(data => {
-    if (data) {
-      res.status(200).json(data);
-    } else {
-      res.status(404).json({message: 'aiya'})
-    }
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({error: err});
+  let data = await Category.find();
+  if (data) {
+    res.status(200).json(data);
+  } else res.status(404).json({
+    message: 'aiya'
   });
 });
 
 router.get('/', async (req, res) => {
-  await Event.find({ id: req.query.id})
-  .exec()
-  .then(data => {
-    // console.log(data);
-    if (data) {
-      res.status(200).json(data[0]);
-    } else {
-      res.status(404).json({message: 'aiya'})
-    }
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({error: err});
+  let data = await Event.find({
+    id: req.query.id
+  });
+  if (data) {
+    res.status(200).json(data[0]);
+  } else res.status(404).json({
+    message: 'aiya'
   });
 });
 
 router.get('/category', async (req, res) => {
-  await Category.find({ id: req.query.id})
-  .exec()
-  .then(data => {
-    // console.log(data);
-    if (data) {
-      res.status(200).json(data);
-    } else {
-      res.status(404).json({message: 'aiya'})
-    }
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({error: err});
+  let data = await Category.find({
+    id: req.query.id
+  });
+  if (data) {
+    res.status(200).json(data);
+  } else res.status(404).json({
+    message: 'aiya'
   });
 });
 
@@ -120,34 +107,28 @@ router.get('/filter', async (req, res) => {
     const today = req.query.today;
     const within = parseInt(req.query.within);
     if (id == 'all') {
-      await Event.find()
-      .exec()
-      .then(data => {
-        if (data) events = data;
-        else res.status(404).json({message: 'aiya'});
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({error: err});
+      let data = await Event.find();
+      if (data) events = data;
+      else res.status(404).json({
+        message: 'aiya'
       });
     } else {
-      await Event.find({ 'category_id': id})
-      .exec()
-      .then(data => {
-        if (data) events = data;
-        else res.status(404).json({message: 'aiya'});
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({error: err});
+      let data = await Event.find({
+        'category_id': id
+      });
+      if (data) events = data;
+      else res.status(404).json({
+        message: 'aiya'
       });
     }
-    // console.log(is_free instanceof Boolean);
     if (is_free == 'true') events = await filterEventsByFree(events);
-    events = await filterEventsByDistance(events, {latitude: latitude, longitude: longitude}, distance);
+    events = await filterEventsByDistance(events, {
+      latitude: latitude,
+      longitude: longitude
+    }, distance);
     events = await filterEventsByDate(events, today, within);
     res.status(200).json(events);
-  } catch(error) {
+  } catch (error) {
     console.log(error);
   }
 });
