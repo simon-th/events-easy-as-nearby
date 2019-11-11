@@ -1,0 +1,18 @@
+.popup {
+    align-content: center;
+}
+
+.image {
+    float: left;
+    width: 50%
+}
+
+.info {
+    float: right;
+    width: 50%;
+    overflow-y: auto;
+}
+
+.clear {
+    clear: both;
+}

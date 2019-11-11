@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import {Map, GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react'
+// import Card from '@material-ui/core/Card';
+import {Card} from 'reactstrap';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
 import {HeatMap} from './HeatMap';
 import apiKeys from '../api-keys.json'
+import popupStyle from './popupStyle.css'
 
 
 class MapContainer extends Component {
@@ -10,7 +15,6 @@ class MapContainer extends Component {
         activeMarker: {},
         selectedPlace: {},
         eventList: this.props.eventList
-
       };
 
       onMarkerClick = (props, marker, e) =>
@@ -91,20 +95,26 @@ class MapContainer extends Component {
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
         >
-          <div className="text-center">
+          <Grid className="popup">
           <div>
-            <h6>{this.state.selectedPlace.name}</h6>
+            <h6 align="center">{this.state.selectedPlace.name}</h6>
+            <Divider />
+            <p>{this.state.selectedPlace.venueName} &nbsp; || &nbsp; 
+            {(new Date(this.state.selectedPlace.start).toUTCString()).slice(0, 22)} - {(new Date(this.state.selectedPlace.end).toUTCString()).slice(0, 22)}</p>
           </div>
-          <div>
-            <p>{this.state.selectedPlace.venueName}</p>
+          <div className="image">
+            <a href='https://arizonaatwork.com'><img width="100%" src='https://i.imgur.com/fe0T4nw.png'/></a>
           </div>
-          <div>
-            <p>{new Date(this.state.selectedPlace.start).toUTCString()} - {new Date(this.state.selectedPlace.end).toUTCString()}</p>
+          <div className="info">
+            <p> lots of info here abouthow great the event is and where it isand why it's happening and all that nonsense idc about thatmuchbut yeah</p>
+            <br></br>
           </div>
+          <div className="clear">
+            <Divider />
           </div>
+          </Grid>
         </InfoWindow>
-
-
+ 
           </Map>
         </div>
       );
