@@ -1,30 +1,91 @@
 import React, { Component } from 'react';
 import {Map, GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react'
 import {HeatMap} from './HeatMap';
+import {restaurantIcon} from './restaurantIcon.png';
 import apiKeys from '../api-keys.json'
+import axios from 'axios';
 
 
 class MapContainer extends Component {
     state = {
         showingInfoWindow: false,
         activeMarker: {},
+        activeRestaurant: {},
+        activeParking: {},
         selectedPlace: {},
-        eventList: this.props.eventList
+        eventList: this.props.eventList,
+        restaurantList: [],
+        parkingList: [],
+        restaurantIcon: {
+          url:'./restaurantIcon.png'
+        }
 
       };
 
-      onMarkerClick = (props, marker, e) =>
+      onMarkerClick =async (props, marker, e) =>{
+        console.log(this.state.selectedPlace);
+        this.setState({
+          selectedPlace: props,
+          activeMarker: marker,
+          showingInfoWindow: true,
+          restaurantList: [],
+          parkingList: []
+        });
+        let self=this;
+        await axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+props.position.lat+','+props.position.lng+'&radius=1500&type=restaurant&key='+apiKeys.googlePlaces).then(
+          function(response){
+            console.log(response);
+            response.data.results.forEach(element => {
+              self.state.restaurantList.push(element);
+        
+            });
+          }
+        ).catch(
+          function(error){
+            console.log(error);
+          }
+        );
+        await axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+props.position.lat+','+props.position.lng+'&radius=1500&type=parking&key='+apiKeys.googlePlaces).then(
+          function(response){
+            console.log(response);
+            response.data.results.forEach(element => {
+              self.state.parkingList.push(element);
+        
+            });
+          }
+        ).catch(
+          function(error){
+            console.log(error);
+          }
+        );
+        console.log(this.state.restaurantList);
+        console.log(this.state.parkingList);
+      }
+
+      onRestMarkerClick = (props, marker, e) =>{
         this.setState({
           selectedPlace: props,
           activeMarker: marker,
           showingInfoWindow: true
         });
+      }
+
+      onParkMarkerClick = (props, marker, e) =>{
+        this.setState({
+          selectedPlace: props,
+          activeMarker: marker,
+          showingInfoWindow: true
+        });
+        
+      }
 
       onClose = props => {
         if (this.state.showingInfoWindow) {
           this.setState({
             showingInfoWindow: false,
-            activeMarker: null
+            activeMarker: null,
+            activeRestaurant: null,
+            activeParking: null
           });
         }
       };
@@ -39,10 +100,10 @@ class MapContainer extends Component {
         return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
       }
 
+
     render() {
 
-
-        console.log(this.props.eventList);
+        let restaurantIcon=this.state;
         if (!this.props.google) {
             return <div>Loading...</div>;
           }
@@ -83,10 +144,30 @@ class MapContainer extends Component {
                 venueName={marker.venue_name}
                 start={marker.start_time}
                 end={marker.end_time}
-                />
+                />        
+                
     ))}
-
-        <InfoWindow
+    {this.state.restaurantList.map(marker => (
+               
+                <Marker
+                position={marker.geometry.location}
+                key={marker.id}
+                onClick={this.onRestMarkerClick}
+                name={marker.name}
+                icon={restaurantIcon}
+                />        
+                
+    ))}
+    {this.state.parkingList.map(marker => (
+                <Marker
+                position={marker.geometry.location}
+                key={marker.id}
+                onClick={this.onParkMarkerClick}
+                name={marker.name}
+                />        
+                
+    ))}
+    <InfoWindow
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
@@ -103,6 +184,8 @@ class MapContainer extends Component {
           </div>
           </div>
         </InfoWindow>
+
+       
 
 
           </Map>

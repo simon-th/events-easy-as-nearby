@@ -1,3 +1,18 @@
- {props.categories.map(category => (
-                <MenuItem value={category.id}>{category.name}</MenuItem>
-             ))}
+ { <InfoWindow
+          marker={this.state.activeMarker}
+          visible={this.state.showingInfoWindow}
+          onClose={this.onClose}
+        >
+          <div className="text-center">
+            <div>
+              <h6>{marker.name}</h6>
+            </div>
+            <div>
+              <p>{marker.venueName}</p>
+            </div>
+            <div>
+              <p>{new Date(marker.start).toUTCString()} - {new Date(marker.end).toUTCString()}</p>
+            </div>
+          </div>
+          <hr/>
+        </InfoWindow>}
