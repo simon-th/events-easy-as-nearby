@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Map, GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react'
 import {HeatMap} from './HeatMap';
-import {restaurantIcon} from './restaurantIcon.png';
 import apiKeys from '../api-keys.json'
 import axios from 'axios';
 
@@ -23,20 +22,38 @@ class MapContainer extends Component {
       };
 
       onMarkerClick =async (props, marker, e) =>{
-        console.log(this.state.selectedPlace);
         this.setState({
           selectedPlace: props,
           activeMarker: marker,
-          showingInfoWindow: true,
           restaurantList: [],
           parkingList: []
         });
         let self=this;
         await axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+props.position.lat+','+props.position.lng+'&radius=1500&type=restaurant&key='+apiKeys.googlePlaces).then(
           function(response){
-            console.log(response);
+            console.log(response.data.results);
             response.data.results.forEach(element => {
-              self.state.restaurantList.push(element);
+              let address='';
+              axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.geometry.location.lat+','+element.geometry.location.lng+'&key='+apiKeys.googlePlaces).then(
+                function(result){
+                  console.log(result);
+                  
+                    address=result.data.results[0].formatted_address;
+                    
+                  
+                  
+                    
+                    console.log(address);
+
+                }
+              ).catch(error => (
+                  console.log(error)
+                ))
+              self.state.restaurantList.push(
+                {
+                 place: element,
+                 addressName: address
+                });
         
             });
           }
@@ -58,27 +75,16 @@ class MapContainer extends Component {
             console.log(error);
           }
         );
+       this.setState(
+         {
+           showingInfoWindow: true
+         }
+       )
         console.log(this.state.restaurantList);
         console.log(this.state.parkingList);
       }
 
-      onRestMarkerClick = (props, marker, e) =>{
-        this.setState({
-          selectedPlace: props,
-          activeMarker: marker,
-          showingInfoWindow: true
-        });
-      }
-
-      onParkMarkerClick = (props, marker, e) =>{
-        this.setState({
-          selectedPlace: props,
-          activeMarker: marker,
-          showingInfoWindow: true
-        });
-        
-      }
-
+    
       onClose = props => {
         if (this.state.showingInfoWindow) {
           this.setState({
@@ -147,31 +153,14 @@ class MapContainer extends Component {
                 />        
                 
     ))}
-    {this.state.restaurantList.map(marker => (
-               
-                <Marker
-                position={marker.geometry.location}
-                key={marker.id}
-                onClick={this.onRestMarkerClick}
-                name={marker.name}
-                icon={restaurantIcon}
-                />        
-                
-    ))}
-    {this.state.parkingList.map(marker => (
-                <Marker
-                position={marker.geometry.location}
-                key={marker.id}
-                onClick={this.onParkMarkerClick}
-                name={marker.name}
-                />        
-                
-    ))}
+   
+    
     <InfoWindow
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
         >
+          
           <div className="text-center">
           <div>
             <h6>{this.state.selectedPlace.name}</h6>
@@ -181,6 +170,15 @@ class MapContainer extends Component {
           </div>
           <div>
             <p>{new Date(this.state.selectedPlace.start).toUTCString()} - {new Date(this.state.selectedPlace.end).toUTCString()}</p>
+          </div>
+          <div>
+            {this.state.restaurantList.map(restaurant => (
+              <div>
+              <p>{restaurant.place.name}</p>
+              <p>{restaurant.addressName}</p>
+              </div>
+              
+            ))}
           </div>
           </div>
         </InfoWindow>
