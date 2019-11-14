@@ -1,12 +1,3 @@
- axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key='+apiKeys.googlePlaces).then(
-                function(response){
-                  response.results.forEach((element) =>
-                  {
-                    address=address+element.short_name+' ';
-                  }
-                    )
-
-                }
-              ).catch(error => (
-                  console.log(error)
-                ))
+filter?category='+category
+    +'&within='+days+'&distance='+distance+'&free='
+    +free+'&today='+date+'&latitude=30.2669624&longitude=-97.7728593'
