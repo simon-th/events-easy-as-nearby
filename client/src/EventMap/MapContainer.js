@@ -18,18 +18,24 @@ class MapContainer extends Component {
         activeParking: {},
         selectedPlace: {},
         eventList: this.props.eventList,
-        restaurantList: [],
-        parkingList: [],
+        restaurantList: [{
+          place:null,
+          addressName:null
+        }],
+        parkingList: [{
+          place:null,
+          addressName:null
+        }],
         restaurantIcon: {
           url:'./restaurantIcon.png'
         }
 
       };
 
-      onMarkerClick =async (props, marker, e) =>{
+      onMarkerClick = async (props, marker, e) =>{
         this.setState({
           selectedPlace: props,
-          activeMarker: marker,
+            activeMarker: marker,
           restaurantList: [],
           parkingList: []
         });
@@ -37,23 +43,24 @@ class MapContainer extends Component {
         await axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+props.position.lat+','+props.position.lng+'&radius=1500&type=restaurant&key='+apiKeys.googlePlaces).then(
           function(response){
             console.log(response.data.results);
-            response.data.results.forEach(element => {
+            response.data.results.forEach(async (element) => {
               let address='';
-              axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.geometry.location.lat+','+element.geometry.location.long+'&key='+apiKeys.googlePlaces).then(
+               await axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.geometry.location.lat+','+element.geometry.location.lng+'&key='+apiKeys.googlePlaces).then(
                 function(result){
                   console.log(result);
                     address=result.data.results[0].formatted_address;
                     console.log(address);
+                    self.state.restaurantList.push(
+                      {
+                       place: element,
+                       addressName: address
+                      });
 
                 }
               ).catch(error => (
                   console.log(error)
                 ))
-              self.state.restaurantList.push(
-                {
-                 place: element,
-                 addressName: address
-                });
+              
         
             });
           }
@@ -62,26 +69,26 @@ class MapContainer extends Component {
             console.log(error);
           }
         );
-        await axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+props.position.lat+','+props.position.lng+'&radius=1500&type=parking&key='+apiKeys.googlePlaces).then(
+       await axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+props.position.lat+','+props.position.lng+'&radius=1500&type=parking&key='+apiKeys.googlePlaces).then(
           function(response){
             console.log(response);
-            response.data.results.forEach(element => {
+            response.data.results.forEach(async (element) => {
               let address='';
-              axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.geometry.location.lat+','+element.geometry.location.long+'&key='+apiKeys.googlePlaces).then(
+              await axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.geometry.location.lat+','+element.geometry.location.lng+'&key='+apiKeys.googlePlaces).then(
                 function(result){
                   console.log(result);
                     address=result.data.results[0].formatted_address;
                     console.log(address);
-
+                    self.state.parkingList.push(
+                      {
+                       place: element,
+                       addressName: address
+                      });
                 }
               ).catch(error => (
                   console.log(error)
                 ))
-              self.state.parkingtList.push(
-                {
-                 place: element,
-                 addressName: address
-                });
+              
         
             });
           }
@@ -90,13 +97,15 @@ class MapContainer extends Component {
             console.log(error);
           }
         );
-       this.setState(
-         {
-           showingInfoWindow: true
-         }
-       )
+       
         console.log(this.state.restaurantList);
         console.log(this.state.parkingList);
+        this.setState(
+          {   
+            showingInfoWindow: true
+          }
+        )
+        
       }
 
     
@@ -176,6 +185,7 @@ class MapContainer extends Component {
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
+          onOpen={this.props.reRender}
         >
           <Grid className="popup">
           <div>
@@ -190,11 +200,17 @@ class MapContainer extends Component {
           <div className="info">
             <p> {this.state.description}</p>
             <br></br>
+        
           </div>
+          <div>{this.state.restaurantList.map((restaurant)=>(
+            <p>{restaurant.addressName}</p>
+          ))}</div>
           <div className="clear">
             <Divider />
           </div>
+          
           </Grid>
+          
         </InfoWindow>
  
           </Map>

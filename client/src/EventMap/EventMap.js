@@ -34,7 +34,7 @@ class EventMap extends Component {
     render() {
         return (
             <div>
-                <MapContainer eventList={this.state.shownEvents} />
+                <MapContainer eventList={this.state.shownEvents} reRender={this.reRender} />
                 <Filters eventList={this.state.shownEvents} categories={this.state.categories} reRender={this.reRender} />
             </div>
         );
