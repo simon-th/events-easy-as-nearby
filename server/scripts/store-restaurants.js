@@ -1,18 +1,23 @@
-// Script to store all Eventbrite categories as objects in our MongoDB database
+// Script to store all Google restaurants as objects in our MongoDB database
 
 const axios = require('axios');
 const apiKeys = require('../api-keys.json');
 const mongoose = require('mongoose');
 const Category = require('../mongodb_schemas/Category')
+const googleMapsClient = require('@google/maps').createClient({
+  key: `${apiKeys.googlePlaces}`
+});
 
 const DATABASE_NAME = 'explocation';
 const CONNECTION_URL = `mongodb+srv://huy0123:huy_utexas@explocationdb-qtiwe.gcp.mongodb.net/${DATABASE_NAME}?retryWrites=true&w=majority`;
-var API_URL = `http://api.eventful.com/json/categories/list/?app_key=${apiKeys.eventful}`;
+
+const latitude = '30.2862175';
+const longitude = '-97.739388';
+const radius = '25000'
+// var API_URL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=${radius}&type=restaurant&key=${apiKeys.googlePlaces}`;
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true});
 mongoose.Promise = global.Promise;
-
-var dbConnected = false;
 
 var db = mongoose.connection;
 db.once('open', () => {
@@ -20,13 +25,14 @@ db.once('open', () => {
   console.log('connected to database');
   main();
 });
+
 db.on('error', () => {
   console.error.bind(console, 'Mongo connection error');
 });
 
-var categories = [];
+var restaurants = [];
 
-async function storeCategories() {
+async function storeRestaurants() {
   for (var i = 0; i < categories.length; i ++) {
     var model = new Category();
     model.id = categories[i].id;
@@ -37,14 +43,8 @@ async function storeCategories() {
   console.log('stored categories');
 }
 
-async function getCategories() {
-  var response = await axios.get(API_URL).catch(function (error) {
-    console.log(error.message);
-  });
-  const info = JSON.parse(JSON.stringify(response.data));
-  // console.log(info)
-  categories = info.category;
-  console.log('got categories');
+async function getRestaurants() {
+
 }
 
 async function waitDb() {
@@ -56,8 +56,12 @@ async function waitDb() {
 async function main() {
   // await waitDb();
   console.log('main called!')
-  await getCategories();
-  await storeCategories();
+  await getRestaurants();
+  console.log(restaurants.length);
+  console.log(restaurants[0].length);
+  console.log(restaurants[1].length);
+  console.log(restaurants[2].length);
+  // await storeCategories();
   process.exit();
 }
 

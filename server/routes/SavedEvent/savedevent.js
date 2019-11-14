@@ -3,7 +3,6 @@ const User = require('../../mongodb_schemas/User');
 const router = express.Router();
 
 router.post('*', (req, res) => {
-  let saved_event = new User();
 
   const { email, event_id } = req.body;
 
@@ -14,6 +13,7 @@ router.post('*', (req, res) => {
     });
   }
 
+  let saved_event = new User();
   saved_event.email = email;
   saved_event.event_id = event_id;
   console.log(saved_event.email);
@@ -31,7 +31,6 @@ router.post('*', (req, res) => {
           data: error
       });
   });
-
 })
 
 router.get('*', (req, res) => {
