@@ -1,18 +1,3 @@
- { <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}
-          onClose={this.onClose}
-        >
-          <div className="text-center">
-            <div>
-              <h6>{marker.name}</h6>
-            </div>
-            <div>
-              <p>{marker.venueName}</p>
-            </div>
-            <div>
-              <p>{new Date(marker.start).toUTCString()} - {new Date(marker.end).toUTCString()}</p>
-            </div>
-          </div>
-          <hr/>
-        </InfoWindow>}
+filter?category='+category
+    +'&within='+days+'&distance='+distance+'&free='
+    +free+'&today='+date+'&latitude=30.2669624&longitude=-97.7728593'

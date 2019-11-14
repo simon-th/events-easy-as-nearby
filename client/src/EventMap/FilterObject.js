@@ -94,15 +94,15 @@ export default function FilterObject(props) {
       props.eventList.pop();
     }
 
-    await axios.get('/api/events/filter?category='+category
-    +'&within='+days+'&distance='+distance+'&free='
-    +free+'&today='+date+'&latitude=30.2669624&longitude=-97.7728593')
+    await axios.get('/api/events/')
   .then(function (response) {
     console.log(response);
+    
     response.data.forEach(element => {
       props.eventList.push(element);
 
     });
+    
     console.log(props.eventList);
     props.reRender();
   })
