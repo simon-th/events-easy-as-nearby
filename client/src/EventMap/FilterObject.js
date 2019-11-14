@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import { withStyles } from '@material-ui/core/styles';
 import { indigo } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
@@ -59,11 +59,12 @@ export default function FilterObject(props) {
 
   const [state, setState] = React.useState({
     Free: false,
-    distance: 10,
+    distance: 15,
     date: new Date(),
     category:"all",
     days:'999'
   });
+
 
   const classes = useStyles();
    async function requestFilters(){
@@ -112,6 +113,14 @@ export default function FilterObject(props) {
 
   }
   console.log(props.categories);
+
+
+  useEffect(() => {
+    
+    requestFilters();
+
+  }, []);
+
 
   return (
     <div>
