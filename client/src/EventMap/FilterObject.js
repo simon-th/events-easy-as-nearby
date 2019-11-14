@@ -66,7 +66,7 @@ export default function FilterObject(props) {
   });
 
   const classes = useStyles();
-  function requestFilters(){
+   async function requestFilters(){
     let distance=state.distance;
     let free=state.Free;
     let date=state.date.toISOString();
@@ -94,7 +94,7 @@ export default function FilterObject(props) {
       props.eventList.pop();
     }
 
-    axios.get('/api/events/filter?category='+category
+    await axios.get('/api/events/filter?category='+category
     +'&within='+days+'&distance='+distance+'&free='
     +free+'&today='+date+'&latitude=30.2669624&longitude=-97.7728593')
   .then(function (response) {
