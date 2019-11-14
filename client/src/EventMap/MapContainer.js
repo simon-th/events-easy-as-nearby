@@ -1,30 +1,112 @@
 import React, { Component } from 'react';
 import {Map, GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react'
+// import Card from '@material-ui/core/Card';
+import {Card} from 'reactstrap';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
 import {HeatMap} from './HeatMap';
-import apiKeys from '../api-keys.json'
+import apiKeys from '../api-keys.json';
+import popupStyle from './popupStyle.css'
+import axios from 'axios';
 
 
 class MapContainer extends Component {
     state = {
         showingInfoWindow: false,
         activeMarker: {},
+        activeRestaurant: {},
+        activeParking: {},
         selectedPlace: {},
-        eventList: this.props.eventList
+        eventList: this.props.eventList,
+        restaurantList: [],
+        parkingList: [],
+        restaurantIcon: {
+          url:'./restaurantIcon.png'
+        }
 
       };
 
-      onMarkerClick = (props, marker, e) =>
+      onMarkerClick =async (props, marker, e) =>{
         this.setState({
           selectedPlace: props,
           activeMarker: marker,
-          showingInfoWindow: true
+          restaurantList: [],
+          parkingList: []
         });
+        let self=this;
+        await axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+props.position.lat+','+props.position.lng+'&radius=1500&type=restaurant&key='+apiKeys.googlePlaces).then(
+          function(response){
+            console.log(response.data.results);
+            response.data.results.forEach(element => {
+              let address='';
+              axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.geometry.location.lat+','+element.geometry.location.long+'&key='+apiKeys.googlePlaces).then(
+                function(result){
+                  console.log(result);
+                    address=result.data.results[0].formatted_address;
+                    console.log(address);
 
+                }
+              ).catch(error => (
+                  console.log(error)
+                ))
+              self.state.restaurantList.push(
+                {
+                 place: element,
+                 addressName: address
+                });
+        
+            });
+          }
+        ).catch(
+          function(error){
+            console.log(error);
+          }
+        );
+        await axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+props.position.lat+','+props.position.lng+'&radius=1500&type=parking&key='+apiKeys.googlePlaces).then(
+          function(response){
+            console.log(response);
+            response.data.results.forEach(element => {
+              let address='';
+              axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.geometry.location.lat+','+element.geometry.location.long+'&key='+apiKeys.googlePlaces).then(
+                function(result){
+                  console.log(result);
+                    address=result.data.results[0].formatted_address;
+                    console.log(address);
+
+                }
+              ).catch(error => (
+                  console.log(error)
+                ))
+              self.state.parkingtList.push(
+                {
+                 place: element,
+                 addressName: address
+                });
+        
+            });
+          }
+        ).catch(
+          function(error){
+            console.log(error);
+          }
+        );
+       this.setState(
+         {
+           showingInfoWindow: true
+         }
+       )
+        console.log(this.state.restaurantList);
+        console.log(this.state.parkingList);
+      }
+
+    
       onClose = props => {
         if (this.state.showingInfoWindow) {
           this.setState({
             showingInfoWindow: false,
-            activeMarker: null
+            activeMarker: null,
+            activeRestaurant: null,
+            activeParking: null
           });
         }
       };
@@ -39,10 +121,10 @@ class MapContainer extends Component {
         return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
       }
 
+
     render() {
 
-
-        console.log(this.props.eventList);
+        let restaurantIcon=this.state;
         if (!this.props.google) {
             return <div>Loading...</div>;
           }
@@ -83,28 +165,38 @@ class MapContainer extends Component {
                 venueName={marker.venue_name}
                 start={marker.start_time}
                 end={marker.end_time}
+                url={marker.url}
+                image_url={marker.image_url}
+                description={marker.description}
                 />
     ))}
-
-        <InfoWindow
+   
+    
+    <InfoWindow
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
         >
-          <div className="text-center">
+          <Grid className="popup">
           <div>
-            <h6>{this.state.selectedPlace.name}</h6>
+            <h6 align="center">{this.state.selectedPlace.name}</h6>
+            <Divider />
+            <p>{this.state.selectedPlace.venueName} &nbsp; || &nbsp; 
+            {(new Date(this.state.selectedPlace.start).toUTCString()).slice(0, 22)} - {(new Date(this.state.selectedPlace.end).toUTCString()).slice(0, 22)}</p>
           </div>
-          <div>
-            <p>{this.state.selectedPlace.venueName}</p>
+          <div className="image">
+            <a href={this.state.url}><img width="100%" src={this.state.image_url}/></a>
           </div>
-          <div>
-            <p>{new Date(this.state.selectedPlace.start).toUTCString()} - {new Date(this.state.selectedPlace.end).toUTCString()}</p>
+          <div className="info">
+            <p> {this.state.description}</p>
+            <br></br>
           </div>
+          <div className="clear">
+            <Divider />
           </div>
+          </Grid>
         </InfoWindow>
-
-
+ 
           </Map>
         </div>
       );
