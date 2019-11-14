@@ -34,15 +34,10 @@ class MapContainer extends Component {
             console.log(response.data.results);
             response.data.results.forEach(element => {
               let address='';
-              axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.geometry.location.lat+','+element.geometry.location.lng+'&key='+apiKeys.googlePlaces).then(
+              axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.geometry.location.lat+','+element.geometry.location.long+'&key='+apiKeys.googlePlaces).then(
                 function(result){
                   console.log(result);
-                  
                     address=result.data.results[0].formatted_address;
-                    
-                  
-                  
-                    
                     console.log(address);
 
                 }
@@ -66,7 +61,22 @@ class MapContainer extends Component {
           function(response){
             console.log(response);
             response.data.results.forEach(element => {
-              self.state.parkingList.push(element);
+              let address='';
+              axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.geometry.location.lat+','+element.geometry.location.long+'&key='+apiKeys.googlePlaces).then(
+                function(result){
+                  console.log(result);
+                    address=result.data.results[0].formatted_address;
+                    console.log(address);
+
+                }
+              ).catch(error => (
+                  console.log(error)
+                ))
+              self.state.parkingtList.push(
+                {
+                 place: element,
+                 addressName: address
+                });
         
             });
           }
