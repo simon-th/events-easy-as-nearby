@@ -87,6 +87,9 @@ class MapContainer extends Component {
                 venueName={marker.venue_name}
                 start={marker.start_time}
                 end={marker.end_time}
+                url={marker.url}
+                image_url={marker.image_url}
+                description={marker.description}
                 />
     ))}
 
@@ -103,10 +106,10 @@ class MapContainer extends Component {
             {(new Date(this.state.selectedPlace.start).toUTCString()).slice(0, 22)} - {(new Date(this.state.selectedPlace.end).toUTCString()).slice(0, 22)}</p>
           </div>
           <div className="image">
-            <a href='https://arizonaatwork.com'><img width="100%" src='https://i.imgur.com/fe0T4nw.png'/></a>
+            <a href={this.state.url}><img width="100%" src={this.state.image_url}/></a>
           </div>
           <div className="info">
-            <p> lots of info here abouthow great the event is and where it isand why it's happening and all that nonsense idc about thatmuchbut yeah</p>
+            <p> {this.state.description}</p>
             <br></br>
           </div>
           <div className="clear">

@@ -141,7 +141,7 @@ export default function FilterObject(props) {
           </Select>
         </FormControl>
         <FormControl>
-          <InputLabel htmlFor="age-simple">Date</InputLabel>
+          <InputLabel htmlFor="days">Date</InputLabel>
           <Select
             className={classes.select}
             value={state.days}
@@ -169,7 +169,7 @@ export default function FilterObject(props) {
 
           <Slider
           id="distanceSlider"
-          defaultValue={10}
+          defaultValue={15}
           getAriaValueText={valuetext}
           aria-labelledby="discrete-slider"
           valueLabelDisplay="auto"
