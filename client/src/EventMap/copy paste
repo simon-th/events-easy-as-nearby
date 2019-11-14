@@ -1,18 +1,12 @@
- { <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}
-          onClose={this.onClose}
-        >
-          <div className="text-center">
-            <div>
-              <h6>{marker.name}</h6>
-            </div>
-            <div>
-              <p>{marker.venueName}</p>
-            </div>
-            <div>
-              <p>{new Date(marker.start).toUTCString()} - {new Date(marker.end).toUTCString()}</p>
-            </div>
-          </div>
-          <hr/>
-        </InfoWindow>}
+ axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key='+apiKeys.googlePlaces).then(
+                function(response){
+                  response.results.forEach((element) =>
+                  {
+                    address=address+element.short_name+' ';
+                  }
+                    )
+
+                }
+              ).catch(error => (
+                  console.log(error)
+                ))

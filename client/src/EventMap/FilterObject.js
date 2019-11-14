@@ -109,9 +109,9 @@ export default function FilterObject(props) {
   .catch(function (error) {
     console.log(error);
   });
-
+  console.log(props.eventList);
   }
-  console.log(props.categories);
+ 
 
   return (
     <div>
