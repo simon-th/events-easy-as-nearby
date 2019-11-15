@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Map, GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react'
+
 import {Card} from 'reactstrap';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
@@ -12,19 +13,15 @@ import axios from 'axios';
 class MapContainer extends Component {
     state = {
         showingInfoWindow: false,
+        showParkingWindow: false,
+        showRestaurantWindow: false,
         activeMarker: {},
         activeRestaurant: {},
         activeParking: {},
         selectedPlace: {},
         eventList: this.props.eventList,
-        restaurantList: [{
-          place:null,
-          addressName:null
-        }],
-        parkingList: [{
-          place:null,
-          addressName:null
-        }],
+        restaurantList: [],
+        parkingList: [],
         restaurantIcon: {
           url:'./restaurantIcon.png'
         }
@@ -32,9 +29,10 @@ class MapContainer extends Component {
       };
 
       onMarkerClick = async (props, marker, e) =>{
+        console.log(props);
         this.setState({
           selectedPlace: props,
-            activeMarker: marker,
+          activeMarker: marker,
           restaurantList: [],
           parkingList: []
         });
@@ -51,7 +49,7 @@ class MapContainer extends Component {
                     console.log(address);
                     self.state.restaurantList.push(
                       {
-                       place: element, //.name to get name
+                       place: element,
                        addressName: address
                       });
 
@@ -96,22 +94,53 @@ class MapContainer extends Component {
             console.log(error);
           }
         );
-       
-        console.log(this.state.restaurantList);
-        console.log(this.state.parkingList);
         this.setState(
           {   
-            showingInfoWindow: true
+            showingInfoWindow: true,
+            showParkingWindow: false,
+            showRestaurantWindow: false,
+            restaurantList: this.state.restaurantList,
+            parkingList: this.state.parkingList
+            
           }
         )
+        console.log(this.state.restaurantList);
+        console.log(this.state.parkingList);
+        
+        
         
       }
+
+      onParkingClick = (props, marker, e) => {
+        this.setState({
+          activeMarker: marker,
+          showingInfoWindow: false,
+          showParkingWindow: true,
+          showRestaurantWindow: false,
+          selectedPlace: props
+        })
+        console.log(this.state);
+      }
+
+      onRestaurantClick = (props, marker, e) => {
+        this.setState({
+          activeMarker: marker,
+          showingInfoWindow: false,
+          showParkingWindow: false,
+          showRestaurantWindow: true,
+          selectedPlace: props
+        })
+        console.log(this.state);
+      }
+
 
     
       onClose = props => {
         if (this.state.showingInfoWindow) {
           this.setState({
             showingInfoWindow: false,
+            showParkingWindow: false,
+            showRestaurantWindow: false,
             activeMarker: null,
             activeRestaurant: null,
             activeParking: null
@@ -165,7 +194,6 @@ class MapContainer extends Component {
             />
 
         {this.state.eventList.map(marker => (
-          
                 <Marker
                 position={{ lat: marker.latitude, lng: marker.longitude }}
                 key={marker.id}
@@ -175,38 +203,49 @@ class MapContainer extends Component {
                 start={marker.start_time}
                 end={marker.end_time}
                 url={marker.url}
-                image_url={marker.image_url == null ? 'https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png' : marker.image_url}
+                image_url={marker.image_url}
                 description={marker.description}
                 />
     ))}
 
-    {this.state.restaurantList.map(marker => (
-              
-              <Marker
-              icon='https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
-              position={{ lat: marker.latitude, lng: marker.longitude }}
-              key={marker.id}
-              onClick={this.onMarkerClick}
-              place={marker.place}
-              address={marker.addressName}
-              />
+{this.state.parkingList.map(marker => (
+                <Marker
+                position={{ lat: marker.place.geometry.location.lat, lng: marker.place.geometry.location.lng }}
+                key={marker.id}
+                onClick={this.onParkingClick}
+                />
     ))}
 
-    {this.state.parkingList.map(marker => (
-              
-              <Marker
-              icon='https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
-              position={{ lat: marker.latitude, lng: marker.longitude }}
-              key={marker.id}
-              onClick={this.onMarkerClick}
-              position={{ lat: marker.latitude, lng: marker.longitude }}
-              key={marker.id}
-              onClick={this.onMarkerClick}
-              place={marker.place}
-              address={marker.addressName}
-              />
+{this.state.restaurantList.map(marker => (
+                <Marker
+                position={{ lat: marker.place.geometry.location.lat, lng: marker.place.geometry.location.lng }}
+                key={marker.id}
+                onClick={this.onRestaurantClick}
+                />
     ))}
+
+
    
+
+    <InfoWindow
+    marker={this.state.activeMarker}
+    visible={this.state.showParkingWindow}
+    onClose={this.onClose}
+    onOpen={this.props.reRender}
+    
+    >
+        <p6>DIS PERKING</p6>
+    </InfoWindow>
+
+    <InfoWindow
+    marker={this.state.activeMarker}
+    visible={this.state.showRestaurantWindow}
+    onClose={this.onClose}
+    onOpen={this.props.reRender}
+    
+    >
+        <p6>DIS RESTRANT</p6>
+    </InfoWindow>
     
     <InfoWindow
           marker={this.state.activeMarker}
@@ -217,13 +256,11 @@ class MapContainer extends Component {
           <Grid className="popup">
           <div>
             <h6 align="center">{this.state.selectedPlace.name}</h6>
-            {console.log(this.state.selectedPlace)}
             <Divider />
             <p>{this.state.selectedPlace.venueName} &nbsp; || &nbsp; 
             {(new Date(this.state.selectedPlace.start).toUTCString()).slice(0, 22)} - {(new Date(this.state.selectedPlace.end).toUTCString()).slice(0, 22)}</p>
           </div>
           <div className="image">
-            {console.log(this.state.image_url)}
             <a href={this.state.url}><img width="100%" src={this.state.image_url}/></a>
           </div>
           <div className="info">
@@ -236,12 +273,6 @@ class MapContainer extends Component {
           ))}</div>
           <div className="clear">
             <Divider />
-            <div className="image">
-              <p>Nearby Food</p>
-            </div>
-            <div className="info">
-              <p>Nearby Parking</p>
-            </div>
           </div>
           
           </Grid>
