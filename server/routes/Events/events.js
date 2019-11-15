@@ -55,7 +55,12 @@ router.get('/test', (req, res) => {
 // /api/events/search/?location=30.2884957,-97.7355092&within=15&category=food&date=today
 
 router.get('/search', async (req, res) => {
-  var url = `http://api.eventful.com/json/events/search/?app_key=${apiKeys.eventful}&location=${req.query.location}&within=${req.query.within}&category=${req.query.category}&date=${req.query.date}&page_size=50&sort_order=popularity`;
+  var url = '';
+  if (req.query.category === 'all') {
+    url = `http://api.eventful.com/json/events/search/?app_key=${apiKeys.eventful}&location=${req.query.location}&within=${req.query.within}&date=${req.query.date}&page_size=50&sort_order=popularity`;
+  } else {
+    url = `http://api.eventful.com/json/events/search/?app_key=${apiKeys.eventful}&location=${req.query.location}&within=${req.query.within}&category=${req.query.category}&date=${req.query.date}&page_size=50&sort_order=popularity`;
+  }
   var response = await axios.get(url).catch(function (error) {
     console.log(error.message);
   });
@@ -129,6 +134,12 @@ router.post('/save', async (req, res) => {
     model = getNewEvent(event);
     await model.save();
     console.log('Created event in db');
+  } else if (db_event[0].saved_users.includes(email)) {
+    return res.status(500).json({
+      status: "Failed",
+      message: "Cannot Save Twice",
+      data: null
+    });
   }
   Event.findOneAndUpdate({"id": event_id}, {"$push": {"saved_users": email}}, { new: true, safe: true, upsert: true }).then((result) => {
     let saved_event = new User();
