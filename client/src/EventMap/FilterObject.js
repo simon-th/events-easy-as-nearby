@@ -28,11 +28,18 @@ const useStyles = makeStyles(theme => ({
     select: {
       margin: theme.spacing(2),
   },
-    button: {
+    submitButton: {
       position: 'absolute',
       bottom: theme.spacing(3),
       alignItems: 'center',
+      
   },
+  resetButton: {
+    position: 'absolute',
+    bottom: theme.spacing(3),
+    alignItems: 'center',
+    
+},
     check: {
       margin: theme.spacing(1),
     }
@@ -75,16 +82,7 @@ export default function FilterObject(props) {
     let days=state.days;
     let category=state.category;
     console.log(state);
-    /*
-    params=filters.filter((param)=>{
-      if(param=="distance"){
-        return false;
-      }
-      return state[param]
-    })
-    .map((param)=>{return param});
-    console.log(params);
-    */
+   
     console.log(free);
     console.log(date);
     console.log(category);
@@ -206,9 +204,12 @@ export default function FilterObject(props) {
 
       </FormGroup>
 
-        <div>
-          <Button className={classes.button} onClick={requestFilters}>Submit</Button>
+        <div style={{float:'left'}}>
+          <Button className={classes.submitButton} onClick={requestFilters}>Submit</Button>
         </div>
+        
+        <Divider/>
+        
       </div>
     </div>
 
