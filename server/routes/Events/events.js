@@ -1,11 +1,51 @@
 const express = require('express');
 const axios = require('axios');
+const geolib = require('geolib');
+const convert = require('convert-units');
 const Category = require('../../mongodb_schemas/Category');
 const Event = require('../../mongodb_schemas/Event');
+const Restaurant = require('../../mongodb_schemas/Restaurant');
 const User = require('../../mongodb_schemas/User');
 const apiKeys = require('../../api-keys.json');
 
 const router = express.Router();
+
+async function filterRestaurantsByDistance(restaurants, source) {
+  var filtered = [];
+  restaurants.forEach((r) => {
+    const lat = r.latitude;
+    const lng = r.longitude;
+    var dist = geolib.getDistance(source, {
+      latitude: lat,
+      longitude: lng
+    });
+    dist = convert(dist).from('m').to('mi');
+    if (dist <= 0.5) {
+      filtered.push(r);
+    }
+  });
+  return filtered;
+}
+
+router.get('/restaurants', async (req, res) => {
+  try {
+    var restaurants = [];
+    const lat = parseFloat(req.query.latitude);
+    const lng = parseFloat(req.query.longitude);
+    let data = await Restaurant.find();
+    if (data) restaurants = data;
+    else res.status(404).json({
+      message: 'aiya'
+    });
+    restaurants = await filterRestaurantsByDistance(restaurants, {
+      latitude: lat,
+      longitude: lng
+    });
+    res.status(200).json(restaurants);
+  } catch (error) {
+    console.log(error);
+  }
+})
 
 router.get('/test', (req, res) => {
   res.send('events api route works!');
