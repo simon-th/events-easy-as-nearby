@@ -24,15 +24,15 @@ router.post('/newuser', (req, res) => {
   });
 });
 
-router.get('/findname', (req, res) => {
-  const { useremail } = req.body;
-  User.find({ email: useremail }, function(err, data) {
-    if (err) return res.json({ success: false, error: err });
-    console.log(res.data);
-    return res.json({ success: true, data: data });
-  });
+// router.get('/findname', (req, res) => {
+//   const { useremail } = req.body;
+//   User.find({ email: useremail }, function(err, data) {
+//     if (err) return res.json({ success: false, error: err });
+//     console.log(res.data);
+//     return res.json({ success: true, data: data });
+//   });
 
-});
+// });
 
 router.post('/newsub', (req, res) => {
     let sub = new Sub();

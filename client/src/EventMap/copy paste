@@ -1,3 +1,5 @@
-filter?category='+category
-    +'&within='+days+'&distance='+distance+'&free='
-    +free+'&today='+date+'&latitude=30.2669624&longitude=-97.7728593'
+http://api.eventful.com/rest/events/search?app_key=qrLV5zX3bN29VWwb&where=30.2862,-97.7394&within=15&date=
+This+Week&page_size=50&sort_order=popularity&sort_direction=descending
+
+
+ 

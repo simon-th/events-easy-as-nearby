@@ -4,13 +4,19 @@
 
 .image {
     float: left;
-    width: 50%
+    width: 35%;
+    padding-left: 10%;
+    padding-bottom: 5%;
+    align-content: center;
+    justify-content: center;
+    
 }
 
 .info {
     float: right;
-    width: 50%;
+    width: 65%;
     overflow-y: auto;
+    align-content: center;
 }
 
 .clear {

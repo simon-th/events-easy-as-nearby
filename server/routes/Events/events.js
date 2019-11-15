@@ -1,27 +1,71 @@
 const express = require('express');
 const axios = require('axios');
+const geolib = require('geolib');
+const convert = require('convert-units');
 const Category = require('../../mongodb_schemas/Category');
 const Event = require('../../mongodb_schemas/Event');
+const Restaurant = require('../../mongodb_schemas/Restaurant');
 const User = require('../../mongodb_schemas/User');
 const apiKeys = require('../../api-keys.json');
 
 const router = express.Router();
 
+async function filterRestaurantsByDistance(restaurants, source) {
+  var filtered = [];
+  restaurants.forEach((r) => {
+    const lat = r.latitude;
+    const lng = r.longitude;
+    var dist = geolib.getDistance(source, {
+      latitude: lat,
+      longitude: lng
+    });
+    dist = convert(dist).from('m').to('mi');
+    if (dist <= 0.5) {
+      filtered.push(r);
+    }
+  });
+  return filtered;
+}
+
+router.get('/restaurants', async (req, res) => {
+  try {
+    var restaurants = [];
+    const lat = parseFloat(req.query.latitude);
+    const lng = parseFloat(req.query.longitude);
+    let data = await Restaurant.find();
+    if (data) restaurants = data;
+    else res.status(404).json({
+      message: 'aiya'
+    });
+    restaurants = await filterRestaurantsByDistance(restaurants, {
+      latitude: lat,
+      longitude: lng
+    });
+    res.status(200).json(restaurants);
+  } catch (error) {
+    console.log(error);
+  }
+})
+
 router.get('/test', (req, res) => {
   res.send('events api route works!');
 });
 
-router.get('/all', async (req, res) => {
-  Event.find((err, data) => {
-    if (err) return res.json({
-      success: false,
-      error: err
-    });
-    return res.json({
-      success: true,
-      data: data
-    });
+// request format
+// /api/events/search/?location=30.2884957,-97.7355092&within=15&category=food&date=today
+
+router.get('/search', async (req, res) => {
+  var url = '';
+  if (req.query.category === 'all') {
+    url = `http://api.eventful.com/json/events/search/?app_key=${apiKeys.eventful}&location=${req.query.location}&within=${req.query.within}&date=${req.query.date}&page_size=50&sort_order=popularity`;
+  } else {
+    url = `http://api.eventful.com/json/events/search/?app_key=${apiKeys.eventful}&location=${req.query.location}&within=${req.query.within}&category=${req.query.category}&date=${req.query.date}&page_size=50&sort_order=popularity`;
+  }
+  var response = await axios.get(url).catch(function (error) {
+    console.log(error.message);
   });
+  // console.log(response);
+  return res.status(200).json(response.data.events.event);
 });
 
 router.get('/categories', async (req, res) => {
@@ -55,7 +99,7 @@ router.get('/category', async (req, res) => {
 
 function getNewEvent(event) {
   model = new Event();
-  model.name = event.name;
+  model.name = event.title;
   model.description = event.description;
   model.id = event.id;
   model.url = event.url;
@@ -72,7 +116,7 @@ function getNewEvent(event) {
   if (event.image != null) {
     model.image_url = event.image.medium.url;
   }
-  model.saved_users = 1
+  model.saved_users = []
   return model;
 }
 
@@ -90,36 +134,39 @@ router.post('/save', async (req, res) => {
     model = getNewEvent(event);
     await model.save();
     console.log('Created event in db');
-  } else {
-    Event.findOneAndUpdate({"id": event_id}, {"$inc": {"saved_users": 1}}, { new: true, safe: true, upsert: true }).then((result) => {
-    }).catch((error) => {
-        return res.status(500).json({
-            status: "Failed",
-            message: "Database Error",
-            data: error
-        });
+  } else if (db_event[0].saved_users.includes(email)) {
+    return res.status(500).json({
+      status: "Failed",
+      message: "Cannot Save Twice",
+      data: null
     });
   }
-
-  let saved_event = new User();
-  saved_event.email = email;
-  saved_event.event_id = event_id;
-  console.log(saved_event.email);
-  console.log(saved_event.event_id);
-  User.findOneAndUpdate({"email": saved_event.email}, {"$push": {"saved_event": saved_event.event_id}}, { new: true, safe: true, upsert: true }).then((result) => {
-      return res.status(201).json({
+  Event.findOneAndUpdate({"id": event_id}, {"$push": {"saved_users": email}}, { new: true, safe: true, upsert: true }).then((result) => {
+    let saved_event = new User();
+    saved_event.email = email;
+    saved_event.event_id = event_id;
+    console.log(saved_event.email);
+    console.log(saved_event.event_id);
+    User.findOneAndUpdate({"email": saved_event.email}, {"$push": {"saved_event": saved_event.event_id}}, { new: true, safe: true, upsert: true }).then((result) => {
+        return res.status(201).json({
           status: "Success",
           message: "Resources Are Created Successfully",
           data: result
-      });
-  }).catch((error) => {
-      return res.status(500).json({
+        });
+      }).catch((error) => {
+        return res.status(500).json({
           status: "Failed",
           message: "Database Error",
           data: error
+        });
       });
-  });
-
+    }).catch((error) => {
+      return res.status(500).json({
+        status: "Failed",
+        message: "Database Error",
+        data: error
+      });
+    });
 })
 
 module.exports = router;
