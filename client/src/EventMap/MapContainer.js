@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Map, GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react'
-// import Card from '@material-ui/core/Card';
 import {Card} from 'reactstrap';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
@@ -52,7 +51,7 @@ class MapContainer extends Component {
                     console.log(address);
                     self.state.restaurantList.push(
                       {
-                       place: element,
+                       place: element, //.name to get name
                        addressName: address
                       });
 
@@ -166,6 +165,7 @@ class MapContainer extends Component {
             />
 
         {this.state.eventList.map(marker => (
+          
                 <Marker
                 position={{ lat: marker.latitude, lng: marker.longitude }}
                 key={marker.id}
@@ -175,9 +175,36 @@ class MapContainer extends Component {
                 start={marker.start_time}
                 end={marker.end_time}
                 url={marker.url}
-                image_url={marker.image_url}
+                image_url={marker.image_url == null ? 'https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png' : marker.image_url}
                 description={marker.description}
                 />
+    ))}
+
+    {this.state.restaurantList.map(marker => (
+              
+              <Marker
+              icon='https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+              position={{ lat: marker.latitude, lng: marker.longitude }}
+              key={marker.id}
+              onClick={this.onMarkerClick}
+              place={marker.place}
+              address={marker.addressName}
+              />
+    ))}
+
+    {this.state.parkingList.map(marker => (
+              
+              <Marker
+              icon='https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+              position={{ lat: marker.latitude, lng: marker.longitude }}
+              key={marker.id}
+              onClick={this.onMarkerClick}
+              position={{ lat: marker.latitude, lng: marker.longitude }}
+              key={marker.id}
+              onClick={this.onMarkerClick}
+              place={marker.place}
+              address={marker.addressName}
+              />
     ))}
    
     
@@ -190,11 +217,13 @@ class MapContainer extends Component {
           <Grid className="popup">
           <div>
             <h6 align="center">{this.state.selectedPlace.name}</h6>
+            {console.log(this.state.selectedPlace)}
             <Divider />
             <p>{this.state.selectedPlace.venueName} &nbsp; || &nbsp; 
             {(new Date(this.state.selectedPlace.start).toUTCString()).slice(0, 22)} - {(new Date(this.state.selectedPlace.end).toUTCString()).slice(0, 22)}</p>
           </div>
           <div className="image">
+            {console.log(this.state.image_url)}
             <a href={this.state.url}><img width="100%" src={this.state.image_url}/></a>
           </div>
           <div className="info">
@@ -207,6 +236,12 @@ class MapContainer extends Component {
           ))}</div>
           <div className="clear">
             <Divider />
+            <div className="image">
+              <p>Nearby Food</p>
+            </div>
+            <div className="info">
+              <p>Nearby Parking</p>
+            </div>
           </div>
           
           </Grid>
