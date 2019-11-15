@@ -95,7 +95,7 @@ export default function FilterObject(props) {
     while(props.eventList.length>0){
       props.eventList.pop();
     }
-    await axios.get(`https://cors-anywhere.herokuapp.com/http://api.eventful.com/rest/events/search?app_key=${apiKeys.eventful}&where=30.2862,-97.7394&within=${distance}&date=${days}&page_size=50&sort_order=popularity&sort_direction=descending`)
+    await axios.get(`api/events/search/?location=30.2884957,-97.7355092&within=${distance}&category=${category}&date=${days}`)
   .then(function (response) {
     console.log(response);
     
