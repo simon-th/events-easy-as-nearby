@@ -51,17 +51,16 @@ router.get('/test', (req, res) => {
   res.send('events api route works!');
 });
 
-router.get('/all', async (req, res) => {
-  Event.find((err, data) => {
-    if (err) return res.json({
-      success: false,
-      error: err
-    });
-    return res.json({
-      success: true,
-      data: data
-    });
+// request format
+// /api/events/search/?location=30.2884957,-97.7355092&within=15&category=food&date=today
+
+router.get('/search', async (req, res) => {
+  var url = `http://api.eventful.com/json/events/search/?app_key=${apiKeys.eventful}&location=${req.query.location}&within=${req.query.within}&category=${req.query.category}&date=${req.query.date}&page_size=50&sort_order=popularity`;
+  var response = await axios.get(url).catch(function (error) {
+    console.log(error.message);
   });
+  // console.log(response);
+  return res.status(200).json(response.data.events.event);
 });
 
 router.get('/categories', async (req, res) => {
