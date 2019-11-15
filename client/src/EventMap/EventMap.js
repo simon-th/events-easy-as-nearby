@@ -52,7 +52,7 @@ class EventMap extends Component {
         return (
             <div>
                 <MapContainer eventList={this.state.shownEvents} reRender={this.reRender} showRecs={this.state.showRecs} enableRecs={this.enableRecs} refresh={this.refresh}/>
-                <Filters eventList={this.state.shownEvents} categories={this.state.categories} reRender={this.reRender}/>
+                <Filters eventList={this.state.shownEvents}  categories={this.state.categories} reRender={this.reRender}/>
             </div>
         );
     }

@@ -66,6 +66,26 @@ export default function PersistentDrawerRight(props) {
             Filter
           </Fab>
       </div>
+      <div style={{
+    margin: 0,
+    top: 'auto',
+    right: 1000,
+    bottom: 20,
+    left: 'auto',
+    position: 'fixed',
+}}>
+          <Fab
+          color="primary"
+          size="large"
+          variant="extended"
+          aria-label="open drawer"
+          onClick={props.reRender}
+          className={clsx(classes.fab, open && classes.hide)}
+          >
+            <FilterListIcon className={classes.extendedIcon} />
+            Clear Food/Parking
+          </Fab>
+      </div>
       <Drawer
           className={classes.drawer}
           variant="persistent"
