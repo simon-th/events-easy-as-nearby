@@ -57,7 +57,7 @@ router.get('/category', async (req, res) => {
 
 function getNewEvent(event) {
   model = new Event();
-  model.name = event.name;
+  model.name = event.title;
   model.description = event.description;
   model.id = event.id;
   model.url = event.url;
@@ -74,7 +74,7 @@ function getNewEvent(event) {
   if (event.image != null) {
     model.image_url = event.image.medium.url;
   }
-  model.saved_users = 1
+  model.saved_users = []
   return model;
 }
 
@@ -92,36 +92,33 @@ router.post('/save', async (req, res) => {
     model = getNewEvent(event);
     await model.save();
     console.log('Created event in db');
-  } else {
-    Event.findOneAndUpdate({"id": event_id}, {"$inc": {"saved_users": 1}}, { new: true, safe: true, upsert: true }).then((result) => {
-    }).catch((error) => {
-        return res.status(500).json({
-            status: "Failed",
-            message: "Database Error",
-            data: error
-        });
-    });
   }
-
-  let saved_event = new User();
-  saved_event.email = email;
-  saved_event.event_id = event_id;
-  console.log(saved_event.email);
-  console.log(saved_event.event_id);
-  User.findOneAndUpdate({"email": saved_event.email}, {"$push": {"saved_event": saved_event.event_id}}, { new: true, safe: true, upsert: true }).then((result) => {
-      return res.status(201).json({
+  Event.findOneAndUpdate({"id": event_id}, {"$push": {"saved_users": email}}, { new: true, safe: true, upsert: true }).then((result) => {
+    let saved_event = new User();
+    saved_event.email = email;
+    saved_event.event_id = event_id;
+    console.log(saved_event.email);
+    console.log(saved_event.event_id);
+    User.findOneAndUpdate({"email": saved_event.email}, {"$push": {"saved_event": saved_event.event_id}}, { new: true, safe: true, upsert: true }).then((result) => {
+        return res.status(201).json({
           status: "Success",
           message: "Resources Are Created Successfully",
           data: result
-      });
-  }).catch((error) => {
-      return res.status(500).json({
+        });
+      }).catch((error) => {
+        return res.status(500).json({
           status: "Failed",
           message: "Database Error",
           data: error
+        });
       });
-  });
-
+    }).catch((error) => {
+      return res.status(500).json({
+        status: "Failed",
+        message: "Database Error",
+        data: error
+      });
+    });
 })
 
 module.exports = router;

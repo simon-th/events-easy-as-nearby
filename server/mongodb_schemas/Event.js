@@ -16,7 +16,7 @@ const EventSchema = new Schema({
   region: String,
   postal_code: String,
   image_url: String,
-  saved_users: Number
+  saved_users: [String]
 });
 
 module.exports = mongoose.model('Event', EventSchema, 'event_info');
