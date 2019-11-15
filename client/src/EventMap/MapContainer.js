@@ -165,6 +165,18 @@ class MapContainer extends Component {
         if (!this.props.google) {
             return <div>Loading...</div>;
           }
+          console.log(this.props.showRecs);
+          if(!this.props.showRecs){
+            this.setState({
+              restaurantList:[],
+              parkingList: []
+            });
+            console.log("clear");
+            console.log(this.state);
+            this.props.enableRecs();
+          }
+          console.log(this.state);
+          
 
       return (
         <div
@@ -207,12 +219,14 @@ class MapContainer extends Component {
                 />
     ))}
 
-{this.state.parkingList.map(marker => (
+{       this.state.parkingList.map(marker => (
+ 
                 <Marker
                 position={{ lat: marker.place.geometry.location.lat, lng: marker.place.geometry.location.lng }}
                 key={marker.id}
                 onClick={this.onParkingClick}
                 />
+  
     ))}
 
 {this.state.restaurantList.map(marker => (
@@ -230,7 +244,7 @@ class MapContainer extends Component {
     marker={this.state.activeMarker}
     visible={this.state.showParkingWindow}
     onClose={this.onClose}
-    onOpen={this.props.reRender}
+    onOpen={this.props.refresh}
 
     >
         <p6>DIS PERKING</p6>
@@ -240,7 +254,7 @@ class MapContainer extends Component {
     marker={this.state.activeMarker}
     visible={this.state.showRestaurantWindow}
     onClose={this.onClose}
-    onOpen={this.props.reRender}
+    onOpen={this.props.refresh}
 
     >
         <p6>DIS RESTRANT</p6>
@@ -250,7 +264,7 @@ class MapContainer extends Component {
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
-          onOpen={this.props.reRender}
+          onOpen={this.props.refresh}
         >
           <Grid className="popup">
           <div>

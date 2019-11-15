@@ -1,1 +1,3 @@
-http://api.eventful.com/rest/events/search?app_key=${apiKeys.eventful}&where=30.2862,-97.7394&within=${distance}&date=${days}&page_size=50&sort_order=popularity&sort_direction=descending
+<div>
+        <Button className={classes.button} onClick={props.reRender}>Reset</Button>
+        </div>
