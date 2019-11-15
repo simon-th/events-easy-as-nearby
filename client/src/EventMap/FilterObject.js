@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import apiKeys from '../api-keys.json';
 import { withStyles } from '@material-ui/core/styles';
 import { indigo } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
@@ -62,7 +63,7 @@ export default function FilterObject(props) {
     distance: 15,
     date: new Date(),
     category:"all",
-    days:'999'
+    days:'Future'
   });
 
 
@@ -94,8 +95,7 @@ export default function FilterObject(props) {
     while(props.eventList.length>0){
       props.eventList.pop();
     }
-
-    await axios.get('/api/events/')
+    await axios.get(`https://cors-anywhere.herokuapp.com/http://api.eventful.com/rest/events/search?app_key=${apiKeys.eventful}&where=30.2862,-97.7394&within=${distance}&date=${days}&page_size=50&sort_order=popularity&sort_direction=descending`)
   .then(function (response) {
     console.log(response);
     
@@ -159,15 +159,13 @@ export default function FilterObject(props) {
             )}
             inputProps={{
               name: 'Any Day',
-              id: '999',
+              id: 'Future',
             }}
-
           >
-            <MenuItem value='999'>Any Day</MenuItem>
-            <MenuItem value='0'>Today</MenuItem>
-            <MenuItem value='1'>Tomorrow</MenuItem>
-            <MenuItem value='7'>This Week</MenuItem>
-            <MenuItem value='14'>Next Week</MenuItem>
+            <MenuItem value='Future'>Any Day</MenuItem>
+            <MenuItem value='Today'>Today</MenuItem>
+            <MenuItem value='This+Week'>This Week</MenuItem>
+            <MenuItem value='Next+Week'>Next Week</MenuItem>
           </Select>
         </FormControl>
         </FormGroup>
