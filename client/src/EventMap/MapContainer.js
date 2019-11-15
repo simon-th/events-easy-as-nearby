@@ -200,7 +200,7 @@ class MapContainer extends Component {
                 venueName={marker.venue_name}
                 venueAddress={marker.venue_address == null ? "(No given venue address)" : marker.venue_address}
                 start={marker.start_time}
-                end={marker.end_time}
+                end={marker.stop_time}
                 url={marker.url}
                 image_url={marker.image_url == null ? 'https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png' : marker.image_url}
                 description={marker.description == null ? "(No description available)" : marker.description}
