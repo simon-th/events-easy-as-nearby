@@ -1,3 +1,0 @@
- {props.categories.map(category => (
-                <MenuItem value={category.id}>{category.name}</MenuItem>
-             ))}

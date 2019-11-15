@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import { withStyles } from '@material-ui/core/styles';
 import { indigo } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
@@ -59,14 +59,15 @@ export default function FilterObject(props) {
 
   const [state, setState] = React.useState({
     Free: false,
-    distance: 10,
+    distance: 15,
     date: new Date(),
     category:"all",
     days:'999'
   });
 
+
   const classes = useStyles();
-  function requestFilters(){
+   async function requestFilters(){
     let distance=state.distance;
     let free=state.Free;
     let date=state.date.toISOString();
@@ -94,24 +95,32 @@ export default function FilterObject(props) {
       props.eventList.pop();
     }
 
-    axios.get('/api/events/filter?category='+category
-    +'&within='+days+'&distance='+distance+'&free='
-    +free+'&today='+date+'&latitude=30.2669624&longitude=-97.7728593')
+    await axios.get('/api/events/')
   .then(function (response) {
     console.log(response);
+    
     response.data.forEach(element => {
       props.eventList.push(element);
 
     });
+    
     console.log(props.eventList);
     props.reRender();
   })
   .catch(function (error) {
     console.log(error);
   });
-
+  console.log(props.eventList);
   }
-  console.log(props.categories);
+ 
+
+
+  useEffect(() => {
+    
+    requestFilters();
+
+  }, []);
+
 
   return (
     <div>
@@ -141,7 +150,7 @@ export default function FilterObject(props) {
           </Select>
         </FormControl>
         <FormControl>
-          <InputLabel htmlFor="age-simple">Date</InputLabel>
+          <InputLabel htmlFor="days">Date</InputLabel>
           <Select
             className={classes.select}
             value={state.days}
@@ -169,7 +178,7 @@ export default function FilterObject(props) {
 
           <Slider
           id="distanceSlider"
-          defaultValue={10}
+          defaultValue={15}
           getAriaValueText={valuetext}
           aria-labelledby="discrete-slider"
           valueLabelDisplay="auto"

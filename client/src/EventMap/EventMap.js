@@ -16,9 +16,9 @@ class EventMap extends Component {
         }
     }
 
-    componentDidMount(){
+    async componentDidMount(){
     let self=this;
-    axios.get('/api/events/categories')
+    await axios.get('/api/events/categories')
     .then(function (response) {
     console.log(response);
     console.log(response.data);
@@ -34,7 +34,7 @@ class EventMap extends Component {
     render() {
         return (
             <div>
-                <MapContainer eventList={this.state.shownEvents} />
+                <MapContainer eventList={this.state.shownEvents} reRender={this.reRender} />
                 <Filters eventList={this.state.shownEvents} categories={this.state.categories} reRender={this.reRender} />
             </div>
         );
