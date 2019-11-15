@@ -95,15 +95,15 @@ export default function FilterObject(props) {
     while(props.eventList.length>0){
       props.eventList.pop();
     }
-    await axios.get(`https://cors-anywhere.herokuapp.com/http://api.eventful.com/rest/events/search?app_key=${apiKeys.eventful}&where=30.2862,-97.7394&within=${distance}&date=${days}&page_size=50&sort_order=popularity&sort_direction=descending`)
+    await axios.get(`/api/events/search/?location=30.2862,-97.7394&within=${distance}&category=all&date=${days}`)
   .then(function (response) {
     console.log(response);
-    
+
     response.data.forEach(element => {
       props.eventList.push(element);
 
     });
-    
+
     console.log(props.eventList);
     props.reRender();
   })
@@ -112,11 +112,11 @@ export default function FilterObject(props) {
   });
   console.log(props.eventList);
   }
- 
+
 
 
   useEffect(() => {
-    
+
     requestFilters();
 
   }, []);
