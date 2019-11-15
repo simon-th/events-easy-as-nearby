@@ -95,7 +95,7 @@ export default function FilterObject(props) {
     while(props.eventList.length>0){
       props.eventList.pop();
     }
-    await axios.get(`api/events/`)
+    await axios.get(`api/events/search/?location=30.2884957,-97.7355092&within=${distance}&category=${category}&date=${days}`)
   .then(function (response) {
     console.log(response);
     
