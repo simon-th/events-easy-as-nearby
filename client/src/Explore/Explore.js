@@ -19,7 +19,6 @@ class Explore extends Component {
     data: [],
     name: null,
     description: null,
-    summary: null,
     url: null,
     image_url: null,
     id: null,
@@ -65,9 +64,8 @@ class Explore extends Component {
                       <CardActionArea target="_blank" href={dat.url}>
                         <CardMedia
                           component="img"
-                          alt="No image available"
                           height="180"
-                          image={dat.image_url}
+                          image={dat.image_url == null ? 'https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png' : dat.image_url}
                           title={dat.name}
                         />
                         <CardContent>
@@ -75,7 +73,7 @@ class Explore extends Component {
                             {dat.name}
                           </Typography>
                           <Typography variant="body2" color="textSecondary" component="p">
-                          {dat.summary}
+                          {dat.description}
                           </Typography>
                         </CardContent>
                       </CardActionArea>

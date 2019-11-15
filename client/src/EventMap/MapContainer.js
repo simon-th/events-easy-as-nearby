@@ -148,19 +148,17 @@ class MapContainer extends Component {
                 lng: -97.7394}} key={this.props.eventList}>
 
             <HeatMap
-              gradient={["rgba(102, 255, 0, 0)",
-              "rgba(102, 255, 0, 1)",
-              "rgba(147, 255, 0, 1)",
-              "rgba(193, 255, 0, 1)",
-              "rgba(238, 255, 0, 1)",
-              "rgba(244, 227, 0, 1)",
-              "rgba(249, 198, 0, 1)",
-              "rgba(255, 170, 0, 1)",
-              "rgba(255, 113, 0, 1)",
-              "rgba(255, 57, 0, 1)",
-              "rgba(255, 0, 0, 1)"]}
+              gradient={["rgba(255, 254, 253, 0)",
+              "rgba(153, 210, 255, 0.9)",
+              "rgba(153, 187, 255, 1)",
+              "rgba(153, 164, 255, 1)",
+              "rgba(153, 142, 255, 1)",
+              "rgba(153, 119, 255, 1)",
+              "rgba(153, 96, 255, 1)",
+              "rgba(153, 74, 255, 1)",
+              "rgba(153, 51, 255, 1)"]}
               positions={this.props.eventList.map(item => { return { "lat": item.latitude, "lng": item.longitude, "weight": 1}})}
-              opacity={0.6}
+              opacity={0.7}
               radius={50}
             />
 
@@ -172,11 +170,12 @@ class MapContainer extends Component {
                 onClick={this.onMarkerClick}
                 name={marker.name}
                 venueName={marker.venue_name}
+                venueAddress={marker.venue_address == null ? "(No given venue address)" : marker.venue_address}
                 start={marker.start_time}
                 end={marker.end_time}
                 url={marker.url}
                 image_url={marker.image_url == null ? 'https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png' : marker.image_url}
-                description={marker.description}
+                description={marker.description == null ? "(No description available)" : marker.description}
                 />
     ))}
 
@@ -224,24 +223,18 @@ class MapContainer extends Component {
           </div>
           <div className="image">
             {console.log(this.state.image_url)}
-            <a href={this.state.url}><img width="100%" src={this.state.image_url}/></a>
+            <a href={this.state.selectedPlace.url}><img width="100%" src={this.state.selectedPlace.image_url}/></a>
           </div>
           <div className="info">
-            <p> {this.state.description}</p>
+            <p> {this.state.selectedPlace.venueAddress}</p>
+            <p> {this.state.selectedPlace.description}</p>
             <br></br>
-        
           </div>
           <div>{this.state.restaurantList.map((restaurant)=>(
             <p>{restaurant.addressName}</p>
           ))}</div>
           <div className="clear">
             <Divider />
-            <div className="image">
-              <p>Nearby Food</p>
-            </div>
-            <div className="info">
-              <p>Nearby Parking</p>
-            </div>
           </div>
           
           </Grid>
