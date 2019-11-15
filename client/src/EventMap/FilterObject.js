@@ -207,9 +207,7 @@ export default function FilterObject(props) {
         <div style={{float:'left'}}>
           <Button className={classes.submitButton} onClick={requestFilters}>Submit</Button>
         </div>
-        <div style={{float:'right'}}>
-        <Button className={classes.resetButton} onClick={props.reRender}>Reset</Button>
-        </div>
+        
         <Divider/>
         
       </div>

@@ -39,14 +39,14 @@ class MapContainer extends Component {
         let self=this;
         await axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+props.position.lat+','+props.position.lng+'&radius=1500&type=restaurant&key='+apiKeys.googlePlaces).then(
           function(response){
-            console.log(response.data.results);
+           // console.log(response.data.results);
             response.data.results.forEach(async (element) => {
               let address='';
                await axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.geometry.location.lat+','+element.geometry.location.lng+'&key='+apiKeys.googlePlaces).then(
                 function(result){
-                  console.log(result);
+                 // console.log(result);
                     address=result.data.results[0].formatted_address;
-                    console.log(address);
+                  //  console.log(address);
                     self.state.restaurantList.push(
                       {
                        place: element,
@@ -73,9 +73,9 @@ class MapContainer extends Component {
               let address='';
               await axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.geometry.location.lat+','+element.geometry.location.lng+'&key='+apiKeys.googlePlaces).then(
                 function(result){
-                  console.log(result);
+                  //console.log(result);
                     address=result.data.results[0].formatted_address;
-                    console.log(address);
+                   // console.log(address);
                     self.state.parkingList.push(
                       {
                        place: element,
@@ -106,9 +106,7 @@ class MapContainer extends Component {
         )
         console.log(this.state.restaurantList);
         console.log(this.state.parkingList);
-
-
-
+        this.props.refresh();
       }
 
       onParkingClick = (props, marker, e) => {
@@ -160,7 +158,7 @@ class MapContainer extends Component {
 
 
     render() {
-
+       
         let restaurantIcon=this.state;
         if (!this.props.google) {
             return <div>Loading...</div>;
@@ -244,7 +242,7 @@ class MapContainer extends Component {
     marker={this.state.activeMarker}
     visible={this.state.showParkingWindow}
     onClose={this.onClose}
-    onOpen={this.props.refresh}
+   
 
     >
         <p6>DIS PERKING</p6>
@@ -254,7 +252,7 @@ class MapContainer extends Component {
     marker={this.state.activeMarker}
     visible={this.state.showRestaurantWindow}
     onClose={this.onClose}
-    onOpen={this.props.refresh}
+ 
 
     >
         <p6>DIS RESTRANT</p6>

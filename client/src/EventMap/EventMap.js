@@ -39,7 +39,7 @@ class EventMap extends Component {
         this.forceUpdate();
     };
 
-    refresh=()=>(this.forceUpdate);
+    refresh=()=>(this.forceUpdate());
 
     enableRecs=()=>{
         this.setState({
