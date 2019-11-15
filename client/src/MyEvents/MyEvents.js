@@ -23,6 +23,7 @@ class MyEvents extends Component {
     url: null,
     image_url: null,
     id: null,
+    update: false,
   };
 
   componentDidMount() {
@@ -46,6 +47,10 @@ class MyEvents extends Component {
       console.log(error);
     });
   }
+
+  unsaveEvent = (email, id) => {
+    this.setState({update: true});
+  };
 
   render () {
     console.log('render');
@@ -80,6 +85,9 @@ class MyEvents extends Component {
                         </CardContent>
                       </CardActionArea>
                       <CardActions className="buttons">
+                        <Button onClick={() => this.unsaveEvent(firebase.auth().currentUser.email, dat.id)} className="buttons" size="small" color="primary">
+                          Unsave Event
+                        </Button>
                         <Button size="small" color="primary" target="_blank" href={dat.url}>
                           Learn More
                         </Button>

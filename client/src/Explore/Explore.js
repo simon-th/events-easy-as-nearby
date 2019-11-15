@@ -11,6 +11,7 @@ import "./Explore.css";
 import axios from 'axios';
 import Tooltip from '@material-ui/core/Tooltip';
 import { AuthUserContext } from '../Components/Session';
+import firebase from 'firebase';
 
 
 class Explore extends Component {

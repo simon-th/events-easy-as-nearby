@@ -36,6 +36,7 @@ class PasswordChangeForm extends Component {
 
         return (
             <div className="PasswordChange">
+                <h3 className="text-center">Change Password</h3>
                 <form onSubmit={this.onSubmit}>
                     <Form>
                         <Row>

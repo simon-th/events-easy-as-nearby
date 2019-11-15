@@ -15,6 +15,7 @@
     "express": "^4.17.1",
     "firebase": "^7.2.1",
     "geolib": "^3.0.4",
+    "mocha": "^6.2.2",
     "mongodb": "^3.3.2",
     "mongoose": "^5.7.6",
     "morgan": "^1.9.1",
@@ -25,12 +26,12 @@
     "cross-env": "^6.0.3",
     "express-pino-logger": "^4.0.0",
     "node-env-run": "^3.0.2",
-    "nodemon": "^1.19.3",
+    "nodemon": "^1.19.4",
     "npm-run-all": "^4.1.5",
     "pino-colada": "^1.4.5"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --exit"
   },
   "author": "",
   "license": "ISC"
