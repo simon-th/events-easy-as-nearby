@@ -31,7 +31,7 @@ const contributorInfo = {
         bio:
             'Angel is a third-year ECE major with technical cores in Software and Academic Enrichment. Her interests include drawing, pettings dogs, and watching movies.',
         responsibilities:
-            'Angel worked on the frontend team to implement the UI design. She added the information for the About page, added the Explore page, and cleaned the user interface formatting. Later, she created the UI for the sidebar components and expanded the map on the map page, updated the design for Explore/Saved Events UI, and updated the About page. Afterwards, Angel designed the marker pop-up windows that displayed event information and nearby food/parking recommendations. She refined overall UI formatting details throughout the website and further updated the About page.'
+            'Angel worked on the frontend team to implement the UI design. She added the information for the About page, added the Explore page, and cleaned the user interface formatting. Later, she created the UI for the sidebar components and expanded the map on the map page, updated the design for Explore/Saved Events UI, and updated the About page. Afterwards, Angel designed the marker pop-up windows that displayed event information. She refined the heatmap and overall UI formatting details throughout the website and further updated the About page.'
     },
     'simon-th': {
         name: 'Simon Hoque',
@@ -41,7 +41,7 @@ const contributorInfo = {
         bio:
             'Simon is a third-year ECE major with technical cores in Software and Academic Enrichment. He spends most of his free time listening to EDM, playing soccer, and browsing on the Uniqlo website.',
         responsibilities:
-            'Simon contributed mainly to the backend by structuring the git tree, setting up the hard-coded events, and working on API calls. Later, he stayed on backend to pull event information from the Eventbrite API and implemented filtering. He worked on refactoring our code as well. Afterwards, he integrated the new Eventful API to collect event information in replacement of EventBrite.'
+            'Simon contributed mainly to the backend by structuring the git tree, setting up the hard-coded events, and working on API calls. Later, he stayed on backend to pull event information from the Eventbrite API and implemented filtering. He worked on refactoring our code as well. Afterwards, he integrated the new Eventful API to collect event information in replacement of EventBrite, then he stored restaurant information into the database.'
     },
     'yashlad': {
         name: 'Yash Lad',
@@ -51,7 +51,7 @@ const contributorInfo = {
         bio:
             'Yash is a third-year ECE major with technical cores in Software and Academic Enrichment. His hobbies consist of PC gaming, dancing, and playing basketball.',
         responsibilities:
-            'Yash was on the frontend team; he implemented the initial UI structure by adding the Map page, Login/Register pages, and the Saved Events. Later, he implemented requests from the frontend sidebar controls on the map page to the background for filtering functionality and mounted a heatmap layer with hardcoded attendee weights onto the map. Afterwards, Yash integrated in nearby restaurant and parking recommendation information for specific events.'
+            'Yash was on the frontend team; he implemented the initial UI structure by adding the Map page, Login/Register pages, and the Saved Events. Later, he implemented requests from the frontend sidebar controls on the map page to the background for filtering functionality and mounted a heatmap layer with hardcoded attendee weights onto the map. Afterwards, Yash integrated in nearby restaurant and parking recommendation information for specific events into the map page.'
     },
     jovinjoej: {
         name: 'Jovin Joseph',
