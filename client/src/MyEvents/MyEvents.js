@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { withAuthorization } from '../Components/Session';
+import { withAuthorization, AuthUserContext } from '../Components/Session';
 import axios from 'axios';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -9,7 +9,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-//import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from '@material-ui/core/Tooltip';
 import "../Explore/Explore.css";
 import firebase from 'firebase/app';
 
@@ -48,7 +48,14 @@ class MyEvents extends Component {
   }
 
   unsaveEvent = (email, id) => {
-    this.setState({update: true});
+    // console.log("unsave");
+    // console.log(email);
+    // console.log(id);
+    axios.post('/api/events/unsave', {
+      email: email,
+      event_id: id,
+    });
+    window.location.reload();
   };
 
   render () {
@@ -84,9 +91,24 @@ class MyEvents extends Component {
                         </CardContent>
                       </CardActionArea>
                       <CardActions className="buttons">
-                        <Button onClick={() => this.unsaveEvent(firebase.auth().currentUser.email, dat.id)} className="buttons" size="small" color="primary">
-                          Unsave Event
-                        </Button>
+                      <div>
+                      <AuthUserContext.Consumer>
+                          {authUser =>
+                            authUser ?
+                            <Button onClick={() => this.unsaveEvent(authUser.email, dat.id)} className="buttons" size="small" color="primary">
+                              Unsave
+                            </Button>
+                            :
+                            <Tooltip title="Login to save event">
+                                <span>
+                                <Button className="buttons" disabled size="small" color="primary">
+                                  Save Event
+                                </Button>
+                                </span>
+                            </Tooltip>
+                          }
+                      </AuthUserContext.Consumer>
+                      </div>
                         <Button size="small" color="primary" target="_blank" href={dat.url}>
                           Learn More
                         </Button>

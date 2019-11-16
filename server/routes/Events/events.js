@@ -120,12 +120,57 @@ function getNewEvent(event) {
   return model;
 }
 
+router.post('/unsave', async (req, res) => {
+  const { email, event_id } = req.body;
+  let db_event = await Event.find({
+    id: event_id
+  });
+  if (db_event[0].saved_users.length === 1) {
+    Event.findOneAndRemove({ id: event_id });
+  } else if (db_event[0].saved_users.includes(email)) {
+    for (var i = 0; i < db_event[0].saved_users.length; i++) {
+      if (db_event[0].saved_users[i] === email) {
+        db_event[0].saved_users.splice(i,1);
+        db_event[0].save(function(error) {
+          if (error) {
+              console.log(error);
+              res.send(null, 500);
+          }
+        });
+        i--;
+      }
+    }
+  }
+  let user = await User.find({
+    email: email
+  });
+  if (user[0].saved_event.includes(event_id)) {
+    for (var i = 0; i < user[0].saved_event.length; i++) {
+      if (user[0].saved_event[i] === event_id) {
+        user[0].saved_event.splice(i,1);
+        user[0].save(function(error) {
+          if (error) {
+              console.log(error);
+              res.send(null, 500);
+          }
+        });
+        i--;
+      }
+    }
+  }
+  if (user) {
+    res.status(200).json(user);
+  } else res.status(404).json({
+    message: 'aiya'
+  });
+})
+
 router.post('/save', async (req, res) => {
   const { email, event_id } = req.body;
   let db_event = await Event.find({
     id: event_id
   });
-  if (db_event.length == 0) {
+  if (db_event.length === 0) {
     var API_URL = `http://api.eventful.com/json/events/get/?app_key=${apiKeys.eventful}&id=${event_id}`;
     var response = await axios.get(API_URL).catch(function (error) {
       console.log(error.message);

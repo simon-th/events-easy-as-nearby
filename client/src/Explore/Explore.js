@@ -31,16 +31,15 @@ class Explore extends Component {
   }
 
   getEventFromDb = () => {
-      fetch('/api/events/all')
+      fetch('/api/events/')
         .then((data) => data.json())
         .then((res) => {
-          //console.log(res.data);
-          this.setState({ data: res.data})
+          this.setState({ data: res})
         });
   }
 
   saveEvent = (email, id) => {
-    axios.post('/api/savedevent', {
+    axios.post('/api/events/save', {
       email: email,
       event_id: id,
     });
