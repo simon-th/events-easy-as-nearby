@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import {Map, GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react'
 import {Card} from 'reactstrap';
+import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
 import {HeatMap} from './HeatMap';
 import apiKeys from '../api-keys.json';
 import popupStyle from './popupStyle.css'
 import axios from 'axios';
-
+import { AuthUserContext } from '../Components/Session';
 
 class MapContainer extends Component {
     state = {
@@ -24,7 +26,13 @@ class MapContainer extends Component {
         restaurantIcon: {
           url:'./restaurantIcon.png'
         }
+      };
 
+      saveEvent = (email, id) => {
+        axios.post('/api/events/save', {
+          email: email,
+          event_id: id,
+        });
       };
 
       onMarkerClick = async (props, marker, e) =>{
@@ -51,13 +59,10 @@ class MapContainer extends Component {
                        place: element,
                        addressName: address
                       });
-
                 }
               ).catch(error => (
                   console.log(error)
                 ))
-
-
             });
           }
         ).catch(
@@ -84,8 +89,6 @@ class MapContainer extends Component {
               ).catch(error => (
                   console.log(error)
                 ))
-
-
             });
           }
         ).catch(
@@ -129,8 +132,6 @@ class MapContainer extends Component {
         })
         console.log(this.state);
       }
-
-
 
       onClose = props => {
         if (this.state.showingInfoWindow) {
@@ -207,13 +208,13 @@ class MapContainer extends Component {
                 position={{ lat: marker.latitude, lng: marker.longitude }}
                 key={marker.id}
                 onClick={this.onMarkerClick}
-                name={marker.name}
+                name={marker.title}
                 venueName={marker.venue_name}
                 venueAddress={marker.venue_address == null ? "(No given venue address)" : marker.venue_address}
                 start={marker.start_time}
-                end={marker.stop_time}
+                // end={marker.stop_time}
                 url={marker.url}
-                image_url={marker.image_url == null ? 'https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png' : marker.image_url}
+                image={marker.image === null ? 'https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png' : marker.image.medium.url}
                 description={marker.description == null ? "(No description available)" : marker.description}
                 />
     ))}
@@ -238,25 +239,18 @@ class MapContainer extends Component {
                 />
     ))}
 
-
-
-
     <InfoWindow
     marker={this.state.activeMarker}
     visible={this.state.showParkingWindow}
     onClose={this.onClose}
-   
-
     >
-        <p6>DIS PERKING</p6>
+    <p6>DIS PERKING</p6>
     </InfoWindow>
 
     <InfoWindow
     marker={this.state.activeMarker}
     visible={this.state.showRestaurantWindow}
     onClose={this.onClose}
- 
-
     >
         <p6>DIS RESTRANT</p6>
     </InfoWindow>
@@ -272,22 +266,34 @@ class MapContainer extends Component {
             <h6 align="center">{this.state.selectedPlace.name}</h6>
             <Divider />
             <p>{this.state.selectedPlace.venueName} &nbsp; || &nbsp;
-            {(new Date(this.state.selectedPlace.start).toUTCString()).slice(0, 22)} - {(new Date(this.state.selectedPlace.end).toUTCString()).slice(0, 22)}</p>
+            {(new Date(this.state.selectedPlace.start).toUTCString()).slice(0, 22)}</p>
           </div>
           <div className="image">
-            {console.log(this.state.image_url)}
-            <a href={this.state.selectedPlace.url}><img width="100%" src={this.state.selectedPlace.image_url}/></a>
+            {console.log(this.state.image)}
+            <a href={this.state.selectedPlace.url}><img width="100%" src={this.state.selectedPlace.image}/></a>
           </div>
           <div className="info">
-            <p> {this.state.selectedPlace.venueAddress}</p>
-            <p> {this.state.selectedPlace.description}</p>
-            <br></br>
+            <p> Address: {this.state.selectedPlace.venueAddress}</p>
+            <p> Description: {this.state.selectedPlace.description}</p>
           </div>
-          <div>{this.state.restaurantList.map((restaurant)=>(
-            <p>{restaurant.addressName}</p>
-          ))}</div>
           <div className="clear">
             <Divider />
+              <AuthUserContext.Consumer>
+                    {authUser =>
+                      authUser ?
+                      <Button onClick={() => this.saveEvent(authUser.email, this.state.selectedPlace.key)} className="buttons" size="small" color="primary">
+                        Save Event
+                      </Button>
+                      :
+                      <Tooltip title="Login to save event">
+                          <span>
+                          <Button className="buttons" disabled size="small" color="primary">
+                            Save Event
+                          </Button>
+                          </span>
+                      </Tooltip>
+                    }
+              </AuthUserContext.Consumer>
           </div>
 
           </Grid>

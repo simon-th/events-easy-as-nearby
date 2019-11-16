@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import { AuthUserContext } from '../Components/Session';
 import "./Explore.css";
+import "../EventMap/MapContainer";
 
 const SaveButton = () => (
     <div>

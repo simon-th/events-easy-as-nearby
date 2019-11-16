@@ -4,8 +4,8 @@
 
 .image {
     float: left;
-    width: 35%;
-    padding-left: 10%;
+    width: 40%;
+    padding-left: 5%;
     padding-bottom: 5%;
     align-content: center;
     justify-content: center;
@@ -14,7 +14,7 @@
 
 .info {
     float: right;
-    width: 65%;
+    width: 60%;
     overflow-y: auto;
     align-content: center;
 }

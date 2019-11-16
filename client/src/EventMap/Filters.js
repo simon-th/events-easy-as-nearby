@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/button';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
@@ -70,19 +71,18 @@ export default function PersistentDrawerRight(props) {
     margin: 0,
     top: 'auto',
     right: 1000,
-    bottom: 20,
+    bottom: 7,
     left: 'auto',
     position: 'fixed',
 }}>
           <Fab
           color="primary"
-          size="large"
+          // size="large"
           variant="extended"
           aria-label="open drawer"
           onClick={props.reRender}
           className={clsx(classes.fab, open && classes.hide)}
           >
-            <FilterListIcon className={classes.extendedIcon} />
             Clear Food/Parking
           </Fab>
       </div>
