@@ -186,15 +186,17 @@ class MapContainer extends Component {
                 lng: -97.7394}} key={this.props.eventList}>
 
             <HeatMap
-              gradient={["rgba(255, 254, 253, 0)",
-              "rgba(140, 210, 255, 0.9)",
-              "rgba(150, 187, 255, 1)",
-              "rgba(153, 164, 255, 1)",
-              "rgba(153, 142, 255, 1)",
-              "rgba(153, 119, 255, 1)",
-              "rgba(153, 96, 255, 1)",
-              "rgba(153, 74, 255, 1)",
-              "rgba(153, 51, 250, 1)"]}
+              gradient={["rgba(102, 255, 0, 0)",
+              "rgba(102, 255, 0, 1)",
+              "rgba(147, 255, 0, 1)",
+              "rgba(193, 255, 0, 1)",
+              "rgba(238, 255, 0, 1)",
+              "rgba(244, 227, 0, 1)",
+              "rgba(249, 198, 0, 1)",
+              "rgba(255, 170, 0, 1)",
+              "rgba(255, 113, 0, 1)",
+              "rgba(255, 57, 0, 1)",
+              "rgba(255, 0, 0, 1)"]}
               positions={this.props.eventList.map(item => { return { "lat": item.latitude, "lng": item.longitude, "weight": 1}})}
               opacity={0.9}
               radius={50}
