@@ -113,10 +113,7 @@ function getNewEvent(event) {
   model.city = event.city_name;
   model.region = event.region_name;
   model.postal_code = event.postal_code;
-  model.image_url = null;
-  if (event.image != null) {
-    model.image_url = event.image.medium.url;
-  }
+  model.images = event.images;
   model.saved_users = []
   return model;
 }
@@ -177,7 +174,9 @@ router.post('/save', async (req, res) => {
       console.log(error.message);
     });
     const event = JSON.parse(JSON.stringify(response.data));
+    console.log(event);
     model = getNewEvent(event);
+    console.log(model);
     await model.save();
     console.log('Created event in db');
   } else if (db_event[0].saved_users.includes(email)) {
