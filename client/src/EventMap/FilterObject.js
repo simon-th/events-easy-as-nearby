@@ -128,7 +128,7 @@ export default function FilterObject(props) {
           <FormGroup>
           <FormControl>
           <InputLabel>Categories</InputLabel>
-          <Select
+          <Select id = "selC"
           className={classes.select}
           value={state.category}
               onChange={(event)=>setState(
@@ -149,7 +149,7 @@ export default function FilterObject(props) {
         </FormControl>
         <FormControl>
           <InputLabel htmlFor="days">Date</InputLabel>
-          <Select
+          <Select id = "selD"
             className={classes.select}
             value={state.days}
             onChange={(event)=>setState(
@@ -205,7 +205,7 @@ export default function FilterObject(props) {
       </FormGroup>
 
         <div style={{float:'left'}}>
-          <Button className={classes.submitButton} onClick={requestFilters}>Submit</Button>
+          <Button id = "sub" className={classes.submitButton} onClick={requestFilters}>Submit</Button>
         </div>
         
         <Divider/>

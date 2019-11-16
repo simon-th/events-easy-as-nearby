@@ -54,7 +54,7 @@ export default function PersistentDrawerRight(props) {
     <div className={classes.root}>
     <CssBaseline />
       <div>
-          <Fab
+          <Fab id = "floatFilter"
           color="primary"
           size="large"
           variant="extended"
