@@ -4,15 +4,16 @@ import MapContainer from "./MapContainer";
 import axios from 'axios'
 
 class EventMap extends Component {
-    reRender =()=>(this.forceUpdate())
+    
 
     constructor(){
         super();
         this.state={
-            shownEvents:[
-  ],
-              categories:[
-              ]
+            shownEvents:[],
+              categories:[],
+              showRecs:true
+              
+
         }
     }
 
@@ -31,11 +32,27 @@ class EventMap extends Component {
     });
     }
 
+    reRender =()=>{
+        this.setState({
+            showRecs:false
+        });
+        this.forceUpdate();
+    };
+
+    refresh=()=>(this.forceUpdate());
+
+    enableRecs=()=>{
+        this.setState({
+            showRecs:true
+        });
+    };
+    
+
     render() {
         return (
             <div>
-                <MapContainer eventList={this.state.shownEvents} reRender={this.reRender} />
-                <Filters eventList={this.state.shownEvents} categories={this.state.categories} reRender={this.reRender} />
+                <MapContainer eventList={this.state.shownEvents} reRender={this.reRender} showRecs={this.state.showRecs} enableRecs={this.enableRecs} refresh={this.refresh}/>
+                <Filters eventList={this.state.shownEvents}  categories={this.state.categories} reRender={this.reRender}/>
             </div>
         );
     }

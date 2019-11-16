@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Map, GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react'
-
 import {Card} from 'reactstrap';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
@@ -39,14 +38,14 @@ class MapContainer extends Component {
         let self=this;
         await axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+props.position.lat+','+props.position.lng+'&radius=1500&type=restaurant&key='+apiKeys.googlePlaces).then(
           function(response){
-            console.log(response.data.results);
+           // console.log(response.data.results);
             response.data.results.forEach(async (element) => {
               let address='';
                await axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.geometry.location.lat+','+element.geometry.location.lng+'&key='+apiKeys.googlePlaces).then(
                 function(result){
-                  console.log(result);
+                 // console.log(result);
                     address=result.data.results[0].formatted_address;
-                    console.log(address);
+                  //  console.log(address);
                     self.state.restaurantList.push(
                       {
                        place: element,
@@ -73,9 +72,9 @@ class MapContainer extends Component {
               let address='';
               await axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.geometry.location.lat+','+element.geometry.location.lng+'&key='+apiKeys.googlePlaces).then(
                 function(result){
-                  console.log(result);
+                  //console.log(result);
                     address=result.data.results[0].formatted_address;
-                    console.log(address);
+                   // console.log(address);
                     self.state.parkingList.push(
                       {
                        place: element,
@@ -106,9 +105,7 @@ class MapContainer extends Component {
         )
         console.log(this.state.restaurantList);
         console.log(this.state.parkingList);
-
-
-
+        this.props.refresh();
       }
 
       onParkingClick = (props, marker, e) => {
@@ -160,11 +157,23 @@ class MapContainer extends Component {
 
 
     render() {
-
+       
         let restaurantIcon=this.state;
         if (!this.props.google) {
             return <div>Loading...</div>;
           }
+          console.log(this.props.showRecs);
+          if(!this.props.showRecs){
+            this.setState({
+              restaurantList:[],
+              parkingList: []
+            });
+            console.log("clear");
+            console.log(this.state);
+            this.props.enableRecs();
+          }
+          console.log(this.state);
+          
 
       return (
         <div
@@ -177,17 +186,19 @@ class MapContainer extends Component {
                 lng: -97.7394}} key={this.props.eventList}>
 
             <HeatMap
-              gradient={["rgba(255, 254, 253, 0)",
-              "rgba(153, 210, 255, 0.9)",
-              "rgba(153, 187, 255, 1)",
-              "rgba(153, 164, 255, 1)",
-              "rgba(153, 142, 255, 1)",
-              "rgba(153, 119, 255, 1)",
-              "rgba(153, 96, 255, 1)",
-              "rgba(153, 74, 255, 1)",
-              "rgba(153, 51, 255, 1)"]}
+              gradient={["rgba(102, 255, 0, 0)",
+              "rgba(102, 255, 0, 1)",
+              "rgba(147, 255, 0, 1)",
+              "rgba(193, 255, 0, 1)",
+              "rgba(238, 255, 0, 1)",
+              "rgba(244, 227, 0, 1)",
+              "rgba(249, 198, 0, 1)",
+              "rgba(255, 170, 0, 1)",
+              "rgba(255, 113, 0, 1)",
+              "rgba(255, 57, 0, 1)",
+              "rgba(255, 0, 0, 1)"]}
               positions={this.props.eventList.map(item => { return { "lat": item.latitude, "lng": item.longitude, "weight": 1}})}
-              opacity={0.7}
+              opacity={0.9}
               radius={50}
             />
 
@@ -200,23 +211,27 @@ class MapContainer extends Component {
                 venueName={marker.venue_name}
                 venueAddress={marker.venue_address == null ? "(No given venue address)" : marker.venue_address}
                 start={marker.start_time}
-                end={marker.end_time}
+                end={marker.stop_time}
                 url={marker.url}
                 image_url={marker.image_url == null ? 'https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png' : marker.image_url}
                 description={marker.description == null ? "(No description available)" : marker.description}
                 />
     ))}
 
-{this.state.parkingList.map(marker => (
+{       this.state.parkingList.map(marker => (
+ 
                 <Marker
+                icon='https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png'
                 position={{ lat: marker.place.geometry.location.lat, lng: marker.place.geometry.location.lng }}
                 key={marker.id}
                 onClick={this.onParkingClick}
                 />
+  
     ))}
 
 {this.state.restaurantList.map(marker => (
                 <Marker
+                icon='http://maps.google.com/mapfiles/kml/shapes/dining_maps.png'
                 position={{ lat: marker.place.geometry.location.lat, lng: marker.place.geometry.location.lng }}
                 key={marker.id}
                 onClick={this.onRestaurantClick}
@@ -230,7 +245,7 @@ class MapContainer extends Component {
     marker={this.state.activeMarker}
     visible={this.state.showParkingWindow}
     onClose={this.onClose}
-    onOpen={this.props.reRender}
+   
 
     >
         <p6>DIS PERKING</p6>
@@ -240,7 +255,7 @@ class MapContainer extends Component {
     marker={this.state.activeMarker}
     visible={this.state.showRestaurantWindow}
     onClose={this.onClose}
-    onOpen={this.props.reRender}
+ 
 
     >
         <p6>DIS RESTRANT</p6>
@@ -250,7 +265,7 @@ class MapContainer extends Component {
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
-          onOpen={this.props.reRender}
+          onOpen={this.props.refresh}
         >
           <Grid className="popup">
           <div>
