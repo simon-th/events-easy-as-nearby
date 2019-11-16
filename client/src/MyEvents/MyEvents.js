@@ -74,7 +74,7 @@ class MyEvents extends Component {
                             {dat.name}
                           </Typography>
                           <Typography variant="body2" color="textSecondary" component="p">
-                          {dat.description}
+                          {(dat.description == null  || dat.description == "<br>") ? "(No description available)" : dat.description}
                           </Typography>
                         </CardContent>
                       </CardActionArea>
