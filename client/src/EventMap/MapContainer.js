@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Map, GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react'
-
 import {Card} from 'reactstrap';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
@@ -188,16 +187,16 @@ class MapContainer extends Component {
 
             <HeatMap
               gradient={["rgba(255, 254, 253, 0)",
-              "rgba(153, 210, 255, 0.9)",
-              "rgba(153, 187, 255, 1)",
+              "rgba(140, 210, 255, 0.9)",
+              "rgba(150, 187, 255, 1)",
               "rgba(153, 164, 255, 1)",
               "rgba(153, 142, 255, 1)",
               "rgba(153, 119, 255, 1)",
               "rgba(153, 96, 255, 1)",
               "rgba(153, 74, 255, 1)",
-              "rgba(153, 51, 255, 1)"]}
+              "rgba(153, 51, 250, 1)"]}
               positions={this.props.eventList.map(item => { return { "lat": item.latitude, "lng": item.longitude, "weight": 1}})}
-              opacity={0.7}
+              opacity={0.9}
               radius={50}
             />
 
@@ -220,6 +219,7 @@ class MapContainer extends Component {
 {       this.state.parkingList.map(marker => (
  
                 <Marker
+                icon='https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png'
                 position={{ lat: marker.place.geometry.location.lat, lng: marker.place.geometry.location.lng }}
                 key={marker.id}
                 onClick={this.onParkingClick}
@@ -229,6 +229,7 @@ class MapContainer extends Component {
 
 {this.state.restaurantList.map(marker => (
                 <Marker
+                icon='http://maps.google.com/mapfiles/kml/shapes/dining_maps.png'
                 position={{ lat: marker.place.geometry.location.lat, lng: marker.place.geometry.location.lng }}
                 key={marker.id}
                 onClick={this.onRestaurantClick}

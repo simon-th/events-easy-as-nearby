@@ -79,6 +79,7 @@ router.get('/categories', async (req, res) => {
 
 router.get('/', async (req, res) => {
   let data = await Event.find();
+  // console.log(data);
   if (data) {
     res.status(200).json(data);
   } else res.status(404).json({

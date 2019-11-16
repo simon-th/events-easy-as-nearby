@@ -40,7 +40,7 @@ class Explore extends Component {
   }
 
   saveEvent = (email, id) => {
-    axios.post('/api/savedevent', {
+    axios.post('/api/events/save', {
       email: email,
       event_id: id,
     });
