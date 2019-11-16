@@ -20,7 +20,7 @@ class Explore extends Component {
     name: null,
     description: null,
     url: null,
-    image_url: null,
+    image: [],
     id: null,
   };
 
@@ -68,12 +68,12 @@ class Explore extends Component {
                         <CardMedia
                           component="img"
                           height="180"
-                          image={dat.image_url == null ? 'https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png' : dat.image_url}
-                          title={dat.name}
+                          image={dat.image === null ? 'https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png' : dat.image.medium.url}
+                          title={dat.title}
                         />
-                        <CardContent>
+                        <CardContent className="text">
                           <Typography gutterBottom variant="h5" component="h2">
-                            {dat.name}
+                            {dat.title}
                           </Typography>
                           <Typography variant="body2" color="textSecondary" component="p">
                           {dat.description}

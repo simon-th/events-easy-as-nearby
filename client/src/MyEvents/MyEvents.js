@@ -66,7 +66,7 @@ class MyEvents extends Component {
                           component="img"
                           alt="No image available"
                           height="180"
-                          image={dat.image_url == null ? 'https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png' : dat.image_url}
+                          image={dat.image_url === null ? 'https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png' : dat.image_url}
                           title={dat.name}
                         />
                         <CardContent>
