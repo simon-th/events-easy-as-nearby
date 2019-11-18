@@ -20,7 +20,7 @@ class MyEvents extends Component {
     name: null,
     description: null,
     url: null,
-    image_url: null,
+    images: null,
     id: null,
     update: false,
   };
@@ -40,6 +40,7 @@ class MyEvents extends Component {
       })
     })
     .then(() => {
+      console.log(events);
       this.setState({data: events});
     })
     .catch(function (error) {
@@ -48,9 +49,6 @@ class MyEvents extends Component {
   }
 
   unsaveEvent = (email, id) => {
-    // console.log("unsave");
-    // console.log(email);
-    // console.log(id);
     axios.post('/api/events/unsave', {
       email: email,
       event_id: id,
@@ -72,16 +70,18 @@ class MyEvents extends Component {
                 {data.length <= 0
                   ? ''
                   : data.map((dat) => (
+                    dat === null
+                      ? ''
+                      :
                     <Card className="exploreCard">
                       <CardActionArea target="_blank" href={dat.url}>
                         <CardMedia
                           component="img"
-                          alt="No image available"
                           height="180"
-                          image={dat.image_url === null ? 'https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png' : dat.image_url}
+                          image={dat.images === null ? 'https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png' : dat.images.image[0].medium.url}
                           title={dat.name}
                         />
-                        <CardContent>
+                        <CardContent className="text">
                           <Typography gutterBottom variant="h5" component="h2">
                             {dat.name}
                           </Typography>

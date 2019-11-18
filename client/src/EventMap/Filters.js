@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/button';
+import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
@@ -21,6 +21,12 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     bottom: theme.spacing(10),
     right: theme.spacing(15),
+  },
+  fab1: {
+    margin: theme.spacing(1),
+    position: 'absolute',
+    bottom: theme.spacing(10),
+    left: theme.spacing(-105),
   },
   extendedIcon: {
     marginRight: theme.spacing(1),
@@ -81,7 +87,7 @@ export default function PersistentDrawerRight(props) {
           variant="extended"
           aria-label="open drawer"
           onClick={props.reRender}
-          className={clsx(classes.fab, open && classes.hide)}
+          className={clsx(classes.fab1, open && classes.hide)}
           >
             Clear Food/Parking
           </Fab>

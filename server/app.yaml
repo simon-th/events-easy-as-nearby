@@ -19,4 +19,6 @@ service: api
 handlers:
   - url: /api
     script: auto
+manual_scaling:
+  instances: 1
 # [END app_yaml]
