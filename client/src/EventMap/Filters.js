@@ -22,6 +22,12 @@ const useStyles = makeStyles(theme => ({
     bottom: theme.spacing(10),
     right: theme.spacing(15),
   },
+  fab1: {
+    margin: theme.spacing(1),
+    position: 'absolute',
+    bottom: theme.spacing(10),
+    left: theme.spacing(-105),
+  },
   extendedIcon: {
     marginRight: theme.spacing(1),
   },
@@ -81,7 +87,7 @@ export default function PersistentDrawerRight(props) {
           variant="extended"
           aria-label="open drawer"
           onClick={props.reRender}
-          className={clsx(classes.fab, open && classes.hide)}
+          className={clsx(classes.fab1, open && classes.hide)}
           >
             Clear Food/Parking
           </Fab>

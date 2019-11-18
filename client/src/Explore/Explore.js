@@ -52,7 +52,6 @@ class Explore extends Component {
     console.log(this.state.data);
     console.log(this.state.data.length);
     const { data } = this.state;
-    // console.log(data.length);
     return (
       <div>
         <div className="text-center">

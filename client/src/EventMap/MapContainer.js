@@ -158,7 +158,7 @@ class MapContainer extends Component {
 
 
     render() {
-       
+
         let restaurantIcon=this.state;
         if (!this.props.google) {
             return <div>Loading...</div>;
@@ -174,7 +174,7 @@ class MapContainer extends Component {
             this.props.enableRecs();
           }
           console.log(this.state);
-          
+
 
       return (
         <div
@@ -220,14 +220,14 @@ class MapContainer extends Component {
     ))}
 
 {       this.state.parkingList.map(marker => (
- 
+
                 <Marker
                 icon='https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png'
                 position={{ lat: marker.place.geometry.location.lat, lng: marker.place.geometry.location.lng }}
                 key={marker.id}
                 onClick={this.onParkingClick}
                 />
-  
+
     ))}
 
 {this.state.restaurantList.map(marker => (
@@ -277,25 +277,7 @@ class MapContainer extends Component {
             <p> Address: {this.state.selectedPlace.venueAddress}</p>
             <p> Description: {this.state.selectedPlace.description}</p>
           </div>
-          <div className="clear">
-            <Divider />
-              <AuthUserContext.Consumer>
-                    {authUser =>
-                      authUser ?
-                      <Button onClick={() => this.saveEvent(authUser.email, this.state.selectedPlace.key)} className="buttons" size="small" color="primary">
-                        Save Event
-                      </Button>
-                      :
-                      <Tooltip title="Login to save event">
-                          <span>
-                          <Button className="buttons" disabled size="small" color="primary">
-                            Save Event
-                          </Button>
-                          </span>
-                      </Tooltip>
-                    }
-              </AuthUserContext.Consumer>
-          </div>
+
 
           </Grid>
 
