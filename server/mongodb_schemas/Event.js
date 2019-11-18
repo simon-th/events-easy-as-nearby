@@ -15,7 +15,7 @@ const EventSchema = new Schema({
   city: String,
   region: String,
   postal_code: String,
-  image_url: String,
+  images: Schema.Types.Mixed,
   saved_users: [String]
 });
 

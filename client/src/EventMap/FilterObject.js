@@ -32,13 +32,13 @@ const useStyles = makeStyles(theme => ({
       position: 'absolute',
       bottom: theme.spacing(3),
       alignItems: 'center',
-      
+
   },
   resetButton: {
     position: 'absolute',
     bottom: theme.spacing(3),
     alignItems: 'center',
-    
+
 },
     check: {
       margin: theme.spacing(1),
@@ -82,7 +82,7 @@ export default function FilterObject(props) {
     let days=state.days;
     let category=state.category;
     console.log(state);
-   
+
     console.log(free);
     console.log(date);
     console.log(category);
@@ -96,12 +96,12 @@ export default function FilterObject(props) {
     await axios.get(`api/events/search/?location=30.2884957,-97.7355092&within=${distance}&category=${category}&date=${days}`)
   .then(function (response) {
     console.log(response);
-    
+
     response.data.forEach(element => {
       props.eventList.push(element);
 
     });
-    
+
     console.log(props.eventList);
     props.reRender();
   })
@@ -110,11 +110,11 @@ export default function FilterObject(props) {
   });
   console.log(props.eventList);
   }
- 
+
 
 
   useEffect(() => {
-    
+
     requestFilters();
 
   }, []);
@@ -207,9 +207,9 @@ export default function FilterObject(props) {
         <div style={{float:'left'}}>
           <Button className={classes.submitButton} onClick={requestFilters}>Submit</Button>
         </div>
-        
+
         <Divider/>
-        
+
       </div>
     </div>
 
