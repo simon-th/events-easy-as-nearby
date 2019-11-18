@@ -34,7 +34,7 @@ async function getChanges() {
     // check for changes
     const startTimeChange = !(apiEvent.start_time === dbEvent.start_time);
     const endTimeChange = !(apiEvent.stop_time === dbEvent.end_time);
-    const venueChange = !(apiEvent.address === dbEvent.venue_address);
+    const venueChange = !(apiEvent.venue_address === dbEvent.venue_address);
     var change = {
       id: apiEvent.id,
       start_time: dbEvent.start_time,
@@ -43,7 +43,7 @@ async function getChanges() {
     };
     if (startTimeChange) change.start_time = apiEvent.start_time;
     if (endTimeChange) change.end_time = apiEvent.stop_time;
-    if (venueChange) change.venue_address = apiEvent.address;
+    if (venueChange) change.venue_address = apiEvent.venue_address;
     // if any changes, update event on databasae
     if (startTimeChange || endTimeChange || venueChange) {
       changes.push(change);

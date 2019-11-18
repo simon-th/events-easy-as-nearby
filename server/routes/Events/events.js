@@ -61,6 +61,7 @@ router.get('/search', async (req, res) => {
   } else {
     url = `http://api.eventful.com/json/events/search/?app_key=${apiKeys.eventful}&location=${req.query.location}&within=${req.query.within}&category=${req.query.category}&date=${req.query.date}&page_size=50&sort_order=popularity`;
   }
+  console.log(url);
   var response = await axios.get(url).catch(function (error) {
     console.log(error.message);
   });
@@ -109,7 +110,7 @@ function getNewEvent(event) {
   model.latitude = event.latitude;
   model.longitude = event.longitude;
   model.venue_name = event.venue_name;
-  model.venue_address = event.address;
+  model.venue_address = event.venue_address;
   model.city = event.city_name;
   model.region = event.region_name;
   model.postal_code = event.postal_code;
