@@ -109,7 +109,7 @@ function getNewEvent(event) {
   model.latitude = event.latitude;
   model.longitude = event.longitude;
   model.venue_name = event.venue_name;
-  model.venue_address = event.venue_address;
+  model.venue_address = event.address;
   model.city = event.city_name;
   model.region = event.region_name;
   model.postal_code = event.postal_code;
