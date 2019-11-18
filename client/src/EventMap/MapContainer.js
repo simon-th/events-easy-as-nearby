@@ -244,7 +244,8 @@ class MapContainer extends Component {
     visible={this.state.showParkingWindow}
     onClose={this.onClose}
     >
-    <p6>DIS PERKING</p6>
+      {console.log(this.state.selectedPlace)}
+    <p6>Address : {this.state.selectedPlace.name}</p6>
     </InfoWindow>
 
     <InfoWindow
@@ -252,7 +253,7 @@ class MapContainer extends Component {
     visible={this.state.showRestaurantWindow}
     onClose={this.onClose}
     >
-        <p6>DIS RESTRANT</p6>
+        <p6>Address :{this.state.selectedPlace.name}</p6>
     </InfoWindow>
 
     <InfoWindow

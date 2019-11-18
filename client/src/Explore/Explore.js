@@ -77,7 +77,7 @@ class Explore extends Component {
                             {dat.title}
                           </Typography>
                           <Typography variant="body2" color="textSecondary" component="p">
-                          {dat.description}
+                          {(dat.description == null) ? "(No description available)" : dat.description}
                           </Typography>
                         </CardContent>
                       </CardActionArea>
