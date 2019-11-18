@@ -10,6 +10,7 @@ import apiKeys from '../api-keys.json';
 import popupStyle from './popupStyle.css'
 import axios from 'axios';
 import { AuthUserContext } from '../Components/Session';
+import firebase from 'firebase/app';
 
 class MapContainer extends Component {
     state = {
@@ -28,15 +29,8 @@ class MapContainer extends Component {
         }
       };
 
-      saveEvent = (email, id) => {
-        axios.post('/api/events/save', {
-          email: email,
-          event_id: id,
-        });
-      };
-
       onMarkerClick = async (props, marker, e) =>{
-        console.log(props);
+        //console.log(props);
         this.setState({
           selectedPlace: props,
           activeMarker: marker,
@@ -72,7 +66,7 @@ class MapContainer extends Component {
         );
        await axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+props.position.lat+','+props.position.lng+'&radius=1500&type=parking&key='+apiKeys.googlePlaces).then(
           function(response){
-            console.log(response);
+            //console.log(response);
             response.data.results.forEach(async (element) => {
               let address='';
               await axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.geometry.location.lat+','+element.geometry.location.lng+'&key='+apiKeys.googlePlaces).then(
@@ -106,8 +100,8 @@ class MapContainer extends Component {
 
           }
         )
-        console.log(this.state.restaurantList);
-        console.log(this.state.parkingList);
+        //console.log(this.state.restaurantList);
+        //console.log(this.state.parkingList);
         this.props.refresh();
       }
 
@@ -119,7 +113,7 @@ class MapContainer extends Component {
           showRestaurantWindow: false,
           selectedPlace: props
         })
-        console.log(this.state);
+        //console.log(this.state);
       }
 
       onRestaurantClick = (props, marker, e) => {
@@ -130,7 +124,7 @@ class MapContainer extends Component {
           showRestaurantWindow: true,
           selectedPlace: props
         })
-        console.log(this.state);
+        //console.log(this.state);
       }
 
       onClose = props => {
@@ -156,6 +150,14 @@ class MapContainer extends Component {
         return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
       }
 
+      saveEvent = (email, id) => {
+        // console.log(email);
+        // console.log(id);
+        axios.post('/api/events/save', {
+          email: email,
+          event_id: id,
+        });
+      };
 
     render() {
 
@@ -163,17 +165,17 @@ class MapContainer extends Component {
         if (!this.props.google) {
             return <div>Loading...</div>;
           }
-          console.log(this.props.showRecs);
+          //console.log(this.props.showRecs);
           if(!this.props.showRecs){
             this.setState({
               restaurantList:[],
               parkingList: []
             });
-            console.log("clear");
-            console.log(this.state);
+            //console.log("clear");
+            //console.log(this.state);
             this.props.enableRecs();
           }
-          console.log(this.state);
+          //console.log(this.state);
 
 
       return (
@@ -215,7 +217,7 @@ class MapContainer extends Component {
                 // end={marker.stop_time}
                 url={marker.url}
                 image={marker.image === null ? 'https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png' : marker.image.medium.url}
-                description={marker.description == null ? "(No description available)" : marker.description}
+                description={marker.description === null || marker.description === '<br> ' ? "(No description available)" : marker.description}
                 />
     ))}
 
@@ -269,7 +271,6 @@ class MapContainer extends Component {
             {(new Date(this.state.selectedPlace.start).toUTCString()).slice(0, 22)}</p>
           </div>
           <div className="image">
-            {console.log(this.state.image)}
             <a href={this.state.selectedPlace.url}><img width="100%" src={this.state.selectedPlace.image}/></a>
           </div>
           <div className="info">
@@ -277,6 +278,24 @@ class MapContainer extends Component {
             <p> Description: {this.state.selectedPlace.description}</p>
           </div>
 
+          <div className="clear">
+            <Divider />
+            {console.log(firebase.auth().currentUser)}
+            {firebase.auth().currentUser === null ?
+              <Tooltip title="Login to save event">
+                  <span>
+                  <Button className="buttons" disabled size="small" color="primary">
+                    Save Event
+                  </Button>
+                  </span>
+              </Tooltip>
+              :
+              <Button onClick={() => this.saveEvent(firebase.auth().currentUser.email, this.state.selectedPlace.key)} className="buttons" size="small" color="primary">
+                Save Event
+              </Button>
+            }
+
+          </div>
 
           </Grid>
 
