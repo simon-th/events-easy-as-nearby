@@ -212,7 +212,7 @@ class MapContainer extends Component {
                 onClick={this.onMarkerClick}
                 name={marker.title}
                 venueName={marker.venue_name}
-                venueAddress={marker.venue_address == null ? "(No given venue address)" : marker.venue_address}
+                venueAddress={marker.address == null ? "(No given venue address)" : marker.venue_address}
                 start={marker.start_time}
                 // end={marker.stop_time}
                 url={marker.url}
@@ -246,7 +246,8 @@ class MapContainer extends Component {
     visible={this.state.showParkingWindow}
     onClose={this.onClose}
     >
-    <p6>DIS PERKING</p6>
+      {console.log(this.state.selectedPlace)}
+    <p6>Address : {this.state.selectedPlace.name}</p6>
     </InfoWindow>
 
     <InfoWindow
@@ -254,7 +255,7 @@ class MapContainer extends Component {
     visible={this.state.showRestaurantWindow}
     onClose={this.onClose}
     >
-        <p6>DIS RESTRANT</p6>
+        <p6>Address :{this.state.selectedPlace.name}</p6>
     </InfoWindow>
 
     <InfoWindow
