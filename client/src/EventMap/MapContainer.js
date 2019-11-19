@@ -38,7 +38,7 @@ class MapContainer extends Component {
           parkingList: []
         });
         let self=this;
-        await axios.get('api/events/restaurants/?latitude='+props.position.lat+'&longitude'+props.position.lng).then(
+        await axios.get('api/events/restaurants/?latitude='+props.position.lat+'&longitude='+props.position.lng).then(
           function(response){
            console.log(response);
             response.data.forEach(async (element) => {
@@ -200,8 +200,8 @@ class MapContainer extends Component {
               "rgba(255, 113, 0, 1)",
               "rgba(255, 57, 0, 1)",
               "rgba(255, 0, 0, 1)"]}
-              positions={this.props.eventList.map(item => { return { "lat": item.latitude, "lng": item.longitude, "weight": 4}})}
-              opacity={0.9}
+              positions={this.props.eventList.map(item => { return { lat: item.latitude, lng: item.longitude, "weight": 500000000 }})}
+              opacity={0.5}
               radius={50}
             />
 
