@@ -40,7 +40,7 @@ class MyEvents extends Component {
       })
     })
     .then(() => {
-      console.log(events);
+      // console.log(events);
       this.setState({data: events});
     })
     .catch(function (error) {
@@ -59,6 +59,7 @@ class MyEvents extends Component {
   render () {
     console.log('render');
     const { data } = this.state;
+    console.log(data);
     return (
       <div>
         <div className="text-center">
@@ -78,6 +79,7 @@ class MyEvents extends Component {
                         <CardMedia
                           component="img"
                           height="180"
+                          // image='https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png'
                           image={dat.images === null ? 'https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png' : dat.images.image[0].medium.url}
                           title={dat.name}
                         />

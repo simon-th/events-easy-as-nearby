@@ -24,6 +24,7 @@ class MapContainer extends Component {
         eventList: this.props.eventList,
         restaurantList: [],
         parkingList: [],
+        savedEvents: [],
         restaurantIcon: {
           url:'./restaurantIcon.png'
         }
@@ -140,6 +141,21 @@ class MapContainer extends Component {
         }
       };
 
+
+      async componentDidMount() {
+        let self = this;
+        await axios.get('/api/events/')
+          .then(function (response) {
+            console.log(response);
+
+            response.data.forEach(element => {
+              self.state.savedEvents.push(element);
+
+            });
+            self.props.reRender();
+          })
+      }
+
       componentDidUpdate(prevProps){
         if(prevProps.eventList!==this.props.eventList){
           this.setState({eventList:this.props.eventList})
@@ -200,8 +216,8 @@ class MapContainer extends Component {
               "rgba(255, 113, 0, 1)",
               "rgba(255, 57, 0, 1)",
               "rgba(255, 0, 0, 1)"]}
-              positions={this.props.eventList.map(item => { return { lat: item.latitude, lng: item.longitude, "weight": 500000000 }})}
-              opacity={0.5}
+              positions={this.state.savedEvents.map(item => { return { "lat": item.latitude, "lng": item.longitude, "weight": item.saved_users.length}})}
+              opacity={0.9}
               radius={50}
             />
 
@@ -226,6 +242,8 @@ class MapContainer extends Component {
                 <Marker
                 icon='https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png'
                 position={{ lat: marker.place.geometry.location.lat, lng: marker.place.geometry.location.lng }}
+                name={marker.place.name}
+                address={marker.addressName}
                 key={marker.id}
                 onClick={this.onParkingClick}
                 />
@@ -237,6 +255,11 @@ class MapContainer extends Component {
                 icon='http://maps.google.com/mapfiles/kml/shapes/dining_maps.png'
                 position={{ lat: marker.place.latitude, lng: marker.place.longitude }}
                 key={marker.id}
+                name={marker.place.name}
+                address={marker.addressName}
+                price={marker.place.price_level === 4 ? "$$$$" : marker.place.price_level === 3 ? "$$$" : marker.place.price_level === 2 ? "$$" : "$"}
+                rating={marker.place.rating}
+                key={marker.id}
                 onClick={this.onRestaurantClick}
                 address={marker.addressName}
                 />
@@ -246,17 +269,29 @@ class MapContainer extends Component {
     marker={this.state.activeMarker}
     visible={this.state.showParkingWindow}
     onClose={this.onClose}
+    className="popup"
     >
       {console.log(this.state.selectedPlace)}
-    <p6>Address : {this.state.selectedPlace.name}</p6>
+      <h6>{this.state.selectedPlace.name}</h6>
+      <Divider />
+    <p6>Address : {this.state.selectedPlace.address}</p6>
+    <br></br>
     </InfoWindow>
 
     <InfoWindow
     marker={this.state.activeMarker}
     visible={this.state.showRestaurantWindow}
     onClose={this.onClose}
+    className="popup"
     >
+      <h6>{this.state.selectedPlace.name}</h6>
+      <Divider />
         <p6>Address :{this.state.selectedPlace.address}</p6>
+        <br></br>
+        <p6>Rating : {this.state.selectedPlace.rating} / 5</p6>
+        <br></br>
+        <p6>Price Level : {this.state.selectedPlace.price} </p6>
+        <br></br>
     </InfoWindow>
 
     <InfoWindow
