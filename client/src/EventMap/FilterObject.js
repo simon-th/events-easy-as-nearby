@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import apiKeys from '../api-keys.json';
+import React, { useEffect } from "react";
+//import apiKeys from '../api-keys.json';
 import { withStyles } from '@material-ui/core/styles';
 import { indigo } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
@@ -111,14 +111,11 @@ export default function FilterObject(props) {
   console.log(props.eventList);
   }
 
-
-
   useEffect(() => {
 
     requestFilters();
 
   }, []);
-
 
   return (
     <div>
@@ -179,7 +176,6 @@ export default function FilterObject(props) {
           aria-labelledby="discrete-slider"
           valueLabelDisplay="auto"
           step={5}
-          mark
           min={1}
           max={15}
           onChange={(event, value) => {

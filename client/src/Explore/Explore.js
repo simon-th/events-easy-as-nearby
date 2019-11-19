@@ -11,7 +11,6 @@ import "./Explore.css";
 import axios from 'axios';
 import Tooltip from '@material-ui/core/Tooltip';
 import { AuthUserContext } from '../Components/Session';
-import firebase from 'firebase';
 
 
 class Explore extends Component {
@@ -51,8 +50,6 @@ class Explore extends Component {
     console.log('render1');
     console.log(this.state.data);
     console.log(this.state.data.length);
-    const { data } = this.state;
-    // console.log(data.length);
     return (
       <div>
         <div className="text-center">

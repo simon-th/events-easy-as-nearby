@@ -61,6 +61,7 @@ router.get('/search', async (req, res) => {
   } else {
     url = `http://api.eventful.com/json/events/search/?app_key=${apiKeys.eventful}&location=${req.query.location}&within=${req.query.within}&category=${req.query.category}&date=${req.query.date}&page_size=50&sort_order=popularity`;
   }
+  console.log(url);
   var response = await axios.get(url).catch(function (error) {
     console.log(error.message);
   });
@@ -123,9 +124,7 @@ router.post('/unsave', async (req, res) => {
   let db_event = await Event.find({
     id: event_id
   });
-  if (db_event[0].saved_users.length === 1) {
-    Event.findOneAndRemove({ id: event_id });
-  } else if (db_event[0].saved_users.includes(email)) {
+  if (db_event[0].saved_users.includes(email)) {
     for (var i = 0; i < db_event[0].saved_users.length; i++) {
       if (db_event[0].saved_users[i] === email) {
         db_event[0].saved_users.splice(i,1);
@@ -138,7 +137,12 @@ router.post('/unsave', async (req, res) => {
         i--;
       }
     }
+    if (db_event[0].saved_users.length === 0) {
+      console.log("reach");
+      Event.findOneAndRemove({id: event_id});
+    }
   }
+
   let user = await User.find({
     email: email
   });
@@ -173,10 +177,11 @@ router.post('/save', async (req, res) => {
     var response = await axios.get(API_URL).catch(function (error) {
       console.log(error.message);
     });
+    console.log(response.data);
     const event = JSON.parse(JSON.stringify(response.data));
-    console.log(event);
+    //console.log(event);
     model = getNewEvent(event);
-    console.log(model);
+    //console.log(model);
     await model.save();
     console.log('Created event in db');
   } else if (db_event[0].saved_users.includes(email)) {

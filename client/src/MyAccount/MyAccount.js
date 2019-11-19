@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PasswordChangeForm from "./PasswordChange";
 import { AuthUserContext, withAuthorization } from '../Components/Session';
 import { Button } from 'reactstrap';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import axios from 'axios';
 
 class MyAccount extends Component {
