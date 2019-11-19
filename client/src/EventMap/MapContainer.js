@@ -238,6 +238,7 @@ class MapContainer extends Component {
                 position={{ lat: marker.place.geometry.location.lat, lng: marker.place.geometry.location.lng }}
                 key={marker.id}
                 onClick={this.onRestaurantClick}
+                address={marker.addressName}
                 />
     ))}
 
@@ -255,7 +256,7 @@ class MapContainer extends Component {
     visible={this.state.showRestaurantWindow}
     onClose={this.onClose}
     >
-        <p6>Address :{this.state.selectedPlace.name}</p6>
+        <p6>Address :{this.state.selectedPlace.address}</p6>
     </InfoWindow>
 
     <InfoWindow
