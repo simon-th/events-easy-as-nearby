@@ -226,6 +226,9 @@ class MapContainer extends Component {
                 <Marker
                 icon='https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png'
                 position={{ lat: marker.place.geometry.location.lat, lng: marker.place.geometry.location.lng }}
+                name={marker.place.name}
+                address={marker.addressName}
+                hours={marker.opening_hours}
                 key={marker.id}
                 onClick={this.onParkingClick}
                 />
@@ -237,6 +240,12 @@ class MapContainer extends Component {
                 icon='http://maps.google.com/mapfiles/kml/shapes/dining_maps.png'
                 position={{ lat: marker.place.geometry.location.lat, lng: marker.place.geometry.location.lng }}
                 key={marker.id}
+                name={marker.place.name}
+                address={marker.addressName}
+                price={marker.place.price_level === 4 ? "$$$$" : marker.place.price_level === 3 ? "$$$" : marker.place.price_level === 2 ? "$$" : "$"}
+                rating={marker.place.rating}
+                hours={marker.opening_hours}
+                key={marker.id}
                 onClick={this.onRestaurantClick}
                 />
     ))}
@@ -245,17 +254,31 @@ class MapContainer extends Component {
     marker={this.state.activeMarker}
     visible={this.state.showParkingWindow}
     onClose={this.onClose}
+    className="popup"
     >
       {console.log(this.state.selectedPlace)}
-    <p6>Address : {this.state.selectedPlace.name}</p6>
+      <h6>{this.state.selectedPlace.name}</h6>
+      <Divider />
+    <p6>Address : {this.state.selectedPlace.address}</p6>
+    <br></br>
+    <p6>Hours : {this.state.selectedPlace.hours}</p6>
     </InfoWindow>
 
     <InfoWindow
     marker={this.state.activeMarker}
     visible={this.state.showRestaurantWindow}
     onClose={this.onClose}
+    className="popup"
     >
-        <p6>Address :{this.state.selectedPlace.name}</p6>
+      <h6>{this.state.selectedPlace.name}</h6>
+      <Divider />
+        <p6>Address :{this.state.selectedPlace.address}</p6>
+        <br></br>
+        <p6>Rating : {this.state.selectedPlace.rating} / 5</p6>
+        <br></br>
+        <p6>Price Level : {this.state.selectedPlace.price} </p6>
+        <br></br>
+        <p6>Hours : {this.state.selectedPlace.hours}</p6>
     </InfoWindow>
 
     <InfoWindow
