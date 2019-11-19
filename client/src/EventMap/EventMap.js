@@ -12,8 +12,6 @@ class EventMap extends Component {
             shownEvents:[],
               categories:[],
               showRecs:true
-              
-
         }
     }
 

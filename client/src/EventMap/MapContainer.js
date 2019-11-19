@@ -24,6 +24,7 @@ class MapContainer extends Component {
         eventList: this.props.eventList,
         restaurantList: [],
         parkingList: [],
+        savedEvents: [],
         restaurantIcon: {
           url:'./restaurantIcon.png'
         }
@@ -140,6 +141,21 @@ class MapContainer extends Component {
         }
       };
 
+
+      async componentDidMount() {
+        let self = this;
+        await axios.get('/api/events/')
+          .then(function (response) {
+            console.log(response);
+        
+            response.data.forEach(element => {
+              self.state.savedEvents.push(element);
+        
+            });
+            self.props.reRender();
+          })
+      }
+
       componentDidUpdate(prevProps){
         if(prevProps.eventList!==this.props.eventList){
           this.setState({eventList:this.props.eventList})
@@ -200,7 +216,7 @@ class MapContainer extends Component {
               "rgba(255, 113, 0, 1)",
               "rgba(255, 57, 0, 1)",
               "rgba(255, 0, 0, 1)"]}
-              positions={this.props.eventList.map(item => { return { "lat": item.latitude, "lng": item.longitude, "weight": 1}})}
+              positions={this.state.savedEvents.map(item => { return { "lat": item.latitude, "lng": item.longitude, "weight": item.saved_users.length}})}
               opacity={0.9}
               radius={50}
             />
@@ -228,7 +244,6 @@ class MapContainer extends Component {
                 position={{ lat: marker.place.geometry.location.lat, lng: marker.place.geometry.location.lng }}
                 name={marker.place.name}
                 address={marker.addressName}
-                hours={marker.opening_hours}
                 key={marker.id}
                 onClick={this.onParkingClick}
                 />
@@ -244,7 +259,6 @@ class MapContainer extends Component {
                 address={marker.addressName}
                 price={marker.place.price_level === 4 ? "$$$$" : marker.place.price_level === 3 ? "$$$" : marker.place.price_level === 2 ? "$$" : "$"}
                 rating={marker.place.rating}
-                hours={marker.opening_hours}
                 key={marker.id}
                 onClick={this.onRestaurantClick}
                 />
@@ -261,7 +275,6 @@ class MapContainer extends Component {
       <Divider />
     <p6>Address : {this.state.selectedPlace.address}</p6>
     <br></br>
-    <p6>Hours : {this.state.selectedPlace.hours}</p6>
     </InfoWindow>
 
     <InfoWindow
@@ -278,7 +291,6 @@ class MapContainer extends Component {
         <br></br>
         <p6>Price Level : {this.state.selectedPlace.price} </p6>
         <br></br>
-        <p6>Hours : {this.state.selectedPlace.hours}</p6>
     </InfoWindow>
 
     <InfoWindow
