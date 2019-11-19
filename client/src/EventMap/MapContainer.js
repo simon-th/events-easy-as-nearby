@@ -38,12 +38,12 @@ class MapContainer extends Component {
           parkingList: []
         });
         let self=this;
-        await axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+props.position.lat+','+props.position.lng+'&radius=1500&type=restaurant&key='+apiKeys.googlePlaces).then(
+        await axios.get('api/events/restaurants/?latitude='+props.position.lat+'&longitude'+props.position.lng).then(
           function(response){
-           // console.log(response.data.results);
-            response.data.results.forEach(async (element) => {
+           console.log(response);
+            response.data.forEach(async (element) => {
               let address='';
-               await axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.geometry.location.lat+','+element.geometry.location.lng+'&key='+apiKeys.googlePlaces).then(
+               await axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.latitude+','+element.longitude+'&key='+apiKeys.googlePlaces).then(
                 function(result){
                  // console.log(result);
                     address=result.data.results[0].formatted_address;
@@ -100,8 +100,8 @@ class MapContainer extends Component {
 
           }
         )
-        //console.log(this.state.restaurantList);
-        //console.log(this.state.parkingList);
+        console.log(this.state.restaurantList);
+        console.log(this.state.parkingList);
         this.props.refresh();
       }
 
@@ -200,7 +200,7 @@ class MapContainer extends Component {
               "rgba(255, 113, 0, 1)",
               "rgba(255, 57, 0, 1)",
               "rgba(255, 0, 0, 1)"]}
-              positions={this.props.eventList.map(item => { return { "lat": item.latitude, "lng": item.longitude, "weight": 1}})}
+              positions={this.props.eventList.map(item => { return { "lat": item.latitude, "lng": item.longitude, "weight": 4}})}
               opacity={0.9}
               radius={50}
             />
@@ -235,7 +235,7 @@ class MapContainer extends Component {
 {this.state.restaurantList.map(marker => (
                 <Marker
                 icon='http://maps.google.com/mapfiles/kml/shapes/dining_maps.png'
-                position={{ lat: marker.place.geometry.location.lat, lng: marker.place.geometry.location.lng }}
+                position={{ lat: marker.place.latitude, lng: marker.place.longitude }}
                 key={marker.id}
                 onClick={this.onRestaurantClick}
                 address={marker.addressName}
