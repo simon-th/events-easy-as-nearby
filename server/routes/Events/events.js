@@ -32,11 +32,15 @@ router.get('/restaurants', async (req, res) => {
     var restaurants = [];
     const lat = parseFloat(req.query.latitude);
     const lng = parseFloat(req.query.longitude);
-    let data = await Restaurant.find();
-    if (data) restaurants = data;
-    else res.status(404).json({
-      message: 'aiya'
-    });
+    var data = await Restaurant.find();
+    if (data) {
+      restaurants = data;
+    } else {
+      res.status(404).json({
+        message: 'aiya'
+      });
+    }
+    console.log(restaurants);
     restaurants = await filterRestaurantsByDistance(restaurants, {
       latitude: lat,
       longitude: lng
