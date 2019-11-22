@@ -32,6 +32,7 @@ public class SelClass {
 
 		//create new acct
 		WebDriver driver = new FirefoxDriver();
+		driver.get("http://localhost:3000/");
 		/*createAcct(driver);
 		Thread.sleep(5000);*/
 
@@ -44,8 +45,8 @@ public class SelClass {
 		//		Thread.sleep(5000);
 
 		//go to http://localhost:3000/myaccount
-		//		myacct(driver);
-		//		Thread.sleep(5000);
+		//				myacct(driver);
+		//				Thread.sleep(5000);
 
 		//go to http://localhost:3000/myevents
 		//		myevents(driver);
@@ -56,16 +57,28 @@ public class SelClass {
 		//		Thread.sleep(5000);
 		//		driver.quit();
 
-//		filterCategories(driver);
-//		Thread.sleep(5000);
+		//		filterCategories(driver);
+		//		Thread.sleep(5000);
 
-		filterDate(driver);
-		Thread.sleep(5000);
+		//		filterDate(driver);
+		//		Thread.sleep(5000);
+		
+//		Next call doesn't fully get executed
+//		saveNotLoggedIn(driver);
+//		Thread.sleep(5000);
+		
+//		save(driver);
+//		Thread.sleep(5000);
+		
+//		save2(driver);
+//		Thread.sleep(5000);
+		
+		unSave(driver);
+//		Thread.sleep(5000);
 	}
 
 	//create an account with an email that's already been created
 	public static void createAcct(WebDriver driver) {
-		driver.get("http://localhost:3000/");
 		WebElement link = driver.findElement(By.partialLinkText("Login"));
 		link.click();
 		try {
@@ -112,7 +125,6 @@ public class SelClass {
 
 	//login with wrong password 
 	public static void loginError(WebDriver driver) {
-		driver.get("http://localhost:3000/");
 		WebElement link = driver.findElement(By.partialLinkText("Login"));
 		link.click();
 		try {
@@ -138,7 +150,6 @@ public class SelClass {
 	}
 
 	public static void myacct(WebDriver driver) {
-		driver.get("http://localhost:3000/myaccount");
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -148,7 +159,6 @@ public class SelClass {
 	}
 
 	public static void myevents(WebDriver driver) {
-		driver.get("http:localhost:3000/myevents");
 		try {
 			Thread.sleep(2000);
 		}
@@ -159,7 +169,6 @@ public class SelClass {
 	}
 
 	public static void login (WebDriver driver) {
-		driver.get("http://localhost:3000");
 		WebElement link = driver.findElement(By.partialLinkText("Login"));
 		link.click();
 		try {
@@ -187,7 +196,6 @@ public class SelClass {
 	}
 
 	public static void filterCategories(WebDriver driver) throws InterruptedException {
-		driver.get("http://localhost:3000");
 		Thread.sleep(7500);
 
 		WebElement filterT = driver.findElement(By.id("floatFilter"));
@@ -221,7 +229,6 @@ public class SelClass {
 	}
 
 	public static void filterDate(WebDriver driver) throws InterruptedException {
-		driver.get("http://localhost:3000");
 		Thread.sleep(7500);
 
 		WebElement filterT = driver.findElement(By.id("floatFilter"));
@@ -238,7 +245,7 @@ public class SelClass {
 		WebElement submitb = driver.findElement(By.id("sub"));
 		submitb.click(); 
 		Thread.sleep(4000);
-		
+
 		for(int i = 1; i < 5; i++) {
 			categoriesL.click();
 			String num = Integer.toString(i);
@@ -248,8 +255,73 @@ public class SelClass {
 			submitb.click(); 
 			Thread.sleep(5000);
 		}
-		
+
 		Thread.sleep(5000);
+		driver.quit();
+	}
+	
+	public static void saveNotLoggedIn(WebDriver driver) throws InterruptedException{
+		//this code will crash missing login(driver)
+		WebElement pg = driver.findElement(By.partialLinkText("Explore"));
+		pg.click();
+		Thread.sleep(7500);
+		
+		WebElement saveEve = driver.findElement(By.xpath("/html/body/div/div/div[2]/div[2]/div/div[1]/div/div/button/span[1]"));
+		saveEve.click();									
+		Thread.sleep(1000);
+		
+		pg = driver.findElement(By.partialLinkText("My Events"));
+		pg.click();
+		Thread.sleep(5000);
+	}
+	
+	public static void save(WebDriver driver) throws InterruptedException {
+		login(driver);
+		WebElement pg = driver.findElement(By.partialLinkText("Explore"));
+		pg.click();
+		Thread.sleep(7500);
+		
+		WebElement saveEve = driver.findElement(By.xpath("/html/body/div/div/div[2]/div[2]/div/div[1]/div/div/button/span[1]"));
+		saveEve.click();									
+		Thread.sleep(1000);
+		
+		pg = driver.findElement(By.partialLinkText("My Events"));
+		pg.click();
+		Thread.sleep(5000);
+		
+		driver.quit();
+	}
+	
+	public static void save2 (WebDriver driver) throws InterruptedException {
+		login(driver);
+		WebElement pg = driver.findElement(By.partialLinkText("Explore"));
+		pg.click();
+		Thread.sleep(7500);
+		
+		WebElement saveEve = driver.findElement(By.xpath("/html/body/div/div/div[2]/div[2]/div/div[2]/div/div/button/span[1]"));
+		
+		saveEve.click();	
+		Thread.sleep(1000);
+		saveEve.click(); //again
+		Thread.sleep(1000);
+		
+		pg = driver.findElement(By.partialLinkText("My Events"));
+		pg.click();
+		Thread.sleep(10000);
+		
+		driver.quit();
+	}
+	
+	public static void unSave(WebDriver driver) throws InterruptedException{
+		login(driver);
+		WebElement pg = driver.findElement(By.partialLinkText("My Events"));
+		pg.click();
+		Thread.sleep(5000);
+		
+		WebElement unSave = driver.findElement(By.xpath("/html/body/div/div/div[2]/div[2]/div/div[2]/div/div/button/span[1]"));
+		unSave.click();
+		Thread.sleep(4000);
+		
 		driver.quit();
 	}
 }
