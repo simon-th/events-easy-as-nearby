@@ -119,50 +119,19 @@ function getNewEvent(event) {
 
 router.post('/unsave', async (req, res) => {
   const { email, event_id } = req.body;
-  let db_event = await Event.find({
-    id: event_id
+  await Event.findOneAndUpdate({"id": event_id}, {"$pull": {"saved_users": email}}, { new: true, safe: true, upsert: true }).catch((error) => {
+    return res.status(500).json(utils.getError('Database Error: Error updating event.', error));
   });
-  if (db_event[0].saved_users.includes(email)) {
-    for (var i = 0; i < db_event[0].saved_users.length; i++) {
-      if (db_event[0].saved_users[i] === email) {
-        db_event[0].saved_users.splice(i,1);
-        db_event[0].save(function(error) {
-          if (error) {
-              console.log(error);
-              res.send(null, 500);
-          }
-        });
-        i--;
-      }
-    }
-    if (db_event[0].saved_users.length === 0) {
-      console.log("reach");
-      Event.findOneAndRemove({id: event_id});
-    }
-  }
 
-  let user = await User.find({
-    email: email
+  await Event.findOneAndRemove({"saved_users": []}).catch((error) => {
+    return res.status(500).json(utils.getError('Database Error: Error removing event.', error));
   });
-  if (user[0].saved_event.includes(event_id)) {
-    for (var i = 0; i < user[0].saved_event.length; i++) {
-      if (user[0].saved_event[i] === event_id) {
-        user[0].saved_event.splice(i,1);
-        user[0].save(function(error) {
-          if (error) {
-              console.log(error);
-              res.send(null, 500);
-          }
-        });
-        i--;
-      }
-    }
-  }
-  if (user) {
-    res.status(200).json(user);
-  } else res.status(404).json({
-    message: 'aiya'
+
+  const result = await User.findOneAndUpdate({"email": email}, {"$pull": {"saved_event": event_id}}, { new: true, safe: true, upsert: true }).catch((error) => {
+    return res.status(500).json(utils.getError('Database Error: Error updating user.', error));
   });
+
+  return res.status(201).json(utils.getSuccess('Event unsaved successfully.', result));
 })
 
 router.post('/save', async (req, res) => {
@@ -189,7 +158,7 @@ router.post('/save', async (req, res) => {
     return res.status(500).json(utils.getError('Database Error: Error updating user.', error));
   });
 
-  return res.status(201).json(utils.getSuccess('Event saved successfully.'), result);
+  return res.status(201).json(utils.getSuccess('Event saved successfully.', result));
 })
 
 module.exports = router;
