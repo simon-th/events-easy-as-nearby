@@ -14,12 +14,12 @@ import {
     ListGroupItemText
 } from 'reactstrap';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
-import Angel from './angel.jpg';
-import Simon from './simon.jpg';
-import Yash from './yash.jpg';
-import Jovin from './jovin.jpg';
-import Shania from './shania.jpg';
-import Huy from './huy.jpg';
+import Angel from '../../Components/ProfilePictures/angel.jpg';
+import Simon from '../../Components/ProfilePictures/simon.jpg';
+import Yash from '../../Components/ProfilePictures/yash.jpg';
+import Jovin from '../../Components/ProfilePictures/jovin.jpg';
+import Shania from '../../Components/ProfilePictures/shania.jpg';
+import Huy from '../../Components/ProfilePictures/huy.jpg';
 
 
 const contributorInfo = {

@@ -1,15 +1,6 @@
 import React from 'react';
 import { Button } from "reactstrap";
-import { withFirebase } from '../Components/Firebase';
-
-// const useStyles = makeStyles(theme => ({
-//   // button: {
-//   //   margin: theme.spacing(1),
-//   // },
-//   input: {
-//     display: 'none',
-//   },
-// }));
+import { withFirebase } from './Firebase';
 
 const LogoutButton = ({ firebase }) => (
   <Button color="#c1cadb" className="text-muted" margin="0" onClick={firebase.doSignOut}>

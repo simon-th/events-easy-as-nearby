@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { withAuthorization, AuthUserContext } from '../Components/Session';
+import { withAuthorization, AuthUserContext } from '../../Components/Session';
 import axios from 'axios';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';

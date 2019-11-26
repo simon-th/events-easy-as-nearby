@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
-import { AuthUserContext } from '../Components/Session';
-import "./Explore.css";
-import "../EventMap/MapContainer";
+import { AuthUserContext } from './Session';
+import "../Pages/Explore/Explore.css";
+import "../Pages/EventMap/MapContainer";
 
 const SaveButton = () => (
     <div>

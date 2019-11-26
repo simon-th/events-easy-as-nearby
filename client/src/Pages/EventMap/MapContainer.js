@@ -6,10 +6,10 @@ import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Tooltip from '@material-ui/core/Tooltip';
 import {HeatMap} from './HeatMap';
-import apiKeys from '../api-keys.json';
+import apiKeys from '../../api-keys.json';
 import popupStyle from './popupStyle.css'
 import axios from 'axios';
-import { AuthUserContext } from '../Components/Session';
+import { AuthUserContext } from '../../Components/Session';
 import firebase from 'firebase/app';
 
 class MapContainer extends Component {

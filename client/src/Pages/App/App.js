@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Navigation from "./Navigation";
+import Navigation from "../../Components/Navigation";
 import About from "../About/About"
 import Login from "../Login/Login"
 import MyEvents from "../MyEvents/MyEvents";
@@ -10,7 +10,7 @@ import Signup from "../Signup/Signup";
 import PasswordForget from "../ForgotPassword/ForgotPassword";
 import EventMap  from "../EventMap/EventMap";
 import MyAccount from "../MyAccount/MyAccount";
-import { withAuthentication } from "../Components/Session";
+import { withAuthentication } from "../../Components/Session";
 
 
 

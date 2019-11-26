@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import PasswordChangeForm from "./PasswordChange";
-import { AuthUserContext, withAuthorization } from '../Components/Session';
+import PasswordChangeForm from "../../Components/PasswordChange";
+import { AuthUserContext, withAuthorization } from '../../Components/Session';
 import { Button } from 'reactstrap';
 import firebase from 'firebase/app';
 import axios from 'axios';

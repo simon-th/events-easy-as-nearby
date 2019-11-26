@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { withFirebase } from "../Components/Firebase";
+import { withFirebase } from "./Firebase";
 import { Button, FormGroup, Label, Input, Form, Row, Col, UncontrolledPopover, PopoverBody } from "reactstrap";
-import "./PasswordChange.css";
+import "./Stylesheets/PasswordChange.css";
 
 const INITIAL_STATE = {
     passwordOne: "",

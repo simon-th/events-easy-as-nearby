@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { withFirebase } from "../Components/Firebase";
+import { withFirebase } from "../../Components/Firebase";
 import { Button, FormGroup, Label, Input, Form, Row, Col, UncontrolledPopover, PopoverBody } from "reactstrap";
 import "./ForgotPassword.css"
 

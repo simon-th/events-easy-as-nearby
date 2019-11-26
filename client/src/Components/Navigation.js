@@ -1,9 +1,9 @@
 import React from "react";
-import "./App.css";
+import "../Pages/App/App.css";
 import { Navbar, NavbarBrand, Nav, NavLink } from "reactstrap";
 import { IndexLinkContainer } from "react-router-bootstrap";
-import LogoutButton from "../Logout/Logout";
-import { AuthUserContext } from "../Components/Session";
+import LogoutButton from "./Logout";
+import { AuthUserContext } from "./Session";
 
 const Navigation = () => (
     <div>
