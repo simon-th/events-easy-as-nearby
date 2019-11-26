@@ -35,9 +35,8 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 
-app.use('/api/events', require('./routes/Events/events'));
-app.use('/api/signup', require('./routes/Signup/signup'));
-app.use('/api/myevents', require('./routes/MyEvents/myevents'));
+app.use('/api/events', require('./routes/events'));
+app.use('/api/signup', require('./routes/signup'));
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
