@@ -16,7 +16,6 @@ db.on('error', () => {
 
 beforeEach((done) => {
     mongoose.connection.collections.test.drop(() => {
-         //this function runs after the drop is completed
-        done(); //go ahead everything is done now.
+        done();
     });
 });
