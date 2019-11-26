@@ -33,8 +33,8 @@ class Explore extends Component {
       fetch(`api/events/search/?location=30.2884957,-97.7355092&within=15&category=all&date=Future`)
         .then((data) => data.json())
         .then((res) => {
-          console.log(res);
-          console.log(res.data);
+          // console.log(res);
+          // console.log(res.data);
           this.setState({ data: res})
         });
   }
@@ -48,8 +48,7 @@ class Explore extends Component {
 
   render () {
     console.log('render1');
-    console.log(this.state.data);
-    console.log(this.state.data.length);
+    console.log(this.state.data.data);
     return (
       <div>
         <div className="text-center">
@@ -60,7 +59,7 @@ class Explore extends Component {
           <Grid container className="grid" spacing={2}>
                 {this.state.data.length <= 0
                   ? ''
-                  : this.state.data.map((dat) => (
+                  : this.state.data.data.map((dat) => (
                     <Card className="exploreCard">
                       <CardActionArea target="_blank" href={dat.url}>
                         <CardMedia

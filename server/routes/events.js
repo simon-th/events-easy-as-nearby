@@ -81,7 +81,7 @@ router.get('/test', (req, res) => {
 // /api/events/search/?location=30.2884957,-97.7355092&within=15&category=food&date=today
 
 router.get('/search', async (req, res) => {
-  var url = `http://api.eventful.com/json/events/search/?app_key=${apiKeys.eventful}&location=${req.query.location}&within=${req.query.within}&date=${req.query.date}&page_size=50&sort_order=date`;
+  var url = `http://api.eventful.com/json/events/search/?app_key=${apiKeys.eventful}&location=${req.query.location}&within=${req.query.within}&date=${req.query.date}&page_size=50&sort_order=popularity`;
   if (req.query.category !== 'all') {
     url += `&category=${req.query.category}`;
   }
@@ -89,6 +89,7 @@ router.get('/search', async (req, res) => {
   var response = await axios.get(url).catch((error) => {
     return res.status(500).json(utils.getError('API call error', error));
   });
+  console.log(response.data.events.event);
   return res.status(200).json(utils.getSuccess('Event list successfully returned.', response.data.events.event));
 });
 

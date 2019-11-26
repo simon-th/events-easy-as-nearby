@@ -148,7 +148,7 @@ class MapContainer extends Component {
           .then(function (response) {
             console.log(response);
 
-            response.data.forEach(element => {
+            response.data.data.forEach(element => {
               self.state.savedEvents.push(element);
 
             });

@@ -35,7 +35,7 @@ class MyEvents extends Component {
     var email = firebase.auth().currentUser.email;
     axios.get(`/api/events/savelist?email=${email}`)
     .then(function (response) {
-      response.data.forEach((id) => {
+      response.data.data.forEach((id) => {
         events.push(id);
       })
     })
@@ -88,7 +88,7 @@ class MyEvents extends Component {
                             {dat.name}
                           </Typography>
                           <Typography variant="body2" color="textSecondary" component="p">
-                          {(dat.description == null  || dat.description == "<br>") ? "(No description available)" : dat.description}
+                          {(dat.description === null  || dat.description === "<br>") ? "(No description available)" : dat.description}
                           </Typography>
                         </CardContent>
                       </CardActionArea>

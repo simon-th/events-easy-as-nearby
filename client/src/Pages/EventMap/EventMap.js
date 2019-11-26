@@ -4,7 +4,7 @@ import MapContainer from "./MapContainer";
 import axios from 'axios'
 
 class EventMap extends Component {
-    
+
 
     constructor(){
         super();
@@ -21,7 +21,7 @@ class EventMap extends Component {
     .then(function (response) {
     console.log(response);
     console.log(response.data);
-    self.state.categories=response.data.map((category)=>(
+    self.state.categories=response.data.data.map((category)=>(
          {id: category.id, name: category.name}))
 
      })
@@ -44,7 +44,7 @@ class EventMap extends Component {
             showRecs:true
         });
     };
-    
+
 
     render() {
         return (

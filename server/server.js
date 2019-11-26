@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const Database = require('./database');
 const express = require('express');
 var cors = require('cors');
 const bodyParser = require('body-parser');
@@ -12,20 +12,6 @@ const Event = require('./mongodb_schemas/Event')
 const eventIds = require('./scripts/event-list');
 const Sub = require('./mongodb_schemas/Sub');
 var nodemailer = require('nodemailer');
-
-const DATABASE_NAME = 'explocation';
-const CONNECTION_URL = `mongodb+srv://huy0123:huy_utexas@explocationdb-qtiwe.gcp.mongodb.net/${DATABASE_NAME}?retryWrites=true&w=majority`;
-mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.Promise = global.Promise;
-
-var db = mongoose.connection;
-db.once('open', () => {
-  dbConnected = true;
-  console.log('connected to database from server.js');
-});
-db.on('error', () => {
-  console.error.bind(console, 'Mongo connection error');
-});
 
 const API_PORT = 8080;
 const app = express();
