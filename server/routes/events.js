@@ -147,7 +147,7 @@ router.post('/save', async (req, res) => {
     model = getNewEvent(event);
     await model.save();
   } else if (db_event[0].saved_users.includes(email)) {
-    return res.status(500).json(utils.getError('Error: Cannot save event twice.', null));
+    return res.status(400).json(utils.getError('Error: Cannot save event twice.', null));
   }
 
   await Event.findOneAndUpdate({"id": event_id}, {"$push": {"saved_users": email}}, { new: true, safe: true, upsert: true }).catch((error) => {

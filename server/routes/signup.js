@@ -5,57 +5,60 @@ const utils = require('../utils');
 
 const router = express.Router();
 
-router.post('/newuser', (req, res) => {
+router.post('/newuser', async (req, res) => {
   let user = new User();
 
   const { username, email } = req.body;
 
   if (!username || !email) {
-  return res.json({
-    success: false,
-    error: 'INVALID INPUTS',
-  });
+    return res.status(100).json(utils.getError('Error: Invalid Inputs.', {username: username, email: email}));
   }
+
   user.username = username;
   user.email = email;
   user.saved_event = [];
-  user.save((err) => {
-  if (err) return res.json({ success: false, error: err });
-  return res.json({ success: true });
-  });
+  try {
+    await user.save();
+    return res.status(201).json(utils.getSuccess('User created successfully.', user));
+  } catch (error) {
+    return res.status(500).json(utils.getError('Database error: Failed to create user.'), error);
+  }
 });
 
-router.post('/newsub', (req, res) => {
+router.post('/newsub', async (req, res) => {
   let sub = new Sub();
   const { email } = req.body;
 
   if (!email) {
-    return res.json({
-      success: false,
-      error: 'INVALID INPUTS',
-    });
+    return res.status(100).json(utils.getError('Error: Invalid Inputs.', {username: username, email: email}));
   }
+
   sub.email = email;
-  sub.save((err) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true });
-  });
-
+  try {
+    await sub.save();
+    return res.status(201).json(utils.getSuccess('Subscriber added successfully.', user));
+  } catch (error) {
+    return res.status(500).json(utils.getError('Database error: Failed to add subscriber.'), error);
+  }
 })
 
-router.delete('/unsub', (req, res) => {
+router.delete('/unsub', async (req, res) => {
   const { email } = req.body;
-  Sub.findOneAndDelete(email, (err) => {
-    if (err) return res.send(err);
-    return res.json({ success: true });
-  });
+  try {
+    await Sub.findOneAndDelete(email);
+    return res.status(200).json(utils.getSuccess('Subscriber removed successfully.', user));
+  } catch (error) {
+    return res.status(500).json(utils.getError('Database error: Failed to remove subscriber.'), error);
+  }
 })
 
-router.get('/sublist', (req, res) => {
-  Sub.find((err, data) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true, data: data });
-  });
+router.get('/sublist', async (req, res) => {
+  try {
+    const data = await Sub.find();
+    return res.status(200).json(utils.getSuccess('Subscriber list returned successfully.', data));
+  } catch (error) {
+    return res.status(500).json(utils.getError('Database error: Failed to return subscriber list.'), error);
+  }
 })
 
 router.get('/test', (req, res) => {
