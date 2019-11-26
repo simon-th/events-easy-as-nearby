@@ -11,18 +11,18 @@ const utils = require('../utils');
 
 const router = express.Router();
 
-async function filterRestaurantsByDistance(restaurants, source) {
+async function filterByDistance(unfiltered, source) {
   var filtered = [];
-  restaurants.forEach((r) => {
-    const lat = r.latitude;
-    const lng = r.longitude;
+  unfiltered.forEach((element) => {
+    const lat = element.latitude;
+    const lng = element.longitude;
     var dist = geolib.getDistance(source, {
       latitude: lat,
       longitude: lng
     });
     dist = convert(dist).from('m').to('mi');
     if (dist <= 0.5) {
-      filtered.push(r);
+      filtered.push(element);
     }
   });
   return filtered;
@@ -36,8 +36,23 @@ router.get('/restaurants', async (req, res) => {
     };
     const lat = parseFloat(req.query.latitude);
     const lng = parseFloat(req.query.longitude);
-    const filteredRestaurants = await filterRestaurantsByDistance(data, { latitude: lat, longitude: lng });
+    const filteredRestaurants = await filterByDistance(data, { latitude: lat, longitude: lng });
     return res.status(200).json(utils.getSuccess('Restaurants successfully returned.', filteredRestaurants));
+  } catch(error) {
+    return res.status(500).json(utils.getError('Error', error));
+  }
+})
+
+router.get('/parking', async (req, res) => {
+  try {
+    var data = await Parking.find();
+    if (data == null) {
+      return res.status(404).json(utils.getError('Database error: Parking not found.', error));
+    };
+    const lat = parseFloat(req.query.latitude);
+    const lng = parseFloat(req.query.longitude);
+    const filteredParking = await filterByDistance(data, { latitude: lat, longitude: lng });
+    return res.status(200).json(utils.getSuccess('Parking successfully returned.', filteredParking));
   } catch(error) {
     return res.status(500).json(utils.getError('Error', error));
   }
