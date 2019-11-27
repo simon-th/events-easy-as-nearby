@@ -5,6 +5,7 @@ const convert = require('convert-units');
 const Category = require('../mongodb_schemas/Category');
 const Event = require('../mongodb_schemas/Event');
 const Restaurant = require('../mongodb_schemas/Restaurant');
+const Parking = require('../mongodb_schemas/Restaurant');
 const User = require('../mongodb_schemas/User');
 const apiKeys = require('../api-keys.json');
 const utils = require('../utils');
@@ -85,11 +86,9 @@ router.get('/search', async (req, res) => {
   if (req.query.category !== 'all') {
     url += `&category=${req.query.category}`;
   }
-  console.log(url);
   var response = await axios.get(url).catch((error) => {
     return res.status(500).json(utils.getError('API call error', error));
   });
-  console.log(response.data.events.event);
   return res.status(200).json(utils.getSuccess('Event list successfully returned.', response.data.events.event));
 });
 

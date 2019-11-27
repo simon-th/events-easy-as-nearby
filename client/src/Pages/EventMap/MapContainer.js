@@ -42,7 +42,7 @@ class MapContainer extends Component {
         await axios.get('api/events/restaurants/?latitude='+props.position.lat+'&longitude='+props.position.lng).then(
           function(response){
            console.log(response);
-            response.data.forEach(async (element) => {
+            response.data.data.forEach(async (element) => {
               let address='';
                await axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+element.latitude+','+element.longitude+'&key='+apiKeys.googlePlaces).then(
                 function(result){
