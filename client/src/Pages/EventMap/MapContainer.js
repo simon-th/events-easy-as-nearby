@@ -60,14 +60,30 @@ class MapContainer extends Component {
         this.props.refresh();
       }
 
-      onParkingClick = (props, marker, e) => {
+      onParkingClick = async (props, marker, e) => {
         this.setState({
           activeMarker: marker,
           showingInfoWindow: false,
-          showParkingWindow: true,
+          showParkingWindow: false,
           showRestaurantWindow: false,
           selectedPlace: props
         })
+        let address = '';
+        let position=this.state.selectedPlace.position;
+        await axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+position.lat+','+position.lng+'&key='+apiKeys.googlePlaces).then(
+          function(response){
+            address=response.data.results[0].formatted_address;
+          }
+
+        ).catch(error => {
+          console.log(error);
+        });
+        
+        this.setState({
+          currentAddress: address,
+          showParkingWindow: true
+        })
+        
         //console.log(this.state);
       }
 
@@ -81,7 +97,6 @@ class MapContainer extends Component {
         })
         let address = '';
         let position=this.state.selectedPlace.position;
-        let copyPlace=this.state.selectedPlace;
         await axios.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+position.lat+','+position.lng+'&key='+apiKeys.googlePlaces).then(
           function(response){
             address=response.data.results[0].formatted_address;
