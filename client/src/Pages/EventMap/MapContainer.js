@@ -228,7 +228,7 @@ class MapContainer extends Component {
                 onClick={this.onMarkerClick}
                 name={marker.title}
                 venueName={marker.venue_name}
-                venueAddress={marker.address == null ? "(No given venue address)" : marker.venue_address}
+                venueAddress={marker.venue_address == null ? "(No given venue address)" : marker.venue_address}
                 start={marker.start_time}
                 // end={marker.stop_time}
                 url={marker.url}
