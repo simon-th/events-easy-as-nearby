@@ -31,7 +31,7 @@ const contributorInfo = {
         bio:
             'Angel is a third-year ECE major with technical cores in Software and Academic Enrichment. Her interests include drawing, pettings dogs, and watching movies.',
         responsibilities:
-            'Angel worked on the frontend team to implement the UI design. She added the information for the About page, added the Explore page, and cleaned the user interface formatting. Later, she created the UI for the sidebar components and expanded the map on the map page, updated the design for Explore/Saved Events UI, and updated the About page. Afterwards, Angel designed the marker pop-up windows that displayed event information. She refined the heatmap and overall UI formatting details throughout the website and further updated the About page.'
+            'Angel worked on the frontend team to implement the UI design. She added the information for the About page, added the Explore page, and cleaned the user interface formatting. Later, she created the UI for the sidebar components and expanded the map on the map page, updated the design for Explore/Saved Events UI, and updated the About page. Afterwards, Angel designed the marker pop-up windows that displayed event information. She refined the heatmap and overall UI formatting details throughout the website and further updated the About page. For refactoring, she implemented the concept of the strategy pattern to prevent duplicate code within the Explore and My Events Page, then she updated the logistics on the About page.'
     },
     'simon-th': {
         name: 'Simon Hoque',
@@ -41,7 +41,7 @@ const contributorInfo = {
         bio:
             'Simon is a third-year ECE major with technical cores in Software and Academic Enrichment. He spends most of his free time listening to EDM, playing soccer, and browsing on the Uniqlo website.',
         responsibilities:
-            'Simon contributed mainly to the backend by structuring the git tree, setting up the hard-coded events, and working on API calls. Later, he stayed on backend to pull event information from the Eventbrite API and implemented filtering. He worked on refactoring our code as well. Afterwards, he integrated the new Eventful API to collect event information in replacement of EventBrite, then he stored restaurant information into the database.'
+            'Simon contributed mainly to the backend by structuring the git tree, setting up the hard-coded events, and working on API calls. Later, he stayed on backend to pull event information from the Eventbrite API and implemented filtering. He worked on refactoring our code as well. Afterwards, he integrated the new Eventful API to collect event information in replacement of EventBrite, then he stored restaurant information into the database. In the next phase, Simon cleaned up the backend code and worked to implement the Singleton pattern for database connection.'
     },
     'yashlad': {
         name: 'Yash Lad',
@@ -51,7 +51,7 @@ const contributorInfo = {
         bio:
             'Yash is a third-year ECE major with technical cores in Software and Academic Enrichment. His hobbies consist of PC gaming, dancing, and playing basketball.',
         responsibilities:
-            'Yash was on the frontend team; he implemented the initial UI structure by adding the Map page, Login/Register pages, and the Saved Events. Later, he implemented requests from the frontend sidebar controls on the map page to the background for filtering functionality and mounted a heatmap layer with hardcoded attendee weights onto the map. Afterwards, Yash integrated in nearby restaurant and parking recommendation information for specific events into the map page.'
+            'Yash was on the frontend team; he implemented the initial UI structure by adding the Map page, Login/Register pages, and the Saved Events. Later, he implemented requests from the frontend sidebar controls on the map page to the background for filtering functionality and mounted a heatmap layer with hardcoded attendee weights onto the map. Afterwards, Yash integrated in nearby restaurant and parking recommendation information for specific events into the map page. In the next phase, Yash implemented the Factory pattern for nearby recommendations for events then improved the way restaurant data is retrieved via clicks.'
     },
     jovinjoej: {
         name: 'Jovin Joseph',
@@ -61,7 +61,7 @@ const contributorInfo = {
         bio:
             'Jovin is a fourth-year ECE major with technical cores in Software and Academic Enrichment. He enjoys photography, playing volleyball, and spending time with friends.',
         responsibilities:
-            'Jovin contributed to much of the logistics; he contributed to a lot of the proposal and reports, and kept everyone on the same page. In our second phase, Jovin was in charge of frontend Selenium and completing the report details. Later, he implemented more extensive testing for both frontend and backend functionalities.'
+            'Jovin contributed to much of the logistics; he contributed to a lot of the proposal and reports, and kept everyone on the same page. In our second phase, Jovin was in charge of frontend Selenium and completing the report details. Later, he implemented more extensive testing for both frontend and backend functionalities. In the last phase, he finished the report and produced necessary diagrams.'
     },
     shaniapaul: {
         name: 'Shania Paul',
@@ -71,7 +71,7 @@ const contributorInfo = {
         bio:
             'Shania is a third-year ECE major with technical cores in Software and Academic Enrichment. Her interests involve dancing, dancing, and more dancing (Go Texas Bhangra!!!).',
         responsibilities:
-            'Shania worked on the frontend team focusing on the map implementation. She pinpointed the user geolocation for the map image and added event location markers. Later, she updated the report and displayed heatmap information on startup.'
+            'Shania worked on the frontend team focusing on the map implementation. She pinpointed the user geolocation for the map image and added event location markers. Later, she updated the report and displayed heatmap information on startup. In the final phase, she helped with logistics and finishing the final report.'
     },
     qhuy2301: {
         name: 'Huy Le',
@@ -81,7 +81,7 @@ const contributorInfo = {
         bio:
             'Huy is a fifth-year ECE major with technical cores in Software and Integrated Circuit. His hobbies include playing videogames and watching sports.',
         responsibilities:
-            'Huy worked on both frontend and backend. He initialized the app and redesigned the UI to be sleek with animations and displayed API data onto the webpage. In the next phase, he implemented user login verification, added an account page, and added user information into the MongoDB database. He also applied a persistent drawer and float button for more elegant UI. Afterwards, he worked on restrictive routing and saving events for registered users. In the next phase, he set up cron jobs to periodically update available events and email reminders/event changes for consistent user experience.'
+            'Huy worked on both frontend and backend. He initialized the app and redesigned the UI to be sleek with animations and displayed API data onto the webpage. In the next phase, he implemented user login verification, added an account page, and added user information into the MongoDB database. He also applied a persistent drawer and float button for more elegant UI. Afterwards, he worked on restrictive routing and saving events for registered users. In the next phase, he set up cron jobs to periodically update available events and email reminders/event changes for consistent user experience. In the last phase, he helped clean up the backend areas like the save/unsave, login routes, and helped implement Singleton pattern for the database connection.'
     }
 };
 
