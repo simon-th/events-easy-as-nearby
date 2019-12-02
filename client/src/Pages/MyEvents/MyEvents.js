@@ -1,20 +1,13 @@
 import React, {Component} from 'react';
 import { withAuthorization, AuthUserContext } from '../../Components/Session';
 import axios from 'axios';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
+import GridTemplate from "../GridTemplate/GridTemplate.js";
 import "../Explore/Explore.css";
 import firebase from 'firebase/app';
 
 class MyEvents extends Component {
   state = {
+    properties: [],
     eventlist: [],
     data: [],
     name: null,
@@ -25,15 +18,26 @@ class MyEvents extends Component {
     update: false,
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     console.log('mount');
-    this.getEventList();
+    await this.getEventList();
+    console.log(this.state.properties);
+    this.state.data.forEach(element => {
+      this.state.properties.push({
+        title: element.name,
+        image: element.images === undefined ? null : Array.isArray(element.images.image) ? element.images.image[0] : element.images.image,
+        description: element.description,
+        url: element.url,
+        id: element.id
+      });
+    });
+    this.forceUpdate();
   }
 
-  getEventList = () => {
+  getEventList = async () => {
     var events = [];
     var email = firebase.auth().currentUser.email;
-    axios.get(`/api/events/savelist?email=${email}`)
+    await axios.get(`/api/events/savelist?email=${email}`)
     .then(function (response) {
       response.data.data.forEach((id) => {
         events.push(id);
@@ -48,7 +52,7 @@ class MyEvents extends Component {
     });
   }
 
-  unsaveEvent = (email, id) => {
+  unsaveEvent (email, id) {
     axios.post('/api/events/unsave', {
       email: email,
       event_id: id,
@@ -57,68 +61,21 @@ class MyEvents extends Component {
   };
 
   render () {
-    console.log('render');
+    console.log('myevent');
     const { data } = this.state;
     console.log(data);
+    console.log(this.state.properties);
     return (
       <div>
         <div className="text-center">
-          <h2>My saved events</h2>
+          <h2>My Saved Events</h2>
         </div>
-
         <div>
-          <Grid container className="grid" spacing={2}>
-                {data.length <= 0
-                  ? ''
-                  : data.map((dat) => (
-                    dat === null
-                      ? ''
-                      :
-                    <Card className="exploreCard">
-                      <CardActionArea target="_blank" href={dat.url}>
-                        <CardMedia
-                          component="img"
-                          height="180"
-                          // image='https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png'
-                          image={dat.images === null ? 'https://www.se.com/us/shop-static/assets/images/brand/NoImageAvailable.png' : dat.images.image[0].medium.url}
-                          title={dat.name}
-                        />
-                        <CardContent className="text">
-                          <Typography gutterBottom variant="h5" component="h2">
-                            {dat.name}
-                          </Typography>
-                          <Typography variant="body2" color="textSecondary" component="p">
-                          {(dat.description === null  || dat.description === "<br>") ? "(No description available)" : dat.description}
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                      <CardActions className="buttons">
-                      <div>
-                      <AuthUserContext.Consumer>
-                          {authUser =>
-                            authUser ?
-                            <Button onClick={() => this.unsaveEvent(authUser.email, dat.id)} className="buttons" size="small" color="primary">
-                              Unsave
-                            </Button>
-                            :
-                            <Tooltip title="Login to save event">
-                                <span>
-                                <Button className="buttons" disabled size="small" color="primary">
-                                  Save Event
-                                </Button>
-                                </span>
-                            </Tooltip>
-                          }
-                      </AuthUserContext.Consumer>
-                      </div>
-                        <Button size="small" color="primary" target="_blank" href={dat.url}>
-                          Learn More
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  ))}
-                <br />
-            </Grid>
+          <GridTemplate 
+            properties = {this.state.properties}
+            function = {this.unsaveEvent}
+            buttonText = "Unsave Event"
+            />
         </div>
 
       </div>

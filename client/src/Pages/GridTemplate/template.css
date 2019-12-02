@@ -1,0 +1,23 @@
+.grid {
+    vertical-align: center;
+    align-content: center;
+    justify-content: center;
+  }
+  
+  .templateCard {
+    width: 300px;
+    margin: 20px;
+    overflow: auto;
+  }
+  
+  .buttons {
+    display: absolute;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .text {
+    height: 250px;
+    overflow-y: auto;
+  }
