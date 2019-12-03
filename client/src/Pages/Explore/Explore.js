@@ -26,10 +26,11 @@ class Explore extends Component {
       await fetch(`api/events/search/?location=30.2884957,-97.7355092&within=15&category=all&date=Future`)
         .then((data) => data.json())
         .then((res) => {
-          // console.log(res);
+           //console.log(res);
           // console.log(res.data);
           this.setState({ data: res})
         });
+        console.log(this.state.data);
   }
 
   saveEvent (email, id) {
@@ -49,7 +50,7 @@ class Explore extends Component {
         </div>
         <div>
           <GridTemplate 
-            properties = {this.state.data.length === 0 ? '' : this.state.data.data}
+            properties = {this.state.data.length === 0 ? '' : this.state.data.results}
             function = {this.saveEvent}
             buttonText = "Save Event"
             />

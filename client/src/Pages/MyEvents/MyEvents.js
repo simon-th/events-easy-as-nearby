@@ -39,7 +39,7 @@ class MyEvents extends Component {
     var email = firebase.auth().currentUser.email;
     await axios.get(`/api/events/savelist?email=${email}`)
     .then(function (response) {
-      response.data.data.forEach((id) => {
+      response.data.results.forEach((id) => {
         events.push(id);
       })
     })
