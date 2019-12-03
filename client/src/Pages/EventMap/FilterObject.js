@@ -97,7 +97,7 @@ export default function FilterObject(props) {
   .then(function (response) {
     console.log(response);
 
-    response.data.data.forEach(element => {
+    response.data.results.forEach(element => {
       props.eventList.push(element);
 
     });

@@ -10,7 +10,7 @@ const getSuccess = function (message, data) {
   return {
     success: true,
     message: message,
-    data: data
+    results: data
   };
 }
 

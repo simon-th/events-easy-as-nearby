@@ -98,7 +98,6 @@ export class HeatMap extends React.Component {
 
     this.heatMap = new google.maps.visualization.HeatmapLayer(pref);
 
-    console.log(data);
 
     this.heatMap.set('radius', radius === undefined ? 20 : radius);
 
