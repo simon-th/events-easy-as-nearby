@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { withAuthorization, AuthUserContext } from '../../Components/Session';
 import axios from 'axios';
 import GridTemplate from "../GridTemplate/GridTemplate.js";
-import "../Explore/Explore.css";
 import firebase from 'firebase/app';
 
 class MyEvents extends Component {
@@ -39,7 +38,7 @@ class MyEvents extends Component {
     var email = firebase.auth().currentUser.email;
     await axios.get(`/api/events/savelist?email=${email}`)
     .then(function (response) {
-      response.data.data.forEach((id) => {
+      response.data.results.forEach((id) => {
         events.push(id);
       })
     })

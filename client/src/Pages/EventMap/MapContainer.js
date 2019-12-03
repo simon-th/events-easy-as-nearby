@@ -300,25 +300,6 @@ class MapContainer extends Component {
             <p> Description: {this.state.selectedPlace.description}</p>
           </div>
 
-          <div className="clear">
-            <Divider />
-            {console.log(firebase.auth().currentUser)}
-            {firebase.auth().currentUser === null ?
-              <Tooltip title="Login to save event">
-                  <span>
-                  <Button className="buttons" disabled size="small" color="primary">
-                    Save Event
-                  </Button>
-                  </span>
-              </Tooltip>
-              :
-              <Button onClick={() => this.saveEvent(firebase.auth().currentUser.email, this.state.selectedPlace.key)} className="buttons" size="small" color="primary">
-                Save Event
-              </Button>
-            }
-
-          </div>
-
           </Grid>
 
         </InfoWindow>
