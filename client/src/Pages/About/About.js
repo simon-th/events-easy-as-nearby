@@ -318,6 +318,7 @@ class AboutPage extends React.Component {
                             <ListGroupItemText tag="li">Firebase: Development platform by Google used for user verification and password security during login.</ListGroupItemText>
                             <ListGroupItemText tag="li">Express.js: Set up for server use and connected to MongoDB. It connects the backend resources to the frontend components.</ListGroupItemText>
                             <ListGroupItemText tag="li">Selenium WebDriver: A portable framework for automated frontend testing.</ListGroupItemText>
+                            <ListGroupItemText tag="li">Mocha: JavaScript framework utilized for database testing.</ListGroupItemText>
                             <ListGroupItemText tag="li">Google Cloud Platform: Software used to deploy the web application.</ListGroupItemText>
                         </ListGroupItem>
 

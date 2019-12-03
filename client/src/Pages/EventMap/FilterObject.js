@@ -117,6 +117,7 @@ export default function FilterObject(props) {
 
   }, []);
 
+  console.log(props.categories);
   return (
     <div>
       <div className={classes.root}>

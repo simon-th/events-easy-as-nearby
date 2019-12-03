@@ -4,6 +4,7 @@ import axios from 'axios';
 import GridTemplate from "../GridTemplate/GridTemplate.js";
 import firebase from 'firebase/app';
 
+
 class MyEvents extends Component {
   state = {
     properties: [],
@@ -22,9 +23,27 @@ class MyEvents extends Component {
     await this.getEventList();
     console.log(this.state.properties);
     this.state.data.forEach(element => {
+      let image;
+      if(element.images==undefined){
+        if(element.image==undefined){
+          image=null;
+        }
+        else{
+          image=element.image;
+        }
+      }
+      else{
+        if(Array.isArray(element.images.image)){
+        image=element.images.image[0];
+        }
+        else{
+          image=element.images.image;
+        }
+      }
+
       this.state.properties.push({
         title: element.name,
-        image: element.images === undefined ? null : Array.isArray(element.images.image) ? element.images.image[0] : element.images.image,
+        image: image,
         description: element.description,
         url: element.url,
         id: element.id
@@ -70,7 +89,7 @@ class MyEvents extends Component {
           <h2>My Saved Events</h2>
         </div>
         <div>
-          <GridTemplate 
+          <GridTemplate
             properties = {this.state.properties}
             function = {this.unsaveEvent}
             buttonText = "Unsave Event"

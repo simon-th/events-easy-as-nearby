@@ -21,13 +21,14 @@ class EventMap extends Component {
     .then(function (response) {
     console.log(response);
     console.log(response.data);
-    self.state.categories=response.data.data.map((category)=>(
+    self.state.categories=response.data.results.map((category)=>(
          {id: category.id, name: category.name}))
 
      })
      .catch(function (error) {
     console.log(error);
     });
+    this.refresh();
     }
 
     reRender =()=>{
