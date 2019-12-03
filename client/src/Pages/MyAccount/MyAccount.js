@@ -65,15 +65,15 @@ class MyAccount extends Component {
             </AuthUserContext.Consumer>
             <br />
             <div className="text-center">
-                <h3>Mailling list</h3>
+                <h3>Mailing list</h3>
                 <AuthUserContext.Consumer>
                     {authUser =>
                       !this.check()
                           ? <Button className="subscribe" size="md" onClick={this.onSubscribe}>
-                              Subscribe to receive daily notification
+                              Subscribe to receive daily notifications
                             </Button>
                           : <Button className="subscribe" size="md" onClick={this.onUnsubcribe}>
-                              Unsubcribe to stop receiving daily notification
+                              Unsubcribe to stop receiving daily notifications
                             </Button>
                     }
                 </AuthUserContext.Consumer>
