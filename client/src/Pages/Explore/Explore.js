@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import "./Explore.css";
 import axios from 'axios';
 import GridTemplate from "../GridTemplate/GridTemplate.js";
 import { AuthUserContext } from '../../Components/Session';

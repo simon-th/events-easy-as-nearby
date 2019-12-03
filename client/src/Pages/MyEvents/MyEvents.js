@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { withAuthorization, AuthUserContext } from '../../Components/Session';
 import axios from 'axios';
 import GridTemplate from "../GridTemplate/GridTemplate.js";
-import "../Explore/Explore.css";
 import firebase from 'firebase/app';
 
 class MyEvents extends Component {
