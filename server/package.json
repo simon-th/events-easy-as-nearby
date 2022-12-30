@@ -15,7 +15,7 @@
     "express": "^4.17.1",
     "firebase": "^7.2.1",
     "geolib": "^3.0.4",
-    "mocha": "^6.2.2",
+    "mocha": "^10.2.0",
     "mongodb": "^3.3.2",
     "mongoose": "^5.7.6",
     "morgan": "^1.9.1",
